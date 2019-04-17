@@ -28,7 +28,7 @@ public class LoadMap{
 	public Component showMap() throws IOException 
 	{			
 		width = 650;
-		height = width*verhaeltnis; 
+		height = 650; 
 		
 		String urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="
 		+minx+","+miny+","+maxx+","+maxy+"&CRS="+crs+"&WIDTH="+width+"&HEIGHT="+ (int)height+
