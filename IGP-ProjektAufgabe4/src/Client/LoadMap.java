@@ -26,9 +26,15 @@ public class LoadMap{
 	}
 //------------------------- Methode: ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 	public Component showMap() throws IOException 
-	{			
-		width = 650;
-		height = 650; 
+	{					
+		if(crs.equalsIgnoreCase("EPSG:4326")) {
+		width=2600;
+		height=width*0.65;
+		}
+		else {
+			width = 650;
+			height = width;
+		}
 		
 		String urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="
 		+minx+","+miny+","+maxx+","+maxy+"&CRS="+crs+"&WIDTH="+width+"&HEIGHT="+ (int)height+

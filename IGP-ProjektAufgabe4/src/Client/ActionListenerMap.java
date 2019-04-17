@@ -86,6 +86,8 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 					  miny = koordList.giveback(k).miny;
 					  maxx = koordList.giveback(k).maxx;
 					  maxy = koordList.giveback(k).maxy;
+					  
+					  
         		   
 					  System.out.println("BBox: "+minx+"/"+miny+"  "+maxx+"/"+maxy);
 					  if(minx <0 && miny <0) {
@@ -163,9 +165,16 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				  System.out.println("Gehe nach Osten");	// Befehl an Konsole ausgeben				  				  
 					  
 				  // Berechnen der neuen BBox-Koord.:
-				  double a = maxx - minx;
-				  minx = minx + a/3;
-			   	  maxx = maxx + a/3;			   	  				 							  			  
+				  if (crs.equalsIgnoreCase("EPSG:4326")){
+					  double a = maxy - miny;			
+					  miny = miny + a/9;
+					  maxy = maxy + a/9;			  
+				  }
+				  else { //bei CRS:84
+					  double a = maxx - minx;
+					  minx = minx + a/3;
+					  maxx = maxx + a/3;
+				  }
 				  // Löschen der aktuellen Karte:
 				  panelMap.removeAll();			 
 				  // neue Karte (mit neuer BBox) laden:
@@ -189,12 +198,19 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 
 			  // Wenn Westpfeil gedrückt wurde:	 
 			  if(actionCommand.equals("Nach Westen")) {
-				  System.out.println("Gehe nach Westen");			
+				  System.out.println("Gehe nach Westen");	
 				  
 				  // Berechnen der neuen BBox-Koord.:
-				  double a = maxx - minx;
-				  minx = minx - a/3;
-				  maxx = maxx - a/3;  
+				  if (crs.equalsIgnoreCase("EPSG:4326")){
+					  double a = maxy - miny;
+					   miny = miny - a/9;
+					   maxy = maxy - a/9;				  
+				  }
+				  else { //bei CRS:84
+					  double a = maxx - minx;
+					  minx = minx - a/3;
+					  maxx = maxx - a/3; 
+				  }
 				  // Löschen der aktuellen Karte:
 				  panelMap.removeAll();
 				  // neue Karte (mit neuer BBox) laden:
@@ -221,9 +237,16 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				  System.out.println("Gehe nach Norden");
 				  
 				  // Berechnen der neuen BBox-Koord.:
-				  double a = maxy - miny;			
-				  miny = miny + a/3;
-				  maxy = maxy + a/3; 			 
+				  if (crs.equalsIgnoreCase("EPSG:4326")){
+					  double a = maxx - minx;
+					  minx = minx + a/6;
+				   	  maxx = maxx + a/6;			  
+				  }				  
+				  else { //bei CRS:84
+					  double a = maxy - miny;			
+					  miny = miny + a/3;
+					  maxy = maxy + a/3; 
+				  }
 			   	  // Löschen der aktuellen Karte:
 			   	  panelMap.removeAll();
 			   	  // neue Karte (mit neuer BBox) laden:
@@ -250,9 +273,16 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				   System.out.println("Gehe nach Süden");				   
 				   
 				   // Berechnen der neuen BBox-Koord.:
-				   double a = maxy - miny;
-				   miny = miny - a/3;
-				   maxy = maxy - a/3;	 			 
+				   if (crs.equalsIgnoreCase("EPSG:4326")){
+					   double a = maxx - minx;
+					   minx = minx - a/6;
+					   maxx = maxx - a/6;			  
+					  }
+					  else { //bei CRS:84
+						  double a = maxy - miny;
+						  miny = miny - a/3;
+						  maxy = maxy - a/3;
+					  }	 			 
 				   // Löschen der aktuellen Karte:
 				   panelMap.removeAll();
 				   // neue Karte (mit neuer BBox) laden:
