@@ -16,7 +16,7 @@ public class CreateWindow {
 	
 	static JFrame frame = new JFrame();
 	JPanel panelTextfields = new JPanel();
-	JPanel panelMap = new JPanel();
+	JPanel panelMap = new JPanel(); 
 	JPanel panelNavigation = new JPanel();
 	static JTextArea cadDisplay = new JTextArea();
 	
