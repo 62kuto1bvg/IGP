@@ -127,7 +127,7 @@ public class CreateWindow {
      // printToPDF-Button:
      JButton PrintToPDF = new JButton("PDF drucken");
      PrintToPDF.setActionCommand("druck");
-     PrintToPDF.setBounds(1200, 450, 60, 40);
+     PrintToPDF.setBounds(1150, 450, 120, 40);
      PrintToPDF.setBackground(Color.LIGHT_GRAY);
      PrintToPDF.setVisible(false);
      frame.add(PrintToPDF);

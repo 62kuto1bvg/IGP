@@ -160,13 +160,14 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 //--------------------------------------------------------- Navigation: ----------------------------------------------------------------------------------------		 
 			  // Wenn Ostpfeil-Button gedrückt wurde:	   
 			  if(actionCommand.equals("Nach Osten")) {
-				  System.out.println("Gehe nach Osten");	// Befehl an Konsole ausgeben
-				  				 			  
-				  double a = maxx - minx;			// Berechnen der neuen BBox-Koord.
-				  miny = miny + a/3;				// ...
-				  maxy = maxy + a/3;				// ...
-			 
-				  panelMap.removeAll();				// Löschen der aktuellen Karte			 
+				  System.out.println("Gehe nach Osten");	// Befehl an Konsole ausgeben				  				  
+					  
+				  // Berechnen der neuen BBox-Koord.:
+				  double a = maxx - minx;
+				  minx = minx + a/3;
+			   	  maxx = maxx + a/3;			   	  				 							  			  
+				  // Löschen der aktuellen Karte:
+				  panelMap.removeAll();			 
 				  // neue Karte (mit neuer BBox) laden:
 				  try {
 					  LoadMap newMap = new LoadMap(crs, minx, miny, maxx, maxy, verhaeltnis); 				
@@ -188,13 +189,15 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 
 			  // Wenn Westpfeil gedrückt wurde:	 
 			  if(actionCommand.equals("Nach Westen")) {
-				  System.out.println("Gehe nach Westen");
-				
+				  System.out.println("Gehe nach Westen");			
+				  
+				  // Berechnen der neuen BBox-Koord.:
 				  double a = maxx - minx;
-				  miny = miny - a/3;
-				  maxy = maxy - a/3;
- 			 
-				  panelMap.removeAll(); 			 
+				  minx = minx - a/3;
+				  maxx = maxx - a/3;  
+				  // Löschen der aktuellen Karte:
+				  panelMap.removeAll();
+				  // neue Karte (mit neuer BBox) laden:
 				  try {
 					  LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
 					  JLabel actualMap = (JLabel) newMap.showMap();
@@ -217,11 +220,13 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 			  if(actionCommand.equals("Nach Norden")) {
 				  System.out.println("Gehe nach Norden");
 				  
-				  double a = maxx - minx;
-				  minx = minx + a/3;
-			   	  maxx = maxx + a/3;
- 			 
-			   	  panelMap.removeAll(); 			 
+				  // Berechnen der neuen BBox-Koord.:
+				  double a = maxy - miny;			
+				  miny = miny + a/3;
+				  maxy = maxy + a/3; 			 
+			   	  // Löschen der aktuellen Karte:
+			   	  panelMap.removeAll();
+			   	  // neue Karte (mit neuer BBox) laden:
 				  try {
 					  LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
 					  JLabel actualMap = (JLabel) newMap.showMap();
@@ -244,11 +249,13 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 			   if(actionCommand.equals("Nach Süden")) {
 				   System.out.println("Gehe nach Süden");				   
 				   
-				   double a = maxx - minx;
-				   minx = minx - a/3;
-				   maxx = maxx - a/3;
-	 			 
-				   panelMap.removeAll();	 			 
+				   // Berechnen der neuen BBox-Koord.:
+				   double a = maxy - miny;
+				   miny = miny - a/3;
+				   maxy = maxy - a/3;	 			 
+				   // Löschen der aktuellen Karte:
+				   panelMap.removeAll();
+				   // neue Karte (mit neuer BBox) laden:
 				   try {
 					   LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
 					   JLabel actualMap = (JLabel) newMap.showMap();
@@ -275,9 +282,10 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				   minx = minx + (a/5*verhaeltnis);
 				   miny = miny + a/5;
 				   maxx = maxx - (a/5*verhaeltnis);
-				   maxy = maxy - a/5;
-				 
-				   panelMap.removeAll();				 
+				   maxy = maxy - a/5;			 
+				   // Löschen der aktuellen Karte:
+				   panelMap.removeAll();
+				   // neue Karte (mit neuer BBox) laden:
 				   try {
 					   LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
 					   JLabel actualMap = (JLabel) newMap.showMap();
@@ -304,9 +312,10 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				   minx = minx - (a/3*verhaeltnis);
 				   miny = miny - a/3;
 				   maxx = maxx + (a/3*verhaeltnis);
-				   maxy = maxy + a/3;
-				   
-				   panelMap.removeAll();				 
+				   maxy = maxy + a/3;			   
+				   // Löschen der aktuellen Karte:
+				   panelMap.removeAll();
+				   // neue Karte (mit neuer BBox) laden:
 				   try {
 					   LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
 					   JLabel actualMap = (JLabel) newMap.showMap();
