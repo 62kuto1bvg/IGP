@@ -8,33 +8,46 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class LoadMap{
+public class LoadKartenBild{
 	String crs;
 	double minx, miny, maxx, maxy, verhaeltnis;
 	static int width;
 	static double height;
+	double DeltaX,DeltaY;
 	
 //-------------------------- Konstruktor: ----------------------------------------------------------------------------------	
-	public LoadMap(String crs, double minx, double miny, double maxx, double maxy, double verhaeltnis) {
+	public LoadKartenBild(String crs, double minx, double miny, double maxx, double maxy, double verhaeltnis) {
 		super();
 		this.crs = crs;
 		this.minx = minx;
-		this.miny = miny;
+		//this.miny = miny;
 		this.maxx = maxx;
-		this.maxy = maxy;
+		//this.maxy = maxy;
 		this.verhaeltnis = verhaeltnis;
+		
+		
+		//Behelf um Voerst den Kartenausschnitt auf DIN Format zu bekommen
+		
+		this.DeltaX=maxx-minx;
+		this.DeltaY=maxy-miny;	
+		
+		double Verhal=DeltaX/Math.sqrt(2);
+		double Abzug=(DeltaX-Verhal)/2;
+		
+		this.miny=miny+Abzug;
+		this.maxy=maxy-Abzug;
 	}
 //------------------------- Methode: ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 	public Component showMap() throws IOException 
 	{					
 		if(crs.equalsIgnoreCase("EPSG:4326")) {
-		width=2600;
-		height=width*0.65;
-		}
-		else {
-			width = 650;
-			height = width;
-		}
+			width=2600;
+			height=width/(Math.sqrt(2));
+			}
+			else {
+				width = 1000;
+				height = width/(Math.sqrt(2));
+			}
 		
 		String urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="
 		+minx+","+miny+","+maxx+","+maxy+"&CRS="+crs+"&WIDTH="+width+"&HEIGHT="+ (int)height+
@@ -47,10 +60,12 @@ public class LoadMap{
 		JLabel map = new JLabel(i);
 		i.setImageObserver(map);
 //-------------------------------------------------------------		
-//		System.out.println("Bild geladen");
-	//	System.out.println("Seitenverhältnis: 1:"+verhaeltnis);
-	//	System.out.println("Bildformat: "+width+"x"+(int)height);
-		System.out.println("AAAAAAAAAAAA"+urlGetMap);
+		System.out.println("Bild geladen");
+		System.out.println("Seitenverhältnis: 1:"+verhaeltnis);
+		System.out.println("Bildformat: "+width+"x"+(int)height);	
+		System.out.println(urlGetMap);
+		//double Test=this.DeltaX-this.DeltaY;
+		//System.out.println("TESTWERT   "+Test);
 //---------------------- return: --------------------------------	
 		return map;
 	}
