@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
@@ -15,7 +17,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.RootPaneContainer;
 
-public class Druckuebersicht {
+public class Druckuebersicht implements MouseListener  {
 	double maxx;
 	double maxy;
 	double minx;
@@ -89,13 +91,32 @@ public class Druckuebersicht {
 		 ActionListenerDruckuebersicht ActionListenerDruckuebersicht = new ActionListenerDruckuebersicht();
 		 ButtonDrucken.addActionListener(ActionListenerDruckuebersicht);
 		
+		 //Nordpfeil einfuegen
+		 
+	     Nordpfeil nordpfeil= new Nordpfeil();
+	     
+	     nordpfeil.setBounds(((int)(KarteBreite/10)*8),(int)(KarteHoehe/10),400,400);
+
+	     //Drag and Drop
+	     //this.addMouseListener(this);
+	     
+	
+	    	 
+
+	     nordpfeil.setVisible(true);
+		 
+		 
 		 
 		 
 		FensterDruckuebersicht.add(ButtonDrucken);	  	
 	
-		Kartenblatt.add(Kartenbild);
-		Kartenblatt.setLayer(Kartenblatt, 10);
 		
+		
+		Kartenblatt.add(nordpfeil);
+		Kartenblatt.add(Kartenbild);
+		Kartenblatt.setLayer(Kartenbild, 10);
+		Kartenblatt.setLayer(nordpfeil, 400);
+		//Kartenblatt.add(nordpfeil);
 		FensterDruckuebersicht.add(Kartenblatt);
 
 		 
@@ -113,5 +134,43 @@ public class Druckuebersicht {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		System.out.println("KLICK");
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		System.out.println("KLICK");
+		
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		System.out.println("KLICK");
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	    		 
+
 
 }
