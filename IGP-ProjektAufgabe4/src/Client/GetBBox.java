@@ -46,38 +46,27 @@ public class GetBBox {
 							NamedNodeMap bbAttrList = childList.item(j).getAttributes();								
 							for (int z = 0; z < 5; z++) {
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("CRS")) {
-									crs = bbAttrList.item(z).getTextContent();}	
+									crs = bbAttrList.item(z).getTextContent();}
+								
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("maxy")) {
 									if (crs.equalsIgnoreCase("EPSG:4326")){
-										maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());	
-									}
-									else {
-										maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());
-									}
+										maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+									else {maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}								
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("maxx")) {
 									if (crs.equalsIgnoreCase("EPSG:4326")){
-										maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());	
-									}
-									else {
-										maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());
-									}
+										maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+									else {maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}								
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("miny")) {
 									if (crs.equalsIgnoreCase("EPSG:4326")){
-										minx = Double.parseDouble(bbAttrList.item(z).getTextContent());	
-									}
-									else {
-										miny = Double.parseDouble(bbAttrList.item(z).getTextContent());
-									}
+										minx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+									else {miny = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}																
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("minx")) {
 									if (crs.equalsIgnoreCase("EPSG:4326")){
-										miny = Double.parseDouble(bbAttrList.item(z).getTextContent());	
-									}
-									else {
-										minx = Double.parseDouble(bbAttrList.item(z).getTextContent());
-									}
+										miny = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+									else {minx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}																	
 							}
 							System.out.println("BoundingBox "+crs+": "+" "+minx+"/"+miny+"  "+maxx+"/"+maxy); // Testausgabe
