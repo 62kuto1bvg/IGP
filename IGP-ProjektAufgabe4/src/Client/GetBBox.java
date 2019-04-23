@@ -50,22 +50,26 @@ public class GetBBox {
 								
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("maxy")) {
 									if (crs.equalsIgnoreCase("EPSG:4326")){
-										maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+										maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());
+										maxx = 80;}
 									else {maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}								
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("maxx")) {
 									if (crs.equalsIgnoreCase("EPSG:4326")){
-										maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+										maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());
+										maxy = 170;}
 									else {maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}								
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("miny")) {
 									if (crs.equalsIgnoreCase("EPSG:4326")){
-										minx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+										minx = Double.parseDouble(bbAttrList.item(z).getTextContent());
+										minx = -70;}
 									else {miny = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}																
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("minx")) {
 									if (crs.equalsIgnoreCase("EPSG:4326")){
-										miny = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+										miny = Double.parseDouble(bbAttrList.item(z).getTextContent());
+										miny = -150;}
 									else {minx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}																	
 							}
