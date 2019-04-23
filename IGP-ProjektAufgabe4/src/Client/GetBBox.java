@@ -48,14 +48,37 @@ public class GetBBox {
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("CRS")) {
 									crs = bbAttrList.item(z).getTextContent();}	
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("maxy")) {
-									maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());}
-								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("maxx")) {									
-									maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+									if (crs.equalsIgnoreCase("EPSG:4326")){
+										maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());	
+									}
+									else {
+										maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());
+									}
+								}								
+								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("maxx")) {
+									if (crs.equalsIgnoreCase("EPSG:4326")){
+										maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());	
+									}
+									else {
+										maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());
+									}
+								}								
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("miny")) {
-									miny = Double.parseDouble(bbAttrList.item(z).getTextContent());}								
+									if (crs.equalsIgnoreCase("EPSG:4326")){
+										minx = Double.parseDouble(bbAttrList.item(z).getTextContent());	
+									}
+									else {
+										miny = Double.parseDouble(bbAttrList.item(z).getTextContent());
+									}
+								}																
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("minx")) {
-									minx = Double.parseDouble(bbAttrList.item(z).getTextContent());}								
-																					
+									if (crs.equalsIgnoreCase("EPSG:4326")){
+										miny = Double.parseDouble(bbAttrList.item(z).getTextContent());	
+									}
+									else {
+										minx = Double.parseDouble(bbAttrList.item(z).getTextContent());
+									}
+								}																	
 							}
 							System.out.println("BoundingBox "+crs+": "+" "+minx+"/"+miny+"  "+maxx+"/"+maxy); // Testausgabe
 							BBoxGetKoord bbox = new BBoxGetKoord(crs, minx, miny, maxx, maxy);							
