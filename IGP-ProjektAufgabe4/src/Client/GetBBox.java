@@ -73,17 +73,18 @@ public class GetBBox {
 									else {minx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}																	
 							}
-							System.out.println("BoundingBox "+crs+": "+" "+minx+"/"+miny+"  "+maxx+"/"+maxy); // Testausgabe
+							
 							BBoxGetKoord bbox = new BBoxGetKoord(crs, minx, miny, maxx, maxy);							
 							BBoxes.add(bbox);
 						}
-					 }				 
+					 }
 				 }
 			 }
 		
 		 } catch (Exception e) {
 			 e.printStackTrace();
 		 }
+		System.out.println(BBoxes); // Testausgabe
 		return BBoxes;
 	} 
 }
