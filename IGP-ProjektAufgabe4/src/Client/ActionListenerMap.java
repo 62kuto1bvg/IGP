@@ -167,8 +167,8 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				  // Berechnen der neuen BBox-Koord.:
 				  if (crs.equalsIgnoreCase("EPSG:4326")){
 					  double a = maxy - miny;			
-					  miny = miny + a/9;
-					  maxy = maxy + a/9;			  
+					  miny = miny + a/25;
+					  maxy = maxy + a/25;			  
 				  }
 				  else { //bei CRS:84
 					  double a = maxx - minx;
@@ -203,8 +203,8 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				  // Berechnen der neuen BBox-Koord.:
 				  if (crs.equalsIgnoreCase("EPSG:4326")){
 					  double a = maxy - miny;
-					   miny = miny - a/9;
-					   maxy = maxy - a/9;				  
+					   miny = miny - a/25;
+					   maxy = maxy - a/25;				  
 				  }
 				  else { //bei CRS:84
 					  double a = maxx - minx;
@@ -239,8 +239,8 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				  // Berechnen der neuen BBox-Koord.:
 				  if (crs.equalsIgnoreCase("EPSG:4326")){
 					  double a = maxx - minx;
-					  minx = minx + a/6;
-				   	  maxx = maxx + a/6;			  
+					  minx = minx + a/20;
+				   	  maxx = maxx + a/20;			  
 				  }				  
 				  else { //bei CRS:84
 					  double a = maxy - miny;			
@@ -275,8 +275,8 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				   // Berechnen der neuen BBox-Koord.:
 				   if (crs.equalsIgnoreCase("EPSG:4326")){
 					   double a = maxx - minx;
-					   minx = minx - a/6;
-					   maxx = maxx - a/6;			  
+					   minx = minx - a/20;
+					   maxx = maxx - a/20;			  
 					  }
 					  else { //bei CRS:84
 						  double a = maxy - miny;
@@ -338,11 +338,18 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 			   if(actionCommand.equals("zoom-")) {
 				   System.out.println("Zoom aus dem Bild");
 				   
+				   
+				   
 				   double a = maxx - minx;
 				   minx = minx - (a/3*verhaeltnis);
 				   miny = miny - a/3;
 				   maxx = maxx + (a/3*verhaeltnis);
-				   maxy = maxy + a/3;			   
+				   maxy = maxy + a/3;	
+				   
+				   
+				   
+				   
+				   
 				   // Löschen der aktuellen Karte:
 				   panelMap.removeAll();
 				   // neue Karte (mit neuer BBox) laden:
