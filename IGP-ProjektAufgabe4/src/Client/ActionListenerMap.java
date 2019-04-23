@@ -308,11 +308,23 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 			   if(actionCommand.equals("zoom+")) {
 				   System.out.println("Zoom in das Bild");
 				   
-				   double a = maxx - minx;	   
-				   minx = minx + (a/5*verhaeltnis);
-				   miny = miny + a/5;
-				   maxx = maxx - (a/5*verhaeltnis);
-				   maxy = maxy - a/5;			 
+				  
+				   
+				   if (crs.equalsIgnoreCase("EPSG:4326")){
+				   
+				   }
+				   else { // hier:CRS84 
+					   double a = maxx - minx;	   
+					   minx = minx + (a/5*verhaeltnis);
+					   miny = miny + a/5;
+					   maxx = maxx - (a/5*verhaeltnis);
+					   maxy = maxy - a/5;
+				   }
+				   
+				   
+				   
+  
+				   
 				   // Löschen der aktuellen Karte:
 				   panelMap.removeAll();
 				   // neue Karte (mit neuer BBox) laden:
@@ -339,13 +351,16 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				   System.out.println("Zoom aus dem Bild");
 				   
 				   
-				   
+				   if (crs.equalsIgnoreCase("EPSG:4326")){
+					   
+				   }
+				   else { // hier:CRS84 
 				   double a = maxx - minx;
 				   minx = minx - (a/3*verhaeltnis);
 				   miny = miny - a/3;
 				   maxx = maxx + (a/3*verhaeltnis);
 				   maxy = maxy + a/3;	
-				   
+				   }
 				   
 				   
 				   
