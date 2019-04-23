@@ -98,8 +98,14 @@ public class Druckuebersicht  {
 		// Nordpfeil einfuegen
 
 		Nordpfeil nordpfeil = new Nordpfeil();
-
 		nordpfeil.setBounds(((int) (KarteBreite / 10) * 8), (int) (KarteHoehe / 10), 400, 400);
+	
+		//Massstabsleiste
+		
+		Massstabsleiste Ml = new Massstabsleiste();
+		Ml.erstelleMassstabsleiste(crs, minx, miny, maxx, maxy, verhaeltnis);
+		
+		
 
 		// Drag and Drop
 		
