@@ -30,7 +30,7 @@ public class Druckuebersicht  {
 	double verhaeltnis;
 	String crs;
 	int X,Y;
-
+	
 	// Bildschirmgroesse herrausfinden für dynamisches Fenster
 
 	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -47,7 +47,7 @@ public class Druckuebersicht  {
 		this.miny = miny;
 		this.crs = crs;
 		this.verhaeltnis = verhaeltnis;
-
+		int width=1000;
 		// Hier kommt das Kartenformat, muss noch übergeben werden
 		// Die wurzel, weil das das seitenverältnis von Din A ist, bei Hochkanten plänen
 		// muss dies getauscht werden
@@ -64,8 +64,7 @@ public class Druckuebersicht  {
 		// Groesse dynamisch, sollte in der Bildschirmmitte sein [NOCH ZU PRUEFEN]
 
 		FensterDruckuebersicht.setBounds((int) (breite / (10)), (int) (hoehe / (10)), FensterBreite, FensterHoehe);
-		// Programm wird geschlossen beim schliesen
-		FensterDruckuebersicht.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
 
 		// JPanel hat irgendein Layoutgedöns, welchesAusgeschalten werden muss, weil
 		// sonst die Grosse der Karten nicht gescheit eingestellt werden Konnte
@@ -80,7 +79,7 @@ public class Druckuebersicht  {
 
 		JPanel Kartenbild = new JPanel();
 
-		LoadKartenBild newMap = new LoadKartenBild(crs, minx, miny, maxx, maxy, verhaeltnis);
+		LoadKartenBild newMap = new LoadKartenBild(crs, minx, miny, maxx, maxy, verhaeltnis,width);
 		JLabel actualMap = (JLabel) newMap.showMap();
 		Kartenbild.add(actualMap);
 
@@ -103,7 +102,7 @@ public class Druckuebersicht  {
 		//Massstabsleiste
 		
 		Massstabsleiste Ml = new Massstabsleiste();
-		Ml.erstelleMassstabsleiste(crs, minx, miny, maxx, maxy, verhaeltnis);
+		Ml.erstelleMassstabsleiste(crs, minx, miny, maxx, maxy, verhaeltnis,width);
 		
 		
 

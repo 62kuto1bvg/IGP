@@ -16,7 +16,7 @@ public class LoadKartenBild{
 	double DeltaX,DeltaY;
 	
 //-------------------------- Konstruktor: ----------------------------------------------------------------------------------	
-	public LoadKartenBild(String crs, double minx, double miny, double maxx, double maxy, double verhaeltnis) {
+	public LoadKartenBild(String crs, double minx, double miny, double maxx, double maxy, double verhaeltnis,int width) {
 		super();
 		this.crs = crs;
 		this.minx = minx;
@@ -24,7 +24,7 @@ public class LoadKartenBild{
 		this.maxx = maxx;
 		//this.maxy = maxy;
 		this.verhaeltnis = verhaeltnis;
-		
+		this.width=width;
 		
 		//Behelf um Voerst den Kartenausschnitt auf DIN Format zu bekommen
 		
@@ -45,7 +45,7 @@ public class LoadKartenBild{
 			height=width/(Math.sqrt(2));
 			}
 			else {
-				width = 1000;
+				//width = 1000;
 				height = width/(Math.sqrt(2));
 			}
 		

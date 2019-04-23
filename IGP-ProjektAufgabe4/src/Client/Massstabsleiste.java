@@ -9,9 +9,9 @@ public class Massstabsleiste {
 	double verhaeltnis;
 	String crs;
 	double DeltaX, DeltaY;
-
+	double width;
 	public void erstelleMassstabsleiste(String crs, double minx, double miny, double maxx, double maxy,
-			double verhaeltnis) {
+			double verhaeltnis,int width) {
 
 		this.crs = crs;
 		this.minx = minx;
@@ -19,7 +19,9 @@ public class Massstabsleiste {
 		this.maxx = maxx;
 		// this.maxy = maxy;
 		this.verhaeltnis = verhaeltnis;
-
+		this.width=width;
+		
+		
 		// Behelf um Voerst den Kartenausschnitt auf DIN Format zu bekommen
 
 		DeltaX = maxx - minx;
@@ -53,5 +55,13 @@ public class Massstabsleiste {
 
 		System.out.println("Strecke:   " + Bogenlaenge);
 
+		//MLeiste Grafisch
+		
+		//double LängeLeiste
+		
+		
+		
+		
+		
 	}
 }
