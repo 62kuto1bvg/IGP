@@ -3,6 +3,7 @@ package Client;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
@@ -91,51 +92,60 @@ public class Massstabsleiste extends JPanel {
 	public void paintComponent(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Color.BLACK);
-		//horizontale Linie
+		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeMassstabsleiste);
+		
+		//ANTIALIASING hilft gegen Kantenflimmern
+		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+
+		// horizontale Linie		
 		g2.drawLine(0, (anteiligeBildschirmstrecke / 20), anteiligeBildschirmstrecke,
 				(anteiligeBildschirmstrecke / 20));
-		//Linke Abschlusslinie
+	
+		// Linke Abschlusslinie
 		g2.drawLine(0, 0, 0, anteiligeBildschirmstrecke / 10);
-		// g2.drawLine(x1, y1, x2, y2);
-		//Rechte Abschlusslinie
+	
+		// Rechte Abschlusslinie
 		g2.drawLine(anteiligeBildschirmstrecke, 0, anteiligeBildschirmstrecke, anteiligeBildschirmstrecke / 10);
-		
-		//Mittellinie
-		g2.drawLine(anteiligeBildschirmstrecke/2,(int)((anteiligeBildschirmstrecke / 10)*0.25), anteiligeBildschirmstrecke/2,(int)((anteiligeBildschirmstrecke / 10)*0.75));
-		
-		//Zwischenlinien
-		
-		g2.drawLine((anteiligeBildschirmstrecke/10)*1,(int)((anteiligeBildschirmstrecke / 10)*0.45),( anteiligeBildschirmstrecke/10)*1,(int)((anteiligeBildschirmstrecke / 10)*0.55));
-		g2.drawLine((anteiligeBildschirmstrecke/10)*2,(int)((anteiligeBildschirmstrecke / 10)*0.45),( anteiligeBildschirmstrecke/10)*2,(int)((anteiligeBildschirmstrecke / 10)*0.55));
-		g2.drawLine((anteiligeBildschirmstrecke/10)*3,(int)((anteiligeBildschirmstrecke / 10)*0.45),( anteiligeBildschirmstrecke/10)*3,(int)((anteiligeBildschirmstrecke / 10)*0.55));
-		g2.drawLine((anteiligeBildschirmstrecke/10)*4,(int)((anteiligeBildschirmstrecke / 10)*0.45),( anteiligeBildschirmstrecke/10)*4,(int)((anteiligeBildschirmstrecke / 10)*0.55));
-		g2.drawLine((anteiligeBildschirmstrecke/10)*6,(int)((anteiligeBildschirmstrecke / 10)*0.45),( anteiligeBildschirmstrecke/10)*6,(int)((anteiligeBildschirmstrecke / 10)*0.55));
-		g2.drawLine((anteiligeBildschirmstrecke/10)*7,(int)((anteiligeBildschirmstrecke / 10)*0.45),( anteiligeBildschirmstrecke/10)*7,(int)((anteiligeBildschirmstrecke / 10)*0.55));
-		g2.drawLine((anteiligeBildschirmstrecke/10)*8,(int)((anteiligeBildschirmstrecke / 10)*0.45),( anteiligeBildschirmstrecke/10)*8,(int)((anteiligeBildschirmstrecke / 10)*0.55));
-		g2.drawLine((anteiligeBildschirmstrecke/10)*9,(int)((anteiligeBildschirmstrecke / 10)*0.45),( anteiligeBildschirmstrecke/10)*9,(int)((anteiligeBildschirmstrecke / 10)*0.55));
-		
-		
-		
-		
-		
-		
+
+		// Mittellinie
+		g2.drawLine(anteiligeBildschirmstrecke / 2, (int) ((anteiligeBildschirmstrecke / 10) * 0.25),
+				anteiligeBildschirmstrecke / 2, (int) ((anteiligeBildschirmstrecke / 10) * 0.75));
+
+		// Zwischenlinien
+
+		g2.drawLine((anteiligeBildschirmstrecke / 10) * 1, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
+				(anteiligeBildschirmstrecke / 10) * 1, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
+		g2.drawLine((anteiligeBildschirmstrecke / 10) * 2, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
+				(anteiligeBildschirmstrecke / 10) * 2, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
+		g2.drawLine((anteiligeBildschirmstrecke / 10) * 3, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
+				(anteiligeBildschirmstrecke / 10) * 3, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
+		g2.drawLine((anteiligeBildschirmstrecke / 10) * 4, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
+				(anteiligeBildschirmstrecke / 10) * 4, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
+		g2.drawLine((anteiligeBildschirmstrecke / 10) * 6, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
+				(anteiligeBildschirmstrecke / 10) * 6, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
+		g2.drawLine((anteiligeBildschirmstrecke / 10) * 7, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
+				(anteiligeBildschirmstrecke / 10) * 7, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
+		g2.drawLine((anteiligeBildschirmstrecke / 10) * 8, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
+				(anteiligeBildschirmstrecke / 10) * 8, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
+		g2.drawLine((anteiligeBildschirmstrecke / 10) * 9, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
+				(anteiligeBildschirmstrecke / 10) * 9, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
+
 		String Massstabstext;
 		String Massstabstexthalbestrecke;
-		
+
 		if (vereinfachteverkleinerteBogenlänge < 10000) {
 
-		
 			Massstabstext = String.valueOf(vereinfachteverkleinerteBogenlänge) + " m";
-			Massstabstexthalbestrecke= String.valueOf(vereinfachteverkleinerteBogenlänge/2) + " m";
+			Massstabstexthalbestrecke = String.valueOf(vereinfachteverkleinerteBogenlänge / 2) + " m";
 		} else {
 
 			Massstabstext = String.valueOf(vereinfachteverkleinerteBogenlänge / 1000) + " km";
-			Massstabstexthalbestrecke= String.valueOf((vereinfachteverkleinerteBogenlänge/1000)/2) + " km";
-			}
-			g2.drawString(Massstabstext , anteiligeBildschirmstrecke, (anteiligeBildschirmstrecke / 10)+10);
-			g2.drawString("0" , 0, (anteiligeBildschirmstrecke / 10)+10);
-			g2.drawString(Massstabstexthalbestrecke , anteiligeBildschirmstrecke/2, (anteiligeBildschirmstrecke / 10)+10);
+			Massstabstexthalbestrecke = String.valueOf((vereinfachteverkleinerteBogenlänge / 1000) / 2) + " km";
+		}
+		g2.drawString(Massstabstext, anteiligeBildschirmstrecke, (anteiligeBildschirmstrecke / 10) + 10);
+		g2.drawString("0", 0, (anteiligeBildschirmstrecke / 10) + 10);
+		g2.drawString(Massstabstexthalbestrecke, anteiligeBildschirmstrecke / 2,
+				(anteiligeBildschirmstrecke / 10) + 10);
 	}
 
 }

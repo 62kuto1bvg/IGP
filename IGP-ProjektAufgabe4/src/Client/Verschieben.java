@@ -15,7 +15,7 @@ public class Verschieben implements MouseListener,MouseMotionListener {
 			panel.addMouseListener(this);
 			panel.addMouseMotionListener(this);
 			
-			
+			Client.Druckuebersicht.Kartenblatt.repaint();
 		}
 	}
 	
@@ -53,8 +53,8 @@ public class Verschieben implements MouseListener,MouseMotionListener {
 	public void mouseDragged(MouseEvent e) {
 		e.getComponent().setLocation((e.getX()+e.getComponent().getX())-X,(e.getY()+e.getComponent().getY())-Y );
 		
-	}
-
+	Client.Druckuebersicht.Kartenblatt.repaint();
+}
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub

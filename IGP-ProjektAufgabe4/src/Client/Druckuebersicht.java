@@ -30,9 +30,9 @@ public class Druckuebersicht  {
 	double verhaeltnis;
 	String crs;
 	int X,Y;
-	 Color ausgewaehlteFarbeNordstern;
-	 Color ausgewaehlteFarbeMassstabsleiste;
-	 Color ausgewaehlteFarbeKoordinatengitter;
+	static Color ausgewaehlteFarbeNordstern;
+	static Color ausgewaehlteFarbeMassstabsleiste=Color.BLACK;
+	static Color ausgewaehlteFarbeKoordinatengitter;
 	
 	// Bildschirmgroesse herrausfinden für dynamisches Fenster
 
@@ -93,9 +93,20 @@ public class Druckuebersicht  {
 		JButton ButtonDrucken = new JButton("Drucken");
 		ButtonDrucken.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 5) * 4), 200, 50);
 		ButtonDrucken.setActionCommand("Druckmenue");
+		
+		JButton ButtonausgewaehlteFarbeNordstern = new JButton("Farbe Nordstern");
+		ButtonausgewaehlteFarbeNordstern.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 5) * 3), 200, 50);
+		ButtonausgewaehlteFarbeNordstern.setActionCommand("auswählen Farbe Nordstern");
+		
+
+		JButton ButtonausgewaehlteFarbeMassstab = new JButton("Farbe Massstab");
+		ButtonausgewaehlteFarbeMassstab.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 5) * 2), 200, 50);
+		ButtonausgewaehlteFarbeMassstab.setActionCommand("auswählen Farbe Massstab");
 
 		ActionListenerDruckuebersicht ActionListenerDruckuebersicht = new ActionListenerDruckuebersicht();
 		ButtonDrucken.addActionListener(ActionListenerDruckuebersicht);
+		ButtonausgewaehlteFarbeNordstern.addActionListener(ActionListenerDruckuebersicht);
+		ButtonausgewaehlteFarbeMassstab.addActionListener(ActionListenerDruckuebersicht);
 
 		//Massstabsleiste
 		
@@ -120,6 +131,8 @@ public class Druckuebersicht  {
 		
 		
 		FensterDruckuebersicht.add(ButtonDrucken);
+		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeMassstab);
+		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeNordstern);
 		
 		Kartenblatt.add(Ml);
 		Kartenblatt.add(nordpfeil);
