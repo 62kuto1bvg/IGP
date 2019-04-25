@@ -30,6 +30,9 @@ public class Druckuebersicht  {
 	double verhaeltnis;
 	String crs;
 	int X,Y;
+	 Color ausgewaehlteFarbeNordstern;
+	 Color ausgewaehlteFarbeMassstabsleiste;
+	 Color ausgewaehlteFarbeKoordinatengitter;
 	
 	// Bildschirmgroesse herrausfinden für dynamisches Fenster
 
@@ -94,30 +97,37 @@ public class Druckuebersicht  {
 		ActionListenerDruckuebersicht ActionListenerDruckuebersicht = new ActionListenerDruckuebersicht();
 		ButtonDrucken.addActionListener(ActionListenerDruckuebersicht);
 
-		// Nordpfeil einfuegen
-
-		Nordpfeil nordpfeil = new Nordpfeil();
-		nordpfeil.setBounds(((int) (KarteBreite / 10) * 8), (int) (KarteHoehe / 10), 400, 400);
-	
 		//Massstabsleiste
 		
 		Massstabsleiste Ml = new Massstabsleiste();
 		Ml.erstelleMassstabsleiste(crs, minx, miny, maxx, maxy, verhaeltnis,width);
-		
+		Ml.setBounds(((int) ((KarteBreite / 10)*6)), (int) (KarteHoehe / 10)*9, ((KarteHoehe /10)*7), (KarteHoehe /10));
 		
 
+		// Nordpfeil einfuegen
+
+		Nordpfeil nordpfeil = new Nordpfeil();
+		nordpfeil.setBounds(((int) (KarteBreite / 10) * 8), (int) (KarteHoehe / 10), 300, 300);
+	
 		// Drag and Drop
 		
-		Verschieben vs = new Verschieben(nordpfeil);
-
+		Verschieben vsNordpfeil = new Verschieben(nordpfeil);
+		Verschieben vsMassstab = new Verschieben(Ml);
+		
+		
 		nordpfeil.setVisible(true);
-
+		Ml.setVisible(true);
+		
+		
 		FensterDruckuebersicht.add(ButtonDrucken);
-
+		
+		Kartenblatt.add(Ml);
 		Kartenblatt.add(nordpfeil);
 		Kartenblatt.add(Kartenbild);
 		Kartenblatt.setLayer(Kartenbild, 10);
+		
 		Kartenblatt.setLayer(nordpfeil, 400);
+		Kartenblatt.setLayer(Ml, 400);
 		// Kartenblatt.add(nordpfeil);
 		FensterDruckuebersicht.add(Kartenblatt);
 
@@ -130,6 +140,66 @@ public class Druckuebersicht  {
 	public static void paint(Graphics2D g2d) {
 		// TODO Auto-generated method stub
 
+	}
+
+
+
+	public String getCrs() {
+		return crs;
+	}
+
+
+
+	public void setCrs(String crs) {
+		this.crs = crs;
+	}
+
+
+
+	public Color getAusgewaehlteFarbeNordstern() {
+		return ausgewaehlteFarbeNordstern;
+	}
+
+
+
+	public void setAusgewaehlteFarbeNordstern(Color ausgewaehlteFarbeNordstern) {
+		this.ausgewaehlteFarbeNordstern = ausgewaehlteFarbeNordstern;
+	}
+
+
+
+	public Color getAusgewaehlteFarbeMassstabsleiste() {
+		return ausgewaehlteFarbeMassstabsleiste;
+	}
+
+
+
+	public void setAusgewaehlteFarbeMassstabsleiste(Color ausgewaehlteFarbeMassstabsleiste) {
+		this.ausgewaehlteFarbeMassstabsleiste = ausgewaehlteFarbeMassstabsleiste;
+	}
+
+
+
+	public Color getAusgewaehlteFarbeKoordinatengitter() {
+		return ausgewaehlteFarbeKoordinatengitter;
+	}
+
+
+
+	public void setAusgewaehlteFarbeKoordinatengitter(Color ausgewaehlteFarbeKoordinatengitter) {
+		this.ausgewaehlteFarbeKoordinatengitter = ausgewaehlteFarbeKoordinatengitter;
+	}
+
+
+
+	public double getBreite() {
+		return breite;
+	}
+
+
+
+	public void setBreite(double breite) {
+		this.breite = breite;
 	}
 
 	

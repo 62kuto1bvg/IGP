@@ -8,6 +8,8 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
+import javax.swing.JColorChooser;
+
 public class ActionListenerDruckuebersicht implements ActionListener {
 
 	public void actionPerformed(ActionEvent actionEvent) {
@@ -35,6 +37,20 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 					
 				}
 			
+
+		}
+		if (actionCommand.equals("auswählen Farbe Nordstern")) {
+
+			{
+				JColorChooser Farben = new JColorChooser();
+
+				//Client.Druckuebersicht.
+				
+				//
+				//ausgewaehlteFarbe = Farben.showDialog(null, "Waehlen Sie die Stiftfarbe", Color.BLACK);
+
+				
+			}
 
 		}
 	}
