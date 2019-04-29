@@ -29,7 +29,7 @@ public class Massstabsleiste extends JPanel {
 		this.maxx = maxx;
 		// this.maxy = maxy;
 		this.verhaeltnis = verhaeltnis;
-		this.width = width;
+		this.width = width-40;
 
 		// Behelf um Voerst den Kartenausschnitt auf DIN Format zu bekommen
 

@@ -130,15 +130,22 @@ public class Druckuebersicht  {
 		Ml.setVisible(true);
 		
 		
+	    //Koordinatengitter
+		Koordinatengitter Koordgitter = new Koordinatengitter();
+		Koordgitter.erzeugeKoordinatengitter(crs, minx, miny, maxx, maxy, verhaeltnis, width);
+		Koordgitter.setBounds(0, 0, KarteBreite, KarteHoehe);
+		
 		FensterDruckuebersicht.add(ButtonDrucken);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeMassstab);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeNordstern);
 		
+		Kartenblatt.add(Koordgitter);
 		Kartenblatt.add(Ml);
 		Kartenblatt.add(nordpfeil);
 		Kartenblatt.add(Kartenbild);
-		Kartenblatt.setLayer(Kartenbild, 10);
 		
+		Kartenblatt.setLayer(Koordgitter,400);
+		Kartenblatt.setLayer(nordpfeil, 400);
 		Kartenblatt.setLayer(nordpfeil, 400);
 		Kartenblatt.setLayer(Ml, 400);
 		// Kartenblatt.add(nordpfeil);

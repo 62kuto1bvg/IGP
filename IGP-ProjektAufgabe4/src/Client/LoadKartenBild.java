@@ -12,9 +12,9 @@ public class LoadKartenBild{
 	String crs;
 	double minx, miny, maxx, maxy, verhaeltnis;
 	static int width;
-	static double height;
+	static int height;
 	double DeltaX,DeltaY;
-	
+	int widthRandlos;
 //-------------------------- Konstruktor: ----------------------------------------------------------------------------------	
 	public LoadKartenBild(String crs, double minx, double miny, double maxx, double maxy, double verhaeltnis,int width) {
 		super();
@@ -42,15 +42,19 @@ public class LoadKartenBild{
 	{					
 		if(crs.equalsIgnoreCase("EPSG:4326")) {
 			width=2600;
-			height=width/(Math.sqrt(2));
+			widthRandlos=(int)width-40;
+			height=(int)(width/(Math.sqrt(2)-40))
+					;
 			}
 			else {
 				//width = 1000;
-				height = width/(Math.sqrt(2));
+				widthRandlos=((int)width)-40;
+				height =(int) (width/(Math.sqrt(2))-40);
+				
 			}
 		
 		String urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="
-		+minx+","+miny+","+maxx+","+maxy+"&CRS="+crs+"&WIDTH="+width+"&HEIGHT="+ (int)height+
+		+minx+","+miny+","+maxx+","+maxy+"&CRS="+crs+"&WIDTH="+widthRandlos+"&HEIGHT="+ (int)height+
 		"&LAYERS=OI.Mosaic.NaturalColor.Feathering&FORMAT=image/png";
 		
 		ImageIcon i = null;
