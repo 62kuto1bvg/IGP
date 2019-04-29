@@ -86,5 +86,5 @@ public class GetBBox {
 		 }
 		System.out.println(BBoxes); // Testausgabe
 		return BBoxes;
-	} 
+	}
 }

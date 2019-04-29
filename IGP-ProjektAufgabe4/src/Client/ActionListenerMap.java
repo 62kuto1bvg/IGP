@@ -2,8 +2,6 @@ package Client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -13,10 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.text.BadLocationException;
 
 public class ActionListenerMap extends CreateWindow implements ActionListener {   
 	
@@ -63,7 +59,6 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 		this.infoBBOXaenderung = infoBBOXaenderung;		
 	   }
 //--------------------------------------- Action-Command:
-	   @SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent actionEvent) {				// Ein ActionListenerMap muss IMMER "actionPerformed" implementieren !
 		   
 		   String actionCommand = actionEvent.getActionCommand();
