@@ -51,7 +51,7 @@ public class Koordinatengitter extends JPanel {
 
 		double betaVereinfacht = 0;
 		double betaiteration = beta;
-		int betaiterationcounter = 1;
+		int betaiterationcounter = 0;
 
 		double KoordinatengitterStartxiteration = minx;
 		double KoordinatengitterStartxVereinfacht = 0;
@@ -61,32 +61,33 @@ public class Koordinatengitter extends JPanel {
 		// Hierfuer muss ersteinmal ueberprueft werden, ob diese groesser oder kleiner
 		// als 1Grad ist
 		// fuer beta muss ein iterationshilfswert bbenutzt werden
-		if (betaiteration < 1) {
+
+		///////////////////////////////////////////////////////////////////////////////////////////////////
+		if (betaiteration < 1.00) {
+
 			do {
-				
-				if(betaiterationcounter==0){
-					betaiteration = betaiteration * 1;
-				}
-				else {
-				betaiteration = betaiteration * Math.pow(10, betaiterationcounter);
-				}
-			
+				betaiteration = betaiteration * 10;
+
 				betaiterationcounter = betaiterationcounter + 1;
 
 				System.out.println("betaiteration " + betaiteration);
 				System.out.println("betaiterationcounter " + betaiterationcounter);
 
-				// zur vereinfachung wird die zahl gerundet
+				// zur vereinfachung wird die zahl gerundet-
+
 				double betaiterationVereinfacht = Math.round(betaiteration);
 				System.out.println("KLEINERE  betaiterationVereinfacht " + betaiterationVereinfacht);
 				// und nun wieder in die Ursprungliche dimension umgewandelt
 
-				if(betaiterationcounter==0) { 
+				if (betaiterationcounter == 0) {
+
 					betaVereinfacht = betaiterationVereinfacht;
+
 				}
+
 				else {
-				betaVereinfacht = betaiterationVereinfacht / Math.pow(10, betaiterationcounter-1);
-			}
+					betaVereinfacht = betaiterationVereinfacht / Math.pow(10, betaiterationcounter);
+				}
 				System.out.println("KLEINERE  betaVereinfacht " + betaVereinfacht);
 				// somit wurden zumbeispiel aus 0,337854 Grad jetzt 0.3grad generiert
 				System.out.println("betaVereinfacht " + betaVereinfacht);
@@ -124,6 +125,7 @@ public class Koordinatengitter extends JPanel {
 		Laengengrade.add(ersterKoordinatengitterwertx);
 		System.out.println("ersterKoordinatengitterwert " + ersterKoordinatengitterwertx);
 
+		///////////////////////////////////////////////////////////////////////////////////////////////////
 		// nun werden die anderen Linien erzeugt.
 		for (int i = 1; i < 7; i++) {
 			double Koordinatengitterwertx = KoordinatengitterStartxVereinfacht + ((betaVereinfacht / 6) * i);
