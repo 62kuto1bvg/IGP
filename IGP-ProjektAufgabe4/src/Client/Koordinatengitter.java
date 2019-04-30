@@ -65,7 +65,7 @@ public class Koordinatengitter extends JPanel {
 		double KoordinatengitterStartxiteration = minx;
 		double KoordinatengitterStartxVereinfacht = 0;
 
-		double KoordinatengitterStartyiteration = minx;
+		double KoordinatengitterStartyiteration = miny;
 		double KoordinatengitterStartyVereinfacht = 0;
 
 		// der winkel beta muss aehnlich wie bei der Massstabsleiste vereinfacht werden.
@@ -143,7 +143,7 @@ public class Koordinatengitter extends JPanel {
 				}
 
 				// somit wurden zumbeispiel aus 0,337854 Grad jetzt 0.3grad generiert
-
+				
 			} while (alphaiteration <= 1);
 
 			// Ausserdem wird noch ein startwert benoetigt um von diesem die
@@ -154,14 +154,19 @@ public class Koordinatengitter extends JPanel {
 
 			double iterationKoordinatengitterStartyVereinfacht = Math.round(KoordinatengitterStartyiteration);
 
-			KoordinatengitterStartyVereinfacht = iterationKoordinatengitterStartyVereinfacht
-					/ Math.pow(10, alphaiterationcounter);
-
+			KoordinatengitterStartyVereinfacht = iterationKoordinatengitterStartyVereinfacht/ Math.pow(10, alphaiterationcounter);
+			
+			System.out.println("KoordinatengitterStartyVereinfacht"+KoordinatengitterStartyVereinfacht);
+	
+			
 		} else if (alphaiteration > 1) {
-
+			System.out.println("ALPHA  "+alpha);
 			alphaVereinfacht = Math.round(alphaiteration);
+			
 			KoordinatengitterStartyVereinfacht = Math.round(KoordinatengitterStartyiteration);
-
+			System.out.println("KoordinatengitterStartyVereinfachtGross"+KoordinatengitterStartyVereinfacht);
+		
+			
 		}
 
 		// um sicherzugehen, das zwischen dem gewaehlten(und gerundetem wert und dem
@@ -173,14 +178,17 @@ public class Koordinatengitter extends JPanel {
 
 		double ersterKoordinatengitterwerty = KoordinatengitterStartyVereinfacht - (alphaVereinfacht / 4);
 		Breitengrade.add(ersterKoordinatengitterwerty);
+		
+		System.out.println("ersterKoordinatengitterwerty"+ ersterKoordinatengitterwerty);
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		// nun werden die anderen Linien erzeugt.
 
 		for (int i = 1; i < 5; i++) {
+			
 			double Koordinatengitterwerty = KoordinatengitterStartyVereinfacht + ((alphaVereinfacht / 4) * i);
 			Breitengrade.add(Koordinatengitterwerty);
-
+			//System.out.println("BreitengradeAAAAAAA+  "+ Koordinatengitterwerty);
 		}
 
 		for (int i = 1; i < 7; i++) {
@@ -196,15 +204,19 @@ public class Koordinatengitter extends JPanel {
 			double Laenge = Laengengrade.get(j);
 			int LaengeBildschirm = (int) (((Laenge - minx) * width) / beta);
 			Laengengradetransformiert.add(LaengeBildschirm);
-			
+		
 		}
 
 		for (int j = 0; j < Breitengrade.size(); j++) {
 
 			double Breiten = Breitengrade.get(j);
-			int breiteBildschirm = (int) ((( (Math.sqrt(2)-Breiten) - miny) * (width / Math.sqrt(2))) / alpha);
+		
+			
+			
+			int breiteBildschirm=(int) ((Breiten*width*Math.sqrt(2))/alpha);
 			Breitengradetransformiert.add(breiteBildschirm);
-			System.out.println("LLLLLLLLLLH+  "+ breiteBildschirm);
+			
+			System.out.println("BREITEEEEEE+  "+ breiteBildschirm);
 
 		}
 	}
