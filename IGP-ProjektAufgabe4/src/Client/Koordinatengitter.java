@@ -179,8 +179,8 @@ public class Koordinatengitter extends JPanel {
 		double ersterKoordinatengitterwerty = KoordinatengitterStartyVereinfacht - (alphaVereinfacht / 4);
 		Breitengrade.add(ersterKoordinatengitterwerty);
 		
-		System.out.println("ersterKoordinatengitterwerty"+ ersterKoordinatengitterwerty);
-
+		
+		System.out.println("AAAAAAA+  "+ ersterKoordinatengitterwerty);
 		///////////////////////////////////////////////////////////////////////////////////////////////////
 		// nun werden die anderen Linien erzeugt.
 
@@ -188,7 +188,7 @@ public class Koordinatengitter extends JPanel {
 			
 			double Koordinatengitterwerty = KoordinatengitterStartyVereinfacht + ((alphaVereinfacht / 4) * i);
 			Breitengrade.add(Koordinatengitterwerty);
-			//System.out.println("BreitengradeAAAAAAA+  "+ Koordinatengitterwerty);
+			System.out.println("AAAAAAA+  "+ Koordinatengitterwerty);
 		}
 
 		for (int i = 1; i < 7; i++) {
@@ -207,13 +207,14 @@ public class Koordinatengitter extends JPanel {
 		
 		}
 
+		
 		for (int j = 0; j < Breitengrade.size(); j++) {
 
 			double Breiten = Breitengrade.get(j);
 		
 			
 			
-			int breiteBildschirm=(int) ((Breiten*width*Math.sqrt(2))/alpha);
+			int breiteBildschirm=(int) (((((Breiten-miny))*(width/Math.sqrt(2)))/alpha));
 			Breitengradetransformiert.add(breiteBildschirm);
 			
 			System.out.println("BREITEEEEEE+  "+ breiteBildschirm);
@@ -250,19 +251,23 @@ public class Koordinatengitter extends JPanel {
 
 	
 	for (int j = 0; j < Breitengradetransformiert.size(); j++) {
-		//System.out.println("HHHHHHHHHHHHHHHHH+  "+Breitengradetransformiert.get(j).toString());
+		
 		
 		int breite = Breitengradetransformiert.get(j);
 		if (breite < 0 || breite > (width/Math.sqrt(2))) {
 
 		} else {
-			g2.drawLine(0, breite, 0, (width));
-
+		
+			g2.drawLine(0,(int) (((width/Math.sqrt(2))-(breite))), width, (int) (((width/Math.sqrt(2))-(breite))));
+			
+			
 			// Beschriften der Senkrechten Linien
 
 			String Breitetext = String.valueOf(Math.round(Breitengrade.get(j) * 100) / 100.0);
-			g2.drawString(Breitetext, breite + 10, 10);
-
+			g2.drawString(Breitetext, 10, (int) ((width/Math.sqrt(2))-(breite)-10));
+			g2.drawString(String.valueOf(miny), 0, (int)((width/Math.sqrt(2))-10));
+			g2.drawString(String.valueOf(maxy), 0, 10);
+		
 		}
 
 	}
