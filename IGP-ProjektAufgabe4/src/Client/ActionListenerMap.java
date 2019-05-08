@@ -100,7 +100,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 		  	  // Wenn Karte Laden-Button gedrückt wurde:
 			  if(actionCommand.equals("lade Karte")) {
 				  
-				  // Löschen der aktuellen Karte:
+				 // Löschen der aktuellen Karte:
 		 	 	 panelMap.removeAll();
 		 	 	 
 		 	 	 // Laden der neuen Karte:
