@@ -38,11 +38,6 @@ public class LoadMap{
 			maxy = maxNorth;			
 		}
 		else {
-			minEast = -80;
-			maxEast = 90;
-			minNorth = 20;
-			maxNorth = 80;
-			
 			minx = minNorth;
 			miny = minEast;
 			maxx = maxNorth;
