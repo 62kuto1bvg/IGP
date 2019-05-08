@@ -84,6 +84,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 					  
 				       		   
 					  System.out.println("BBox: "+minEast+"/"+minNorth+"  "+maxEast+"/"+maxNorth);
+					  
 					  if(minEast <0 && minNorth <0) {
 						  verhaeltnis = (maxEast+(0-minEast))/(maxNorth+(0-minNorth));
 					  }
@@ -321,7 +322,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				   panelMap.removeAll();
 				   // neue Karte (mit neuer BBox) laden:
 				   try {
-					   LoadMap newMap = new LoadMap(crs,minEast, minNorth, maxEast, maxNorth, verhaeltnis); 				
+					   LoadMap newMap = new LoadMap(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis); 				
 					   JLabel actualMap = (JLabel) newMap.showMap();
 					   panelMap.add(actualMap);
 				   
