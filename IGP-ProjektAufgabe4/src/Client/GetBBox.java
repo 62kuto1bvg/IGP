@@ -14,6 +14,7 @@ public class GetBBox {
 	
 	String crs="";
 	double minx=0,miny=0,maxx=0,maxy=0;
+	double minNorth, maxNorth, minEast, maxEast;
 	 
 	public GetBBox(String url) {
 		super();
@@ -49,32 +50,32 @@ public class GetBBox {
 									crs = bbAttrList.item(z).getTextContent();}
 								
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("maxy")) {
-									if (crs.equalsIgnoreCase("EPSG:4326")){
-										maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());
-										maxx = 80;}
-									else {maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());}
-								}								
-								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("maxx")) {
-									if (crs.equalsIgnoreCase("EPSG:4326")){
-										maxy = Double.parseDouble(bbAttrList.item(z).getTextContent());
-										maxy = 170;}
-									else {maxx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
-								}								
+									if (crs.equalsIgnoreCase("CRS:84")){
+										maxNorth = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+									else {maxEast = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+								}
+									
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("miny")) {
-									if (crs.equalsIgnoreCase("EPSG:4326")){
-										minx = Double.parseDouble(bbAttrList.item(z).getTextContent());
-										minx = -70;}
-									else {miny = Double.parseDouble(bbAttrList.item(z).getTextContent());}
-								}																
+									if (crs.equalsIgnoreCase("CRS:84")){
+										minNorth = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+									else {minEast = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+								}
+								
+								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("maxx")) {
+									if (crs.equalsIgnoreCase("CRS:84")){
+										maxEast = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+									else {maxNorth = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+								}
+								
 								if(bbAttrList.item(z).getNodeName().equalsIgnoreCase("minx")) {
-									if (crs.equalsIgnoreCase("EPSG:4326")){
-										miny = Double.parseDouble(bbAttrList.item(z).getTextContent());
-										miny = -150;}
-									else {minx = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+									if (crs.equalsIgnoreCase("CRS:84")){
+										minEast = Double.parseDouble(bbAttrList.item(z).getTextContent());}
+									else {minNorth = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}																	
 							}
 							
-							BBoxGetKoord bbox = new BBoxGetKoord(crs, minx, miny, maxx, maxy);							
+							
+							BBoxGetKoord bbox = new BBoxGetKoord(crs, minEast, minNorth, maxEast, maxNorth);							
 							BBoxes.add(bbox);
 						}
 					 }
