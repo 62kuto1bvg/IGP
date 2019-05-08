@@ -40,17 +40,15 @@ public class LoadKartenBild{
 //------------------------- Methode: ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 	public Component showMap() throws IOException 
 	{					
-		if(crs.equalsIgnoreCase("EPSG:4326")) {
-			width=2600;
-			widthRandlos=(int)width-40;
-			height=(int)(width/(Math.sqrt(2)-40))
-					;
-			}
-			else {
-				//width = 1000;
-				widthRandlos=((int)width)-40;
-				height =(int) (width/(Math.sqrt(2))-40);
-				
+		if(crs.equalsIgnoreCase("CRS:84")) {
+			//width = 1000;
+			widthRandlos=((int)width)-40;
+			height =(int) (width/(Math.sqrt(2))-40);				
+		}
+		else {				
+//				width=2600;
+				widthRandlos=(int)width-40;
+				height=(int)(width/(Math.sqrt(2)-40));
 			}
 		
 		String urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="

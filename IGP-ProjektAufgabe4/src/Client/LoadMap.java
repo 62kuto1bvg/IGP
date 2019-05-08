@@ -26,19 +26,35 @@ public class LoadMap{
 	}
 //------------------------- Methode: ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 	public Component showMap() throws IOException 
-	{					
-		if(crs.equalsIgnoreCase("EPSG:4326")) {
-		width=2600;
-		height=width*0.65;
-		}
-		else {
+	{		
+		double minx=0, miny=0, maxx=0, maxy=0;
+		if(crs.equalsIgnoreCase("CRS:84")) {
 			width = 650;
 			height = width;
+			
+			minx = minEast;
+			miny = minNorth;
+			maxx = maxEast;
+			maxy = maxNorth;			
+		}
+		else {
+			minEast = -80;
+			maxEast = 90;
+			minNorth = 20;
+			maxNorth = 80;
+			
+			minx = minNorth;
+			miny = minEast;
+			maxx = maxNorth;
+			maxy = maxEast;
+			
+			width = 1300;
+			height = width*0.5;
 		}
 		
 		String urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="
-		+minEast+","+minNorth+","+maxEast+","+maxNorth+"&CRS="+crs+"&WIDTH="+width+"&HEIGHT="+ (int)height+
-		"&LAYERS=OI.Mosaic.NaturalColor.Feathering&FORMAT=image/png";
+				+minx+","+miny+","+maxx+","+maxy+"&CRS="+crs+"&WIDTH="+width+"&HEIGHT="+ (int)height+
+				"&LAYERS=OI.Mosaic.NaturalColor.Feathering&FORMAT=image/png";
 		
 		ImageIcon i = null;
 		i = new ImageIcon(new URL(urlGetMap));
