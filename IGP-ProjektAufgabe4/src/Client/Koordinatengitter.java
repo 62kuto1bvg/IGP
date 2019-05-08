@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 
 public class Koordinatengitter extends JPanel {
 
-	double maxx;
-	double maxy;
-	double minx;
-	double miny;
+	double maxEast;
+	double maxNorth;
+	double minEast;
+	double minNorth;
 	double verhaeltnis;
 	String crs;
 	double DeltaX, DeltaY;
@@ -22,27 +22,27 @@ public class Koordinatengitter extends JPanel {
 	ArrayList<Integer> Breitengradetransformiert = new ArrayList<>();
 	ArrayList<Double> Breitengrade = new ArrayList<>();
 
-	public void erzeugeKoordinatengitter(String crs, double minx, double miny, double maxx, double maxy,
+	public void erzeugeKoordinatengitter(String crs, double minEast, double minNorth, double maxEast, double maxNorth,
 			double verhaeltnis, int width) {
 
 		this.crs = crs;
-		this.minx = minx;
-		// this.miny = miny;
-		this.maxx = maxx;
-		// this.maxy = maxy;
+		this.minEast = minEast;
+		// this.minNorth = minNorth;
+		this.maxEast = maxEast;
+		// this.maxNorth = maxNorth;
 		this.verhaeltnis = verhaeltnis;
 		this.width = (int) width;
 
 		// Behelf um Voerst den Kartenausschnitt auf DIN Format zu bekommen
 
-		DeltaX = maxx - minx;
-		DeltaY = maxy - miny;
+		DeltaX = maxEast - minEast;
+		DeltaY = maxNorth - minNorth;
 
 		double Verhal = DeltaX / Math.sqrt(2);
 		double Abzug = (DeltaX - Verhal) / 2;
 
-		this.miny = miny + Abzug;
-		this.maxy = maxy - Abzug;
+		this.minNorth = minNorth + Abzug;
+		this.maxNorth = maxNorth - Abzug;
 
 		// rechnen der winkel
 		// Alpha ist der winkel zwischen Aeuquator und den punkt auf der Kugel
@@ -50,9 +50,9 @@ public class Koordinatengitter extends JPanel {
 		// Umkreis auf Breitengrad
 
 		// Winkel Bogensegment
-		double beta = ((maxx - minx));
+		double beta = ((maxEast - minEast));
 		// winkelzwischen den breitengrade
-		double alpha = (maxy - miny);
+		double alpha = (maxNorth - minNorth);
 		// iterationsverte, um winkel, welche kleiner sind als 1 zu verinfachen
 		double betaVereinfacht = 0;
 		double betaiteration = beta;
@@ -62,10 +62,10 @@ public class Koordinatengitter extends JPanel {
 		double alphaiteration = alpha;
 		int alphaiterationcounter = 0;
 
-		double KoordinatengitterStartxiteration = minx;
+		double KoordinatengitterStartxiteration = minEast;
 		double KoordinatengitterStartxVereinfacht = 0;
 
-		double KoordinatengitterStartyiteration = miny;
+		double KoordinatengitterStartyiteration = minNorth;
 		double KoordinatengitterStartyVereinfacht = 0;
 
 		// der winkel beta muss aehnlich wie bei der Massstabsleiste vereinfacht werden.
@@ -202,7 +202,7 @@ public class Koordinatengitter extends JPanel {
 		for (int j = 0; j < Laengengrade.size(); j++) {
 
 			double Laenge = Laengengrade.get(j);
-			int LaengeBildschirm = (int) (((Laenge - minx) * width) / beta);
+			int LaengeBildschirm = (int) (((Laenge - minEast) * width) / beta);
 			Laengengradetransformiert.add(LaengeBildschirm);
 		
 		}
@@ -214,7 +214,7 @@ public class Koordinatengitter extends JPanel {
 		
 			
 			
-			int breiteBildschirm=(int) (((((Breiten-miny))*(width/Math.sqrt(2)))/alpha));
+			int breiteBildschirm=(int) (((((Breiten-minNorth))*(width/Math.sqrt(2)))/alpha));
 			Breitengradetransformiert.add(breiteBildschirm);
 			
 			System.out.println("BREITEEEEEE+  "+ breiteBildschirm);
@@ -265,8 +265,8 @@ public class Koordinatengitter extends JPanel {
 
 			String Breitetext = String.valueOf(Math.round(Breitengrade.get(j) * 100) / 100.0);
 			g2.drawString(Breitetext, 10, (int) ((width/Math.sqrt(2))-(breite)-10));
-			g2.drawString(String.valueOf(miny), 0, (int)((width/Math.sqrt(2))-10));
-			g2.drawString(String.valueOf(maxy), 0, 10);
+			g2.drawString(String.valueOf(minNorth), 0, (int)((width/Math.sqrt(2))-10));
+			g2.drawString(String.valueOf(maxNorth), 0, 10);
 		
 		}
 

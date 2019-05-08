@@ -10,32 +10,32 @@ import javax.swing.JLabel;
 
 public class LoadKartenBild{
 	String crs;
-	double minx, miny, maxx, maxy, verhaeltnis;
+	double minEast, minNorth, maxEast, maxNorth, verhaeltnis;
 	static int width;
 	static int height;
 	double DeltaX,DeltaY;
 	int widthRandlos;
 //-------------------------- Konstruktor: ----------------------------------------------------------------------------------	
-	public LoadKartenBild(String crs, double minx, double miny, double maxx, double maxy, double verhaeltnis,int width) {
+	public LoadKartenBild(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis,int width) {
 		super();
 		this.crs = crs;
-		this.minx = minx;
-		//this.miny = miny;
-		this.maxx = maxx;
-		//this.maxy = maxy;
+		this.minEast = minEast;
+		//this.minNorth = minNorth;
+		this.maxEast = maxEast;
+		//this.maxNorth = maxNorth;
 		this.verhaeltnis = verhaeltnis;
 		this.width=width;
 		
 		//Behelf um Voerst den Kartenausschnitt auf DIN Format zu bekommen
 		
-		this.DeltaX=maxx-minx;
-		this.DeltaY=maxy-miny;	
+		this.DeltaX=maxEast-minEast;
+		this.DeltaY=maxNorth-minNorth;	
 		
 		double Verhal=DeltaX/Math.sqrt(2);
 		double Abzug=(DeltaX-Verhal)/2;
 		
-		this.miny=miny+Abzug;
-		this.maxy=maxy-Abzug;
+		this.minNorth=minNorth+Abzug;
+		this.maxNorth=maxNorth-Abzug;
 	}
 //------------------------- Methode: ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 	public Component showMap() throws IOException 
@@ -54,7 +54,7 @@ public class LoadKartenBild{
 			}
 		
 		String urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="
-		+minx+","+miny+","+maxx+","+maxy+"&CRS="+crs+"&WIDTH="+widthRandlos+"&HEIGHT="+ (int)height+
+		+minEast+","+minNorth+","+maxEast+","+maxNorth+"&CRS="+crs+"&WIDTH="+widthRandlos+"&HEIGHT="+ (int)height+
 		"&LAYERS=OI.Mosaic.NaturalColor.Feathering&FORMAT=image/png";
 		
 		ImageIcon i = null;

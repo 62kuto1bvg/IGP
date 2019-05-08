@@ -17,10 +17,10 @@ import javax.swing.plaf.basic.BasicArrowButton;
 public class ActionListenerMap extends CreateWindow implements ActionListener {   
 	
 	static String crs;
-	static double minx;
-	static double miny;
-	static double maxx;
-	static double maxy;
+	static double minEast;
+	static double minNorth;
+	static double maxEast;
+	static double maxNorth;
 	double verhaeltnis;
 	
 	JPanel panelMap;
@@ -77,24 +77,24 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
            
 			  for(int k=0; k<koordList.amountBBoxes(); k++)
 				  if (koordList.giveback(k).crs.equals(crs) ) {
-					  minx = koordList.giveback(k).minx;
-					  miny = koordList.giveback(k).miny;
-					  maxx = koordList.giveback(k).maxx;
-					  maxy = koordList.giveback(k).maxy;
+					  minEast = koordList.giveback(k).minEast;
+					  minNorth = koordList.giveback(k).minNorth;
+					  maxEast = koordList.giveback(k).maxEast;
+					  maxNorth = koordList.giveback(k).maxNorth;
 					  
 					  
         		   
-					  System.out.println("BBox: "+minx+"/"+miny+"  "+maxx+"/"+maxy);
-					  if(minx <0 && miny <0) {
-						  verhaeltnis = (maxx+(0-minx))/(maxy+(0-miny));
+					  System.out.println("BBox: "+minEast+"/"+minNorth+"  "+maxEast+"/"+maxNorth);
+					  if(minEast <0 && minNorth <0) {
+						  verhaeltnis = (maxEast+(0-minEast))/(maxNorth+(0-minNorth));
 					  }
-					  if(minx >0 && miny <0) {
-						  verhaeltnis = (maxx-minx)/(maxy+(0-miny));
+					  if(minEast >0 && minNorth <0) {
+						  verhaeltnis = (maxEast-minEast)/(maxNorth+(0-minNorth));
 					  }
-					  if(minx <0 && miny >0) {
-						  verhaeltnis = (maxx+(0-minx))/(maxy-miny);
+					  if(minEast <0 && minNorth >0) {
+						  verhaeltnis = (maxEast+(0-minEast))/(maxNorth-minNorth);
 					  }
-					  else verhaeltnis = (maxx-minx)/(maxy-miny);
+					  else verhaeltnis = (maxEast-minEast)/(maxNorth-minNorth);
 					  
 				  }    
 		  }	  
@@ -107,7 +107,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 		 	 	 
 		 	 	 // Laden der neuen Karte:
 		 	 	 try {
-		 	 		 LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
+		 	 		 LoadMap newMap = new LoadMap(crs,minEast, minNorth, maxEast, maxNorth, verhaeltnis); 				
 		 	 		 JLabel actualMap = (JLabel) newMap.showMap();
 		 	 		 panelMap.add(actualMap);			    
 						} catch (IOException e) {
@@ -134,25 +134,25 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 		 	 	 bBoxY1Feld.setVisible(true);
 		 	 	 bBoxX2Feld.setVisible(true);
 		 	 	 bBoxY2Feld.setVisible(true);
-		 	 	 	bBoxX1Feld.setText(""+Math.rint(minx*1000)/1000);
-		 	 	 	bBoxY1Feld.setText(""+Math.rint(miny*1000)/1000);
-		 	 	 	bBoxX2Feld.setText(""+Math.rint(maxx*1000)/1000);
-		 	 	 	bBoxY2Feld.setText(""+Math.rint(maxy*1000)/1000);		 	 	 	
+		 	 	 	bBoxX1Feld.setText(""+Math.rint(minEast*1000)/1000);
+		 	 	 	bBoxY1Feld.setText(""+Math.rint(minNorth*1000)/1000);
+		 	 	 	bBoxX2Feld.setText(""+Math.rint(maxEast*1000)/1000);
+		 	 	 	bBoxY2Feld.setText(""+Math.rint(maxNorth*1000)/1000);		 	 	 	
 		 	 	 infoBBOXaenderung.setVisible(true);
 			  }		
 			  
 			  // Benutzerdefiniertes Anpassen der Bounding Box:
 			  if(actionCommand.equals("BBox Xmin geändert")) {
-				  minx = Integer.parseInt(bBoxX1Feld.getText());
+				  minEast = Integer.parseInt(bBoxX1Feld.getText());
 			  }
 			  if(actionCommand.equals("BBox Ymin geändert")) {
-				  miny = Integer.parseInt(bBoxY1Feld.getText());
+				  minNorth = Integer.parseInt(bBoxY1Feld.getText());
 			  }
 			  if(actionCommand.equals("BBox Xmax geändert")) {
-				  maxx = Integer.parseInt(bBoxX2Feld.getText());
+				  maxEast = Integer.parseInt(bBoxX2Feld.getText());
 			  }
 			  if(actionCommand.equals("BBox Ymax geändert")) {
-				  maxy = Integer.parseInt(bBoxY2Feld.getText());
+				  maxNorth = Integer.parseInt(bBoxY2Feld.getText());
 			  }
 //--------------------------------------------------------- Navigation: ----------------------------------------------------------------------------------------		 
 			  // Wenn Ostpfeil-Button gedrückt wurde:	   
@@ -160,15 +160,15 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				  System.out.println("Gehe nach Osten");	// Befehl an Konsole ausgeben				  				  
 					  
 				  // Berechnen der neuen BBox-Koord.:
-					  double a = maxx - minx;
-					  minx = minx + a/3;
-					  maxx = maxx + a/3;
+					  double a = maxEast - minEast;
+					  minEast = minEast + a/3;
+					  maxEast = maxEast + a/3;
 					  
 				  // Löschen der aktuellen Karte:
 				  panelMap.removeAll();			 
 				  // neue Karte (mit neuer BBox) laden:
 				  try {
-					  LoadMap newMap = new LoadMap(crs, minx, miny, maxx, maxy, verhaeltnis); 				
+					  LoadMap newMap = new LoadMap(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis); 				
 					  JLabel actualMap = (JLabel) newMap.showMap();
 					  panelMap.add(actualMap);
 			    
@@ -179,10 +179,10 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				  			e.printStackTrace();
 				  			}
 				  		// BBox-Koord.-Feld aktualisieren:
-				  		bBoxX1Feld.setText(""+Math.rint(minx*1000)/1000);
-				  		bBoxY1Feld.setText(""+Math.rint(miny*1000)/1000);
-				  		bBoxX2Feld.setText(""+Math.rint(maxx*1000)/1000);
-				  		bBoxY2Feld.setText(""+Math.rint(maxy*1000)/1000);
+				  		bBoxX1Feld.setText(""+Math.rint(minEast*1000)/1000);
+				  		bBoxY1Feld.setText(""+Math.rint(minNorth*1000)/1000);
+				  		bBoxX2Feld.setText(""+Math.rint(maxEast*1000)/1000);
+				  		bBoxY2Feld.setText(""+Math.rint(maxNorth*1000)/1000);
 			  }
 
 			  // Wenn Westpfeil gedrückt wurde:	 
@@ -190,15 +190,15 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				  System.out.println("Gehe nach Westen");	
 				  
 				  // Berechnen der neuen BBox-Koord.:
-				  double a = maxx - minx;
-				  minx = minx - a/3;
-				  maxx = maxx - a/3; 
+				  double a = maxEast - minEast;
+				  minEast = minEast - a/3;
+				  maxEast = maxEast - a/3; 
 
 				  // Löschen der aktuellen Karte:
 				  panelMap.removeAll();
 				  // neue Karte (mit neuer BBox) laden:
 				  try {
-					  LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
+					  LoadMap newMap = new LoadMap(crs,minEast, minNorth, maxEast, maxNorth, verhaeltnis); 				
 					  JLabel actualMap = (JLabel) newMap.showMap();
 					  panelMap.add(actualMap);
 			    
@@ -209,10 +209,10 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				  			e.printStackTrace();
 				  			}
 				  
-				  		bBoxX1Feld.setText(""+Math.rint(minx*1000)/1000);
-				  		bBoxY1Feld.setText(""+Math.rint(miny*1000)/1000);
-				  		bBoxX2Feld.setText(""+Math.rint(maxx*1000)/1000);
-				  		bBoxY2Feld.setText(""+Math.rint(maxy*1000)/1000); 		
+				  		bBoxX1Feld.setText(""+Math.rint(minEast*1000)/1000);
+				  		bBoxY1Feld.setText(""+Math.rint(minNorth*1000)/1000);
+				  		bBoxX2Feld.setText(""+Math.rint(maxEast*1000)/1000);
+				  		bBoxY2Feld.setText(""+Math.rint(maxNorth*1000)/1000); 		
 			  }
 
 			  // Wenn Nordpfeil gedrückt wurde:	 		   
@@ -220,15 +220,15 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				  System.out.println("Gehe nach Norden");
 				  
 				  // Berechnen der neuen BBox-Koord.:
-				  double a = maxy - miny;			
-				  miny = miny + a/3;
-				  maxy = maxy + a/3; 
+				  double a = maxNorth - minNorth;			
+				  minNorth = minNorth + a/3;
+				  maxNorth = maxNorth + a/3; 
 					  
 			   	  // Löschen der aktuellen Karte:
 			   	  panelMap.removeAll();
 			   	  // neue Karte (mit neuer BBox) laden:
 				  try {
-					  LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
+					  LoadMap newMap = new LoadMap(crs,minEast, minNorth, maxEast, maxNorth, verhaeltnis); 				
 					  JLabel actualMap = (JLabel) newMap.showMap();
 					  panelMap.add(actualMap);
 				    
@@ -239,10 +239,10 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 	 						e.printStackTrace();
 	 						}
 				  
-				  		bBoxX1Feld.setText(""+Math.rint(minx*1000)/1000);
-				  		bBoxY1Feld.setText(""+Math.rint(miny*1000)/1000);
-				  		bBoxX2Feld.setText(""+Math.rint(maxx*1000)/1000);
-				  		bBoxY2Feld.setText(""+Math.rint(maxy*1000)/1000);  		
+				  		bBoxX1Feld.setText(""+Math.rint(minEast*1000)/1000);
+				  		bBoxY1Feld.setText(""+Math.rint(minNorth*1000)/1000);
+				  		bBoxX2Feld.setText(""+Math.rint(maxEast*1000)/1000);
+				  		bBoxY2Feld.setText(""+Math.rint(maxNorth*1000)/1000);  		
 	 			 }
 
 			  // Wenn Südpfeil gedrückt wurde:	 
@@ -250,15 +250,15 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				   System.out.println("Gehe nach Süden");				   
 				  
 				   // Berechnen der neuen BBox-Koord.:
-				   double a = maxy - miny;
-				   miny = miny - a/3;
-				   maxy = maxy - a/3;
+				   double a = maxNorth - minNorth;
+				   minNorth = minNorth - a/3;
+				   maxNorth = maxNorth - a/3;
 						  
 				   // Löschen der aktuellen Karte:
 				   panelMap.removeAll();
 				   // neue Karte (mit neuer BBox) laden:
 				   try {
-					   LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
+					   LoadMap newMap = new LoadMap(crs,minEast, minNorth, maxEast, maxNorth, verhaeltnis); 				
 					   JLabel actualMap = (JLabel) newMap.showMap();
 					   panelMap.add(actualMap);
 				    
@@ -269,10 +269,10 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 	 						e.printStackTrace();
 	 						}
 				   
-				   		bBoxX1Feld.setText(""+Math.rint(minx*1000)/1000);
-				   		bBoxY1Feld.setText(""+Math.rint(miny*1000)/1000);
-				   		bBoxX2Feld.setText(""+Math.rint(maxx*1000)/1000);
-				   		bBoxY2Feld.setText(""+Math.rint(maxy*1000)/1000);   		
+				   		bBoxX1Feld.setText(""+Math.rint(minEast*1000)/1000);
+				   		bBoxY1Feld.setText(""+Math.rint(minNorth*1000)/1000);
+				   		bBoxX2Feld.setText(""+Math.rint(maxEast*1000)/1000);
+				   		bBoxY2Feld.setText(""+Math.rint(maxNorth*1000)/1000);   		
 	 			 }
 			   
 			   // Wenn Zoom-In-Button (+) gedrückt wurde:	 		   
@@ -280,18 +280,18 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				   System.out.println("Zoom in das Bild");
 				   
 				   // Berechnen der neuen BBox-Koord.:
-				   double a = maxx - minx;	   
-				   minx = minx + (a/5*verhaeltnis);
-				   miny = miny + a/5;
-				   maxx = maxx - (a/5*verhaeltnis);
-				   maxy = maxy - a/5;	   
+				   double a = maxEast - minEast;	   
+				   minEast = minEast + (a/5*verhaeltnis);
+				   minNorth = minNorth + a/5;
+				   maxEast = maxEast - (a/5*verhaeltnis);
+				   maxNorth = maxNorth - a/5;	   
   
 				   
 				// Löschen der aktuellen Karte:
 				panelMap.removeAll();
 				// neue Karte (mit neuer BBox) laden:
 				try {
-					LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
+					LoadMap newMap = new LoadMap(crs,minEast, minNorth, maxEast, maxNorth, verhaeltnis); 				
 					JLabel actualMap = (JLabel) newMap.showMap();
 					panelMap.add(actualMap);
 				    
@@ -302,10 +302,10 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 						e.printStackTrace();
 						}
 				   
-				   	bBoxX1Feld.setText(""+Math.rint(minx*1000)/1000);
-				   	bBoxY1Feld.setText(""+Math.rint(miny*1000)/1000);
-				   	bBoxX2Feld.setText(""+Math.rint(maxx*1000)/1000);
-				   	bBoxY2Feld.setText(""+Math.rint(maxy*1000)/1000);   		
+				   	bBoxX1Feld.setText(""+Math.rint(minEast*1000)/1000);
+				   	bBoxY1Feld.setText(""+Math.rint(minNorth*1000)/1000);
+				   	bBoxX2Feld.setText(""+Math.rint(maxEast*1000)/1000);
+				   	bBoxY2Feld.setText(""+Math.rint(maxNorth*1000)/1000);   		
 				}	
 		 
 			   // Wenn Zoom-Out (-) gedrückt wurde:		 
@@ -313,17 +313,17 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 				   System.out.println("Zoom aus dem Bild");
 				   
 				   // Berechnen der neuen BBox-Koord.:
-				   double a = maxx - minx;
-				   minx = minx - (a/3*verhaeltnis);
-				   miny = miny - a/3;
-				   maxx = maxx + (a/3*verhaeltnis);
-				   maxy = maxy + a/3;				   				   
+				   double a = maxEast - minEast;
+				   minEast = minEast - (a/3*verhaeltnis);
+				   minNorth = minNorth - a/3;
+				   maxEast = maxEast + (a/3*verhaeltnis);
+				   maxNorth = maxNorth + a/3;				   				   
 				   
 				   // Löschen der aktuellen Karte:
 				   panelMap.removeAll();
 				   // neue Karte (mit neuer BBox) laden:
 				   try {
-					   LoadMap newMap = new LoadMap(crs,minx, miny, maxx, maxy, verhaeltnis); 				
+					   LoadMap newMap = new LoadMap(crs,minEast, minNorth, maxEast, maxNorth, verhaeltnis); 				
 					   JLabel actualMap = (JLabel) newMap.showMap();
 					   panelMap.add(actualMap);
 				   
@@ -334,10 +334,10 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 							e.printStackTrace();
 							}
 				   
-				   		bBoxX1Feld.setText(""+Math.rint(minx*1000)/1000);
-				   		bBoxY1Feld.setText(""+Math.rint(miny*1000)/1000);
-				   		bBoxX2Feld.setText(""+Math.rint(maxx*1000)/1000);
-				   		bBoxY2Feld.setText(""+Math.rint(maxy*1000)/1000);	   		
+				   		bBoxX1Feld.setText(""+Math.rint(minEast*1000)/1000);
+				   		bBoxY1Feld.setText(""+Math.rint(minNorth*1000)/1000);
+				   		bBoxX2Feld.setText(""+Math.rint(maxEast*1000)/1000);
+				   		bBoxY2Feld.setText(""+Math.rint(maxNorth*1000)/1000);	   		
 				  } 
 
 			   // Wenn DRUCKEN gedrückt wurde:
@@ -346,7 +346,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 			  Druckuebersicht druckuebersicht = new Druckuebersicht();
 			
 				try {
-					druckuebersicht.OeffneÜbersicht(crs,minx, miny, maxx, maxy,verhaeltnis);
+					druckuebersicht.OeffneÜbersicht(crs,minEast, minNorth, maxEast, maxNorth,verhaeltnis);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

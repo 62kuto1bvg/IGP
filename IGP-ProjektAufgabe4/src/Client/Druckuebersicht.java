@@ -23,10 +23,10 @@ import javax.swing.RootPaneContainer;
 import javax.swing.TransferHandler;
 
 public class Druckuebersicht  {
-	double maxx;
-	double maxy;
-	double minx;
-	double miny;
+	double maxEast;
+	double maxNorth;
+	double minEast;
+	double minNorth;
 	double verhaeltnis;
 	String crs;
 	int X,Y;
@@ -41,13 +41,13 @@ public class Druckuebersicht  {
 	double hoehe = dim.getHeight();
 	static JLayeredPane Kartenblatt = new JLayeredPane();
 
-	public void Oeffne‹bersicht(String crs, double minx, double miny, double maxx, double maxy, double verhaeltnis)
+	public void Oeffne‹bersicht(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis)
 			throws IOException {
 
-		this.maxx = maxx;
-		this.maxy = maxy;
-		this.minx = minx;
-		this.miny = miny;
+		this.maxEast = maxEast;
+		this.maxNorth = maxNorth;
+		this.minEast = minEast;
+		this.minNorth = minNorth;
 		this.crs = crs;
 		this.verhaeltnis = verhaeltnis;
 		int width=1000;
@@ -82,7 +82,7 @@ public class Druckuebersicht  {
 
 		JPanel Kartenbild = new JPanel();
 
-		LoadKartenBild newMap = new LoadKartenBild(crs, minx, miny, maxx, maxy, verhaeltnis,width);
+		LoadKartenBild newMap = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
 		JLabel actualMap = (JLabel) newMap.showMap();
 		Kartenbild.add(actualMap);
 
@@ -111,7 +111,7 @@ public class Druckuebersicht  {
 		//Massstabsleiste
 		
 		Massstabsleiste Ml = new Massstabsleiste();
-		Ml.erstelleMassstabsleiste(crs, minx, miny, maxx, maxy, verhaeltnis,width);
+		Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
 		Ml.setBounds(((int) ((KarteBreite / 10)*6)), (int) (KarteHoehe / 10)*9, ((KarteHoehe /10)*7), (KarteHoehe /10));
 		
 
@@ -132,7 +132,7 @@ public class Druckuebersicht  {
 		
 	    //Koordinatengitter
 		Koordinatengitter Koordgitter = new Koordinatengitter();
-		Koordgitter.erzeugeKoordinatengitter(crs, minx, miny, maxx, maxy, verhaeltnis, width);
+		Koordgitter.erzeugeKoordinatengitter(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width);
 		Koordgitter.setBounds(0, 0, KarteBreite, KarteHoehe);
 		
 		FensterDruckuebersicht.add(ButtonDrucken);

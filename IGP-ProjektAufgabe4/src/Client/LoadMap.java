@@ -10,18 +10,18 @@ import javax.swing.JLabel;
 
 public class LoadMap{
 	String crs;
-	double minx, miny, maxx, maxy, verhaeltnis;
+	double minEast, minNorth, maxEast, maxNorth, verhaeltnis;
 	static int width;
 	static double height;
 	
 //-------------------------- Konstruktor: ----------------------------------------------------------------------------------	
-	public LoadMap(String crs, double minx, double miny, double maxx, double maxy, double verhaeltnis) {
+	public LoadMap(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis) {
 		super();
 		this.crs = crs;
-		this.minx = minx;
-		this.miny = miny;
-		this.maxx = maxx;
-		this.maxy = maxy;
+		this.minEast = minEast;
+		this.minNorth = minNorth;
+		this.maxEast = maxEast;
+		this.maxNorth = maxNorth;
 		this.verhaeltnis = verhaeltnis;
 	}
 //------------------------- Methode: ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
@@ -37,7 +37,7 @@ public class LoadMap{
 		}
 		
 		String urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="
-		+minx+","+miny+","+maxx+","+maxy+"&CRS="+crs+"&WIDTH="+width+"&HEIGHT="+ (int)height+
+		+minEast+","+minNorth+","+maxEast+","+maxNorth+"&CRS="+crs+"&WIDTH="+width+"&HEIGHT="+ (int)height+
 		"&LAYERS=OI.Mosaic.NaturalColor.Feathering&FORMAT=image/png";
 		
 		ImageIcon i = null;

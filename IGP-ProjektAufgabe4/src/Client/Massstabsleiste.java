@@ -9,10 +9,10 @@ import javax.swing.JPanel;
 
 public class Massstabsleiste extends JPanel {
 
-	double maxx;
-	double maxy;
-	double minx;
-	double miny;
+	double maxEast;
+	double maxNorth;
+	double minEast;
+	double minNorth;
 	double verhaeltnis;
 	String crs;
 	double DeltaX, DeltaY;
@@ -20,40 +20,40 @@ public class Massstabsleiste extends JPanel {
 	public int anteiligeBildschirmstrecke;
 	public int vereinfachteverkleinerteBogenlänge;
 
-	public void erstelleMassstabsleiste(String crs, double minx, double miny, double maxx, double maxy,
+	public void erstelleMassstabsleiste(String crs, double minEast, double minNorth, double maxEast, double maxNorth,
 			double verhaeltnis, int width) {
 
 		this.crs = crs;
-		this.minx = minx;
-		// this.miny = miny;
-		this.maxx = maxx;
-		// this.maxy = maxy;
+		this.minEast = minEast;
+		// this.minNorth = minNorth;
+		this.maxEast = maxEast;
+		// this.maxNorth = maxNorth;
 		this.verhaeltnis = verhaeltnis;
 		this.width = width-40;
 
 		// Behelf um Voerst den Kartenausschnitt auf DIN Format zu bekommen
 
-		DeltaX = maxx - minx;
-		DeltaY = maxy - miny;
+		DeltaX = maxEast - minEast;
+		DeltaY = maxNorth - minNorth;
 
 		double Verhal = DeltaX / Math.sqrt(2);
 		double Abzug = (DeltaX - Verhal) / 2;
 
-		this.miny = miny + Abzug;
-		this.maxy = maxy - Abzug;
+		this.minNorth = minNorth + Abzug;
+		this.maxNorth = maxNorth - Abzug;
 
 		// Umkreis des Breitengrades
 
 		// Alpha ist der winkel zwischen Aeuquator und den punkt auf der Kugel
 		int erdradius = 6371000;
-		double alpha = ((maxy + miny) / 2);
+		double alpha = ((maxNorth + minNorth) / 2);
 
 		// Umkreis auf Breitengrad
 
 		double radiusUmkreis = Math.cos(alpha * ((2 * Math.PI) / 360)) * erdradius;
 
 		// Winkel Bogensegment
-		double beta = ((maxx - minx));
+		double beta = ((maxEast - minEast));
 
 		// Bogenlaenge
 

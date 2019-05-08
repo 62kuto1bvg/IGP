@@ -3,16 +3,16 @@ package Client;
 public class BBoxGetKoord {
 	
 	String crs;
-	double minx, miny, maxx, maxy;
+	double minEast, minNorth, maxEast, maxNorth;
 	
 	
-	public BBoxGetKoord(String crs, double minx, double miny, double maxx, double maxy) {
+	public BBoxGetKoord(String crs, double minEast, double minNorth, double maxEast, double maxNorth) {
 		super();
 		this.crs = crs;
-		this.minx = minx;
-		this.miny = miny;
-		this.maxx = maxx;
-		this.maxy = maxy;
+		this.minEast = minEast;
+		this.minNorth = minNorth;
+		this.maxEast = maxEast;
+		this.maxNorth = maxNorth;
 	}
 
 	public BBoxGetKoord() {
@@ -27,40 +27,40 @@ public class BBoxGetKoord {
 		this.crs = crs;
 	}
 
-	public double getminx() {
-		return minx;
+	public double getminEast() {
+		return minEast;
 	}
 
-	public void setminx(double minx) {
-		this.minx = minx;
+	public void setminEast(double minEast) {
+		this.minEast = minEast;
 	}
 
-	public double getminy() {
-		return miny;
+	public double getminNorth() {
+		return minNorth;
 	}
 
-	public void setminy(double miny) {
-		this.miny = miny;
+	public void setminNorth(double minNorth) {
+		this.minNorth = minNorth;
 	}
 
-	public double getmaxx() {
-		return maxx;
+	public double getmaxEast() {
+		return maxEast;
 	}
 
-	public void setmaxx(double maxx) {
-		this.maxx = maxx;
+	public void setmaxEast(double maxEast) {
+		this.maxEast = maxEast;
 	}
 
-	public double getmaxy() {
-		return maxy;
+	public double getmaxNorth() {
+		return maxNorth;
 	}
 
-	public void setmaxy(double maxy) {
-		this.maxy = maxy;
+	public void setmaxNorth(double maxNorth) {
+		this.maxNorth = maxNorth;
 	}
 
 	@Override
 	public String toString() {
-		return "\nBoundingBox [crs=" + crs + ", minx=" + minx + ", miny=" + miny + ", maxx=" + maxx + ", maxy=" + maxy + "]";
+		return "\nBoundingBox [crs=" + crs + ", minEast=" + minEast + ", minNorth=" + minNorth + ", maxEast=" + maxEast + ", maxNorth=" + maxNorth + "]";
 	}
 }
