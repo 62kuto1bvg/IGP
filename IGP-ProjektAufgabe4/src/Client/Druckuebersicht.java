@@ -1,26 +1,16 @@
 package Client;
 
 import java.awt.Color;
-
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.IOException;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.RootPaneContainer;
-import javax.swing.TransferHandler;
 
 public class Druckuebersicht  {
 	double maxEast;
@@ -34,8 +24,7 @@ public class Druckuebersicht  {
 	static Color ausgewaehlteFarbeMassstabsleiste=Color.BLACK;
 	static Color ausgewaehlteFarbeKoordinatengitter;
 	
-	// Bildschirmgroesse herrausfinden für dynamisches Fenster
-
+	// Bildschirmgröße herrausfinden (für dynamisches Fenster):
 	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	double breite = dim.getWidth();
 	double hoehe = dim.getHeight();
@@ -51,30 +40,28 @@ public class Druckuebersicht  {
 		this.crs = crs;
 		this.verhaeltnis = verhaeltnis;
 		int width=1000;
+		
 		// Hier kommt das Kartenformat, muss noch übergeben werden
-		// Die wurzel, weil das das seitenverältnis von Din A ist, bei Hochkanten plänen
-		// muss dies getauscht werden
-
+		// Die Wurzel, weil das das Seitenverältnis von Din A ist,
+		// bei Hochkanten plänen muss dies getauscht werden
 		int KarteBreite = 1000;
 		int KarteHoehe = (int) (KarteBreite / (Math.sqrt(2)));
 
-		// Fensterbreite soll nicht den Ganzen Bildschirm bedecken
+		// Fensterbreite soll nicht den Ganzen Bildschirm bedecken:
 		int FensterBreite = (int) ((breite / 5) * 4);
 		int FensterHoehe = (int) ((hoehe / 5) * 4);
 
 		JFrame FensterDruckuebersicht = new JFrame("Druckübersicht");
 
-		// Groesse dynamisch, sollte in der Bildschirmmitte sein [NOCH ZU PRUEFEN]
-
+		// Größe dynamisch, sollte in der Bildschirmmitte sein [NOCH ZU PRÜFEN]:
 		FensterDruckuebersicht.setBounds((int) (breite / (10)), (int) (hoehe / (10)), FensterBreite, FensterHoehe);
 	
 
-		// JPanel hat irgendein Layoutgedöns, welchesAusgeschalten werden muss, weil
-		// sonst die Grosse der Karten nicht gescheit eingestellt werden Konnte
+		// JPanel hat irgendein Layoutgedöns, welches ausgeschalten werden muss, weil
+		// sonst die Größe der Karten nicht gescheid eingestellt werden kann:
 		FensterDruckuebersicht.setLayout(null);
 
-		// Kartenblatt soll das druckbare Papier werden
-
+		// Kartenblatt soll das druckbare Papier werden:
 		Kartenblatt.setBorder(BorderFactory.createLineBorder(Color.black));
 		Kartenblatt.setBounds((int) (KarteBreite / 20), (int) (KarteHoehe / 20), KarteBreite, KarteHoehe);
 		Kartenblatt.setBackground(Color.WHITE);
@@ -108,20 +95,16 @@ public class Druckuebersicht  {
 		ButtonausgewaehlteFarbeNordstern.addActionListener(ActionListenerDruckuebersicht);
 		ButtonausgewaehlteFarbeMassstab.addActionListener(ActionListenerDruckuebersicht);
 
-		//Massstabsleiste
-		
+		// Massstabsleiste implementieren:
 		Massstabsleiste Ml = new Massstabsleiste();
 		Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
 		Ml.setBounds(((int) ((KarteBreite / 10)*6)), (int) (KarteHoehe / 10)*9, ((KarteHoehe /10)*7), (KarteHoehe /10));
 		
-
-		// Nordpfeil einfuegen
-
+		// Nordpfeil einfügen:
 		Nordpfeil nordpfeil = new Nordpfeil();
 		nordpfeil.setBounds(((int) (KarteBreite / 10) * 8), (int) (KarteHoehe / 10), 300, 300);
 	
-		// Drag and Drop
-		
+		// Drag and Drop:		
 		Verschieben vsNordpfeil = new Verschieben(nordpfeil);
 		Verschieben vsMassstab = new Verschieben(Ml);
 		
@@ -130,7 +113,7 @@ public class Druckuebersicht  {
 		Ml.setVisible(true);
 		
 		
-	    //Koordinatengitter
+	    // Koordinatengitter:
 		Koordinatengitter Koordgitter = new Koordinatengitter();
 		Koordgitter.erzeugeKoordinatengitter(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width);
 		Koordgitter.setBounds(0, 0, KarteBreite, KarteHoehe);
@@ -149,17 +132,13 @@ public class Druckuebersicht  {
 		Kartenblatt.setLayer(nordpfeil, 400);
 		Kartenblatt.setLayer(Ml, 400);
 		// Kartenblatt.add(nordpfeil);
+		
 		FensterDruckuebersicht.add(Kartenblatt);
-
 		FensterDruckuebersicht.setVisible(true);
-
 	}
-
-
 
 	public static void paint(Graphics2D g2d) {
 		// TODO Auto-generated method stub
-
 	}
 
 
@@ -221,6 +200,5 @@ public class Druckuebersicht  {
 	public void setBreite(double breite) {
 		this.breite = breite;
 	}
-
 	
 }

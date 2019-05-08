@@ -1,11 +1,8 @@
 package Client;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
@@ -34,36 +31,25 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 					} catch (PrinterException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-					
+					}					
 				}
-			
-
 		}
+		
 		if (actionCommand.equals("auswählen Farbe Nordstern")) {
-
 			{
-				JColorChooser Farben = new JColorChooser();
-
-				
+				JColorChooser Farben = new JColorChooser();			
 				Client.Druckuebersicht.ausgewaehlteFarbeNordstern = Farben.showDialog(null, "Waehlen Sie die Stiftfarbe", Color.BLACK);
-
 				Client.Druckuebersicht.Kartenblatt.repaint();
 			}
-
 		}
+		
 		if (actionCommand.equals("auswählen Farbe Massstab")) {
-
 			{
-				JColorChooser Farben = new JColorChooser();
-
-				
+				JColorChooser Farben = new JColorChooser();				
 				Client.Druckuebersicht.ausgewaehlteFarbeMassstabsleiste = Farben.showDialog(null, "Waehlen Sie die Stiftfarbe", Color.BLACK);
-
 				Client.Druckuebersicht.Kartenblatt.repaint();
 			}
-
 		}
+		
 	}
-
 }

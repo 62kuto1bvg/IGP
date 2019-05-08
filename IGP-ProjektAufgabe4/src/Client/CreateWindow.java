@@ -131,9 +131,8 @@ public class CreateWindow {
      PrintToPDF.setBackground(Color.LIGHT_GRAY);
      PrintToPDF.setVisible(false);
      frame.add(PrintToPDF);
-     
-     
-//------------------------------------------------     
+          
+//------------------------------------------------    
 // Fenster öffnen:
    frame.setVisible(true); 
    

@@ -82,8 +82,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 					  maxEast = koordList.giveback(k).maxEast;
 					  maxNorth = koordList.giveback(k).maxNorth;
 					  
-					  
-        		   
+				       		   
 					  System.out.println("BBox: "+minEast+"/"+minNorth+"  "+maxEast+"/"+maxNorth);
 					  if(minEast <0 && minNorth <0) {
 						  verhaeltnis = (maxEast+(0-minEast))/(maxNorth+(0-minNorth));
@@ -94,8 +93,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 					  if(minEast <0 && minNorth >0) {
 						  verhaeltnis = (maxEast+(0-minEast))/(maxNorth-minNorth);
 					  }
-					  else verhaeltnis = (maxEast-minEast)/(maxNorth-minNorth);
-					  
+					  else verhaeltnis = (maxEast-minEast)/(maxNorth-minNorth);				  
 				  }    
 		  }	  
 //--------------------------------------------------------- Karte laden: --------------------------------------------------------------------------------------		  

@@ -36,5 +36,3 @@ public class BBoxList
 		return sizeBBoxList;
 	}
 }
-
-	

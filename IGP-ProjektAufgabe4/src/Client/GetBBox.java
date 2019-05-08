@@ -72,8 +72,7 @@ public class GetBBox {
 									else {minNorth = Double.parseDouble(bbAttrList.item(z).getTextContent());}
 								}																	
 							}
-							
-							
+														
 							BBoxGetKoord bbox = new BBoxGetKoord(crs, minEast, minNorth, maxEast, maxNorth);							
 							BBoxes.add(bbox);
 						}
