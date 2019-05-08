@@ -13,8 +13,7 @@ public class GetBBox {
 	String url;
 	
 	String crs="";
-	double minx=0,miny=0,maxx=0,maxy=0;
-	double minNorth, maxNorth, minEast, maxEast;
+	double minNorth=0, maxNorth=0, minEast=0, maxEast=0;
 	 
 	public GetBBox(String url) {
 		super();
