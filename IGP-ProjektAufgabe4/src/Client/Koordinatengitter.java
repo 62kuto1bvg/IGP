@@ -18,16 +18,18 @@ public class Koordinatengitter extends JPanel {
 	ArrayList<Integer> Laengengradetransformiert = new ArrayList<>();
 	ArrayList<Double> Laengengrade = new ArrayList<>();
 
-	ArrayList<Integer> Breitengradetransformiert = new ArrayList<>();
+	ArrayList<Double> Breitengradetransformiert = new ArrayList<>();
 	ArrayList<Double> Breitengrade = new ArrayList<>();
 
-	public void erzeugeKoordinatengitter(String crs, double minEast, double minNorth, double maxEast, double maxNorth,
+	public void erzeugeKoordinatengitter(String crs, double minE, double minN, double maxE, double maxN,
 			double verhaeltnis, int width) {
 
+		
+		
 		this.crs = crs;
-		this.minEast = minEast;
+		this.minEast = minE;
 		// this.minNorth = minNorth;
-		this.maxEast = maxEast;
+		this.maxEast = maxE;
 		// this.maxNorth = maxNorth;
 		this.verhaeltnis = verhaeltnis;
 		this.width = (int) width;
@@ -39,8 +41,8 @@ public class Koordinatengitter extends JPanel {
 		double Verhal = DeltaX / Math.sqrt(2);
 		double Abzug = (DeltaX - Verhal) / 2;
 
-		this.minNorth = minNorth + Abzug;
-		this.maxNorth = maxNorth - Abzug;
+		this.minNorth = minN + Abzug;
+		this.maxNorth = maxN - Abzug;
 
 	// Rechnen der Winkel:
 		// Alpha ist der Winkel zwischen Äuquator und dem Punkt auf der Kugel
@@ -49,6 +51,8 @@ public class Koordinatengitter extends JPanel {
 		// Winkel Bogensegment:
 		double beta = ((maxEast - minEast));
 		// Winkel zwischen den Breitengraden:
+		System.out.println("TEEEEEEESTTTmaxNorth" +maxNorth);
+		System.out.println("TEEEEEEESTTTminNorth" +minNorth);
 		double alpha = (maxNorth - minNorth);
 		// Iterationswerte, um Winkel welche kleiner sind als 1 zu vereinfachen:
 		double betaVereinfacht = 0;
@@ -150,7 +154,7 @@ public class Koordinatengitter extends JPanel {
 		Laengengrade.add(ersterKoordinatengitterwertx);
 
 		double ersterKoordinatengitterwerty = KoordinatengitterStartyVereinfacht - (alphaVereinfacht / 4);
-		Breitengrade.add(ersterKoordinatengitterwerty);
+		Breitengrade.add(KoordinatengitterStartyVereinfacht);
 		
 		
 		System.out.println("AAAAAAA+  "+ ersterKoordinatengitterwerty);
@@ -161,6 +165,7 @@ public class Koordinatengitter extends JPanel {
 			
 			double Koordinatengitterwerty = KoordinatengitterStartyVereinfacht + ((alphaVereinfacht / 4) * i);
 			Breitengrade.add(Koordinatengitterwerty);
+		
 			System.out.println("AAAAAAA+  "+ Koordinatengitterwerty);
 		}
 
@@ -182,11 +187,16 @@ public class Koordinatengitter extends JPanel {
 			
 			double Breiten = Breitengrade.get(j);
 			
-			int breiteBildschirm=(int) (((((Breiten-minNorth))*(width/Math.sqrt(2)))/alpha));
+			if((Breiten-minNorth)>0) {
+			double deltaBreite=(Breiten-minNorth);
+			double hight=(((width/Math.sqrt(2))-40));
+			double breiteBildschirm=(((deltaBreite)*(hight))/alpha);
 			Breitengradetransformiert.add(breiteBildschirm);
 			
 			System.out.println("BREITEEEEEE+  "+ breiteBildschirm);
-		}
+		}else {}
+			}
+		
 	}
 
 //-------------------------------------------- Selbe Vorgehensweise für die Breitengrade: -------------------------------------------------------
@@ -212,15 +222,15 @@ public class Koordinatengitter extends JPanel {
 	
 		for (int j = 0; j < Breitengradetransformiert.size(); j++) {
 				
-		int breite = Breitengradetransformiert.get(j);
+		Double breite = Breitengradetransformiert.get(j);
 			if (breite < 0 || breite > (width/Math.sqrt(2))) {
 
 			} else {		
-				g2.drawLine(0,(int) (((width/Math.sqrt(2))-(breite))), width, (int) (((width/Math.sqrt(2))-(breite))));
+				g2.drawLine(0,(int) ((((width/Math.sqrt(2))-(breite)))-20), width,(int) (((width/Math.sqrt(2))-(breite)))-20);
 			
 				// Beschriften der senkrechten Linien:
 				String Breitetext = String.valueOf(Math.round(Breitengrade.get(j) * 100) / 100.0);
-				g2.drawString(Breitetext, 10, (int) ((width/Math.sqrt(2))-(breite)-10));
+				g2.drawString(Breitetext, 10, (int) ((width/Math.sqrt(2))-(breite))+10);
 				g2.drawString(String.valueOf(minNorth), 0, (int)((width/Math.sqrt(2))-10));
 				g2.drawString(String.valueOf(maxNorth), 0, 10);		
 			}

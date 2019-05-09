@@ -47,6 +47,11 @@ public class LoadMap{
 			height = width;
 		}
 		
+//		System.out.println("minx "+ minx);
+//		System.out.println("miny "+ miny);
+//		System.out.println("maxx "+ maxx);
+//		System.out.println("maxy "+ maxy);
+		
 		String urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="
 				+minx+","+miny+","+maxx+","+maxy+"&CRS="+crs+"&WIDTH="+width+"&HEIGHT="+ (int)height+
 				"&LAYERS=OI.Mosaic.NaturalColor.Feathering&FORMAT=image/png";

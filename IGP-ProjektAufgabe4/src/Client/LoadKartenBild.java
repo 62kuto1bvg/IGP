@@ -48,12 +48,13 @@ public class LoadKartenBild{
 		else {				
 //				width=2600;
 				widthRandlos=(int)width-40;
-				height=(int)(width/(Math.sqrt(2)-40));
+				height=(int)(width/(Math.sqrt(2))-40);
+		
 			}
 		
 		String urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="
-		+minEast+","+minNorth+","+maxEast+","+maxNorth+"&CRS="+crs+"&WIDTH="+widthRandlos+"&HEIGHT="+ (int)height+
-		"&LAYERS=OI.Mosaic.NaturalColor.Feathering&FORMAT=image/png";
+				+minNorth+","+minEast+","+maxNorth+","+maxEast+"&CRS="+crs+"&WIDTH="+width+"&HEIGHT="+ (int)height+
+				"&LAYERS=OI.Mosaic.NaturalColor.Feathering&FORMAT=image/png";
 		
 		ImageIcon i = null;
 		i = new ImageIcon(new URL(urlGetMap));
