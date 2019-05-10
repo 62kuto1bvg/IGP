@@ -19,7 +19,10 @@ public class CreateWindow {
 	JPanel panelMap = new JPanel(); 
 	JPanel panelNavigation = new JPanel();
 	static JTextArea cadDisplay = new JTextArea();
-    static JButton loadMap = new JButton("Lade Karte");
+  
+	 static JButton PrintToPDF = new JButton("PDF drucken");
+	static JButton loadMap = new JButton("Lade Karte");
+   
 	
 	public void openWindow() throws IOException {
 //------------------------------------------Ausgabefenster---------------------------------------------------------------------------------------------------		

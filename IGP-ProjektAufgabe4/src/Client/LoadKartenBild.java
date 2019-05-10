@@ -29,7 +29,8 @@ public class LoadKartenBild {
 		this.width = width;
 
 		// Behelf um Voerst den Kartenausschnitt auf DIN Format zu bekommen
-
+		if(ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation"))
+		{
 		this.DeltaX = maxEast - minEast;
 		this.DeltaY = maxNorth - minNorth;
 
@@ -38,6 +39,14 @@ public class LoadKartenBild {
 
 		this.minNorth = minNorth + Abzug;
 		this.maxNorth = maxNorth - Abzug;
+		}else {
+			
+			
+			 this.maxNorth = maxNorth;	
+			
+			 this.minNorth = minNorth;
+		}
+		
 	}
 
 //------------------------- Methode: ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		

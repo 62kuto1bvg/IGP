@@ -27,10 +27,9 @@ import org.omg.CORBA.Bounds;
 	static double minNorth;
 	static double maxEast;
 	static double maxNorth;
-
 	static double verhaeltnis;
-  	
- 	 static auswaehlbarerBereich auswaehlbarerBereich ;
+  	static auswaehlbarerBereich auswaehlbarerBereich ;
+  	static String auswaehlbarerBereichStatus="Navigation";
   
  	
  	static JPanel panelMap;
@@ -374,8 +373,7 @@ import org.omg.CORBA.Bounds;
 			   
 			   if(actionCommand.equals("Fenster waehlen")) {
 				   
-				   
-				   System.out.println("Geklickt auswahl Fenster");    
+				 auswaehlbarerBereichStatus ="Kartenauswahl";
 				   
 				   
 			   }

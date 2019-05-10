@@ -1,5 +1,6 @@
 package Client;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -15,27 +16,38 @@ import javax.swing.border.Border;
 
 public class auswaehlbarerBereich extends JPanel implements MouseListener, MouseMotionListener {
 
-	int startX=0;
-	int startY=0;
-	int endeX=0;
-	int endeY=0;
+	int startX = 0;
+	int startY = 0;
+	int endeX = 0;
+	int endeY = 0;
 
 	public auswaehlbarerBereich(Rectangle border) {
-		
+
 		this.setOpaque(false);
-		
+
 		this.setBounds(border);
 		this.repaint();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-		
+
 	}
+
 	public void paint(Graphics g) {
-		
+
 		Graphics2D g2 = (Graphics2D) g;
-	
-		int deltax = startX-endeX;
-		endeY = startY+deltax;
+
+		g2.setColor(Color.BLACK);
+		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation")) {
+			int deltax = startX - endeX;
+			endeY = startY + deltax;
+		} else if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
+			int deltax = startX - endeX;
+			endeY = (int) (startY + (deltax / Math.sqrt(2)));
+			g2.setColor(Color.BLUE);
+
+		}
+		
+
 		
 		g2.drawLine(startX, startY, endeX, startY);
 		g2.drawLine(startX, startY, startX, endeY);
@@ -43,93 +55,137 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 		g2.drawLine(endeX, endeY, endeX, startY);
 		this.repaint();
 
-	
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-	
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		startX= e.getX();
-		startY=e.getY();
-	
+			
+		startX = e.getX();
+		startY = e.getY();
+
 	}
+
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
-		
 
-		Rectangle a=getBounds();
-		int Hoehe =a.height;
-		int breite=a.width;
-		double MaxNorth= ActionListenerMap.getMaxNorth();
-		double MaxEast= ActionListenerMap.getMaxEast();
-		double MinNorth= ActionListenerMap.getMinNorth();
-		double MinEast= ActionListenerMap.getMinEast();
-		
-		
-		double deltaY=((MaxNorth-MinNorth)*endeY)/Hoehe;
-		ActionListenerMap.setMaxNorth((ActionListenerMap.maxNorth-deltaY));
+		Rectangle a = getBounds();
+		int Hoehe = a.height;
+		int breite = a.width;
+		double MaxNorth = ActionListenerMap.getMaxNorth();
+		double MaxEast = ActionListenerMap.getMaxEast();
+		double MinNorth = ActionListenerMap.getMinNorth();
+		double MinEast = ActionListenerMap.getMinEast();
 
-		double deltaY2=((MaxNorth-MinNorth)*(Hoehe-startY))/Hoehe;
-		ActionListenerMap.setMinNorth((ActionListenerMap.minNorth+deltaY2));
 		
-		double deltaX=(startX*(MaxEast-MinEast)/breite);
-		ActionListenerMap.setMinEast((ActionListenerMap.minEast+deltaX));
-		
-		double deltaX2=((breite-endeX)*(MaxEast-MinEast)/breite);
-		ActionListenerMap.setMaxEast((ActionListenerMap.maxEast-deltaX2));
-		
-		CreateWindow.loadMap.doClick();		
-		
-		 startX=0;
-		 startY=0;
-		 endeX=0;
-		 endeY=0;
+/////////////um sicherzugehen, das auch mit einem ansichtsk‰stchen gearbeitet werden , welches falscherum aufgezogen ist, muss dieses ¸berpr¸ft werden///////
 		
 		
+		if ((startX>endeX)) {
+			
+			int TauschStart=startX;
+			startX=startY;
+			startY = TauschStart;
 		
-
-	}	
+			int TauschEnde=endeX;
+			endeX=endeY;
+			endeY = TauschEnde;
 		
+			
+		}
 	
+		
+		
+		
+////////////////////////////////////////////	
+		
+		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation")) {
+			
+			
+			
+		double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
+		ActionListenerMap.setMaxNorth((ActionListenerMap.maxNorth - deltaY));
+
+		double deltaY2 = ((MaxNorth - MinNorth) * (Hoehe - startY)) / Hoehe;
+		ActionListenerMap.setMinNorth((ActionListenerMap.minNorth + deltaY2));
+
+		double deltaX = (startX * (MaxEast - MinEast) / breite);
+		ActionListenerMap.setMinEast((ActionListenerMap.minEast + deltaX));
+
+		double deltaX2 = ((breite - endeX) * (MaxEast - MinEast) / breite);
+		ActionListenerMap.setMaxEast((ActionListenerMap.maxEast - deltaX2));
+		
+
+			CreateWindow.loadMap.doClick();
+		} else {
+			
+
+			
+			double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
+			ActionListenerMap.setMaxNorth((ActionListenerMap.maxNorth - deltaY));
+
+			double deltaY2 = ((MaxNorth - MinNorth) * (Hoehe - startY)) / Hoehe;
+			ActionListenerMap.setMinNorth((ActionListenerMap.minNorth + deltaY2));
+
+			double deltaX = (startX * (MaxEast - MinEast) / breite);
+			ActionListenerMap.setMinEast((ActionListenerMap.minEast + deltaX));
+
+			double deltaX2 = ((breite - endeX) * (MaxEast - MinEast) / breite);
+			ActionListenerMap.setMaxEast((ActionListenerMap.maxEast - deltaX2));
+			
+		
+
+			Druckuebersicht druckuebersicht = new Druckuebersicht();
+
+			try {
+				druckuebersicht.Oeffne‹bersicht(ActionListenerMap.crs, ActionListenerMap.minEast,
+						ActionListenerMap.minNorth, ActionListenerMap.maxEast, ActionListenerMap.maxNorth,
+						ActionListenerMap.verhaeltnis);
+			} catch (IOException en) {
+				// TODO Auto-generated catch block
+				en.printStackTrace();
+			}
+		}
+
+		startX = 0;
+		startY = 0;
+		endeX = 0;
+		endeY = 0;
+
+	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-	endeX=e.getX();
-	endeY=e.getY();
-	
-	//umrechnen des Kleinen fensters in neue BBboxkordinaten
-	
-	
-	
-}	
-	
-	
-	
+		endeX = e.getX();
+		endeY = e.getY();
+
+		// umrechnen des Kleinen fensters in neue BBboxkordinaten
+
+	}
+
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-	
+
 //	int eX=e.getX();
 //		int eY=e.getY();
 //		System.out.println(eX);
