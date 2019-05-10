@@ -179,7 +179,8 @@ public class Koordinatengitter extends JPanel {
 		for (int j = 0; j < Laengengrade.size(); j++) {
 
 			double Laenge = Laengengrade.get(j);
-			int LaengeBildschirm = (int) (((Laenge - minEast) * width) / beta);
+			int LaengeBildschirm = (int) (((Laenge - minEast) * (width)) / beta);
+	
 			Laengengradetransformiert.add(LaengeBildschirm);		
 		}
 		
@@ -187,16 +188,17 @@ public class Koordinatengitter extends JPanel {
 			
 			double Breiten = Breitengrade.get(j);
 			
-			if((Breiten-minNorth)>0) {
+			
 			double deltaBreite=(Breiten-minNorth);
 			double hight=(((width/Math.sqrt(2))-40));
 			double breiteBildschirm=(((deltaBreite)*(hight))/alpha);
 			Breitengradetransformiert.add(breiteBildschirm);
 			
-			System.out.println("BREITEEEEEE+  "+ breiteBildschirm);
-		}else {}
+			
+		
 			}
 		
+
 	}
 
 //-------------------------------------------- Selbe Vorgehensweise für die Breitengrade: -------------------------------------------------------
@@ -223,7 +225,7 @@ public class Koordinatengitter extends JPanel {
 		for (int j = 0; j < Breitengradetransformiert.size(); j++) {
 				
 		Double breite = Breitengradetransformiert.get(j);
-			if (breite < 0 || breite > (width/Math.sqrt(2))) {
+			if (breite < 0 || breite > (width/Math.sqrt(2))-20) {
 
 			} else {		
 				g2.drawLine(0,(int) ((((width/Math.sqrt(2))-(breite)))-20), width,(int) (((width/Math.sqrt(2))-(breite)))-20);
