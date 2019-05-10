@@ -1,5 +1,6 @@
 package Client;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -9,10 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicArrowButton;
+
+import org.omg.CORBA.Bounds;
 
 public class ActionListenerMap extends CreateWindow implements ActionListener {   
 	
@@ -22,8 +27,11 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 	static double maxEast;
 	static double maxNorth;
 	double verhaeltnis;
-	
-	JPanel panelMap;
+  	
+ 	 static auswaehlbarerBereich auswaehlbarerBereich ;
+  
+ 	
+ 	 JPanel panelMap;
 	JFrame frame;
 	BasicArrowButton buttonOst, buttonWest, buttonNord, buttonSued;
 	JButton zoomIn, zoomOut, printToPDF,BereichAuswaehlen;
@@ -31,15 +39,16 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 	JLabel infoBBOXaenderung;
 	JTextField bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld;
 	JScrollPane display;
-	
+ 
 	ArrayList<String> exportListe = new ArrayList<String>();		// Anlegen einer Exportliste (wird später "gefüttert" und ausgegeben)
 	static String exportFormat;										// wird im ActionListener initialisiert und später benötigt für das schreiben der Ausgabedatei
 //--------------------------------------------- Konstruktor: -----------------------------------------------------------------------------------------------------	
-	   public ActionListenerMap(JPanel panelMap, JFrame frame,
-			BasicArrowButton buttonOst, BasicArrowButton buttonWest, BasicArrowButton buttonNord, BasicArrowButton buttonSued,
-			JButton zoomIn, JButton zoomOut, JButton printToPDF,JComboBox<?> comboBoxCRS,JButton BereichAuswaehlen,
-			JTextField bBoxX1Feld, JTextField bBoxY1Feld, JTextField bBoxX2Feld, JTextField bBoxY2Feld, JLabel infoBBOXaenderung) 
-	   {
+	public ActionListenerMap(JPanel panelMap, JFrame frame, BasicArrowButton buttonOst, BasicArrowButton buttonWest,
+			BasicArrowButton buttonNord, BasicArrowButton buttonSued, JButton zoomIn, JButton zoomOut,
+			JButton printToPDF, JComboBox<String> comboBoxCRS, JButton BereichAuswaehlen, JTextField bBoxX1Feld,
+			JTextField bBoxY1Feld, JTextField bBoxX2Feld, JTextField bBoxY2Feld, JLabel infoBBOXaenderung) {
+		// TODO Auto-generated constructor stub
+	
 		super();
 		this.panelMap = panelMap;
 		this.frame = frame;
@@ -56,9 +65,11 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 		this.bBoxX2Feld = bBoxX2Feld;
 		this.bBoxY2Feld = bBoxY2Feld;
 		this.BereichAuswaehlen=BereichAuswaehlen;
-		this.infoBBOXaenderung = infoBBOXaenderung;		
+		this.infoBBOXaenderung = infoBBOXaenderung;	
+		this.auswaehlbarerBereich = auswaehlbarerBereich;
 	   }
-//--------------------------------------- Action-Command:
+
+	//--------------------------------------- Action-Command:
 	public void actionPerformed(ActionEvent actionEvent) {				// Ein ActionListenerMap muss IMMER "actionPerformed" implementieren !
 		   
 		   String actionCommand = actionEvent.getActionCommand();
@@ -115,7 +126,13 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 							}
 		 	 	 
 		 	 	 // Karte auf Fenster setzen:
-		 	 	 frame.add(panelMap); 
+		 	 	 
+		 	 	Rectangle border =panelMap.getBounds();
+		 	 	auswaehlbarerBereich ab =new auswaehlbarerBereich(border);
+		     	frame.setLayout(null);
+		 	 	frame.add(ab);
+		     	frame.add(panelMap); 
+		 	 	
 		 	 	 frame.add(panelNavigation);
 		 	 	 frame.setVisible(true);
 		 	 

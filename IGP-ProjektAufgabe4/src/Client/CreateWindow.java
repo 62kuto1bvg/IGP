@@ -74,6 +74,8 @@ public class CreateWindow {
      	infoBBOXaenderung.setVisible(false);
      
      	
+     
+     	
      // Karte-Laden-Button:
      JButton loadMap = new JButton("Lade Karte");
      loadMap.setActionCommand("lade Karte");

@@ -29,7 +29,7 @@ public class Verschieben implements MouseListener,MouseMotionListener {
 		X= e.getX();
 		Y=e.getY();
 		
-
+		
 	}
 
 	@Override
