@@ -124,13 +124,24 @@ public class CreateWindow {
      zoomOut.setVisible(false);
      frame.add(zoomOut); 
      
+         // Auswahl-Button:
+     JButton BereichAuswaehlen = new JButton(">fenster wählen ");
+     BereichAuswaehlen.setActionCommand("Fenster waehlen");
+     BereichAuswaehlen.setBounds(1150, 500, 150, 40);
+     BereichAuswaehlen.setBackground(Color.LIGHT_GRAY);
+     BereichAuswaehlen.setVisible(false);
+     frame.add(BereichAuswaehlen);
+    
      // printToPDF-Button:
      JButton PrintToPDF = new JButton("PDF drucken");
      PrintToPDF.setActionCommand("druck");
-     PrintToPDF.setBounds(1150, 450, 120, 40);
+     PrintToPDF.setBounds(1150,800, 150, 40);
      PrintToPDF.setBackground(Color.LIGHT_GRAY);
      PrintToPDF.setVisible(false);
      frame.add(PrintToPDF);
+     
+     
+ 
           
 //------------------------------------------------    
 // Fenster öffnen:
@@ -138,9 +149,10 @@ public class CreateWindow {
    
 //---------------------------------------------------ActionListener------------------------------------------------------------------------------------------------------------------------------------------------------
    	 //Listener anlegen:        
-     ActionListenerMap mapActionListener = new ActionListenerMap(panelMap, frame, buttonOst, buttonWest, buttonNord, buttonSued, zoomIn, zoomOut, PrintToPDF, comboBoxCRS, bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld, infoBBOXaenderung);
+     ActionListenerMap mapActionListener = new ActionListenerMap(panelMap, frame, buttonOst, buttonWest, buttonNord, buttonSued, zoomIn, zoomOut, PrintToPDF, comboBoxCRS,BereichAuswaehlen, bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld, infoBBOXaenderung);
      
      //Registrierung aller Objekte, die "abgehört" werden sollen:
+    
      loadMap.addActionListener(mapActionListener);
      buttonOst.addActionListener(mapActionListener);
      buttonWest.addActionListener(mapActionListener);
@@ -149,6 +161,7 @@ public class CreateWindow {
      zoomIn.addActionListener(mapActionListener);
      zoomOut.addActionListener(mapActionListener); 
      PrintToPDF.addActionListener(mapActionListener);
+     BereichAuswaehlen.addActionListener(mapActionListener);
      comboBoxCRS.addActionListener(mapActionListener);
      bBoxX1Feld.addActionListener(mapActionListener);
      bBoxY1Feld.addActionListener(mapActionListener);

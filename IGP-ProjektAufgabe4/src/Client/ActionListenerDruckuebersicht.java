@@ -51,5 +51,11 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 			}
 		}
 		
+				if (actionCommand.equals("auswählen Farbe Gitter")) {
+			{
+				JColorChooser Farben = new JColorChooser();				
+				Client.Druckuebersicht.ausgewaehlteFarbeKoordinatengitter = Farben.showDialog(null, "Waehlen Sie die Stiftfarbe", Color.BLACK);
+				Client.Druckuebersicht.Kartenblatt.repaint();
 	}
-}
+			}
+}}

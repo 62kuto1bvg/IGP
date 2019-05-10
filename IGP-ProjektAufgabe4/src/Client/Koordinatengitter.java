@@ -3,6 +3,8 @@ package Client;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class Koordinatengitter extends JPanel {
@@ -205,8 +207,8 @@ public class Koordinatengitter extends JPanel {
 	public void paintComponent(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeMassstabsleiste);
-
+		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeKoordinatengitter);
+		
 		// Zeichnen der senkrechten Linien:
 		for (int j = 0; j < Laengengradetransformiert.size(); j++) {
 
@@ -234,7 +236,8 @@ public class Koordinatengitter extends JPanel {
 				String Breitetext = String.valueOf(Math.round(Breitengrade.get(j) * 100) / 100.0);
 				g2.drawString(Breitetext, 10, (int) ((width/Math.sqrt(2))-(breite))+10);
 				g2.drawString(String.valueOf(minNorth), 0, (int)((width/Math.sqrt(2))-10));
-				g2.drawString(String.valueOf(maxNorth), 0, 10);		
+				g2.drawString(String.valueOf(maxNorth), 0, 10);	
+				
 			}
 		}
 	}

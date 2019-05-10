@@ -21,7 +21,7 @@ public class Druckuebersicht  {
 	String crs;
 	int X,Y;
 	static Color ausgewaehlteFarbeNordstern;
-	static Color ausgewaehlteFarbeMassstabsleiste=Color.BLACK;
+	static Color ausgewaehlteFarbeMassstabsleiste;
 	static Color ausgewaehlteFarbeKoordinatengitter;
 	
 	// Bildschirmgröße herrausfinden (für dynamisches Fenster):
@@ -89,12 +89,18 @@ public class Druckuebersicht  {
 		JButton ButtonausgewaehlteFarbeMassstab = new JButton("Farbe Massstab");
 		ButtonausgewaehlteFarbeMassstab.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 5) * 2), 200, 50);
 		ButtonausgewaehlteFarbeMassstab.setActionCommand("auswählen Farbe Massstab");
+		
+		
+		JButton ButtonausgewaehlteFarbeGitter = new JButton("Farbe Gitter");
+		ButtonausgewaehlteFarbeGitter.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 5) * 1), 200, 50);
+		ButtonausgewaehlteFarbeGitter.setActionCommand("auswählen Farbe Gitter");
 
 		ActionListenerDruckuebersicht ActionListenerDruckuebersicht = new ActionListenerDruckuebersicht();
 		ButtonDrucken.addActionListener(ActionListenerDruckuebersicht);
 		ButtonausgewaehlteFarbeNordstern.addActionListener(ActionListenerDruckuebersicht);
 		ButtonausgewaehlteFarbeMassstab.addActionListener(ActionListenerDruckuebersicht);
-
+		ButtonausgewaehlteFarbeGitter.addActionListener(ActionListenerDruckuebersicht);
+		
 		// Massstabsleiste implementieren:
 		Massstabsleiste Ml = new Massstabsleiste();
 		Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
@@ -109,19 +115,23 @@ public class Druckuebersicht  {
 		Verschieben vsMassstab = new Verschieben(Ml);
 		
 		
-		nordpfeil.setVisible(true);
-		Ml.setVisible(true);
-		
+	
 		
 	    // Koordinatengitter:
 		Koordinatengitter Koordgitter = new Koordinatengitter();
 		Koordgitter.erzeugeKoordinatengitter(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width);
 		Koordgitter.setBounds(0, 0, KarteBreite, KarteHoehe);
 		
+		nordpfeil.setVisible(true);
+		Ml.setVisible(true);
+		Koordgitter.setVisible(true);
+		
+		
 		FensterDruckuebersicht.add(ButtonDrucken);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeMassstab);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeNordstern);
-		
+		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeGitter);
+
 		Kartenblatt.add(Koordgitter);
 		Kartenblatt.add(Ml);
 		Kartenblatt.add(nordpfeil);

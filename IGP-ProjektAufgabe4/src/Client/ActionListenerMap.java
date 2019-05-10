@@ -26,7 +26,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 	JPanel panelMap;
 	JFrame frame;
 	BasicArrowButton buttonOst, buttonWest, buttonNord, buttonSued;
-	JButton zoomIn, zoomOut, printToPDF;
+	JButton zoomIn, zoomOut, printToPDF,BereichAuswaehlen;
 	JComboBox<?> comboBoxCRS;
 	JLabel infoBBOXaenderung;
 	JTextField bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld;
@@ -37,8 +37,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 //--------------------------------------------- Konstruktor: -----------------------------------------------------------------------------------------------------	
 	   public ActionListenerMap(JPanel panelMap, JFrame frame,
 			BasicArrowButton buttonOst, BasicArrowButton buttonWest, BasicArrowButton buttonNord, BasicArrowButton buttonSued,
-			JButton zoomIn, JButton zoomOut, JButton printToPDF,
-			JComboBox<?> comboBoxCRS,
+			JButton zoomIn, JButton zoomOut, JButton printToPDF,JComboBox<?> comboBoxCRS,JButton BereichAuswaehlen,
 			JTextField bBoxX1Feld, JTextField bBoxY1Feld, JTextField bBoxX2Feld, JTextField bBoxY2Feld, JLabel infoBBOXaenderung) 
 	   {
 		super();
@@ -56,6 +55,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 		this.bBoxY1Feld = bBoxY1Feld;
 		this.bBoxX2Feld = bBoxX2Feld;
 		this.bBoxY2Feld = bBoxY2Feld;
+		this.BereichAuswaehlen=BereichAuswaehlen;
 		this.infoBBOXaenderung = infoBBOXaenderung;		
 	   }
 //--------------------------------------- Action-Command:
@@ -127,7 +127,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 		 	 	 zoomIn.setVisible(true);
 		 	 	 zoomOut.setVisible(true);
 		 	 	 printToPDF.setVisible(true);
-		 	 	 
+		 	 	 BereichAuswaehlen.setVisible(true);
 		 	 	 // Bounding-Box-Felder sichtbar setzten und aktuelle BBox-Koordinaten ausgeben:
 		 	 	 bBoxX1Feld.setVisible(true);
 		 	 	 bBoxY1Feld.setVisible(true);
@@ -350,7 +350,17 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					}			
-			  	}			   
+			  	}		
+			   
+			   
+			   if(actionCommand.equals("Fenster waehlen")) {
+				   
+				   
+				   System.out.println("Geklickt auswahl Fenster");    
+				   
+				   
+			   }
+			   
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------		 			   
 	   } // Ende der Action-Command
 }
