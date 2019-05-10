@@ -1,5 +1,6 @@
 package Client;
 
+
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,19 +20,20 @@ import javax.swing.plaf.basic.BasicArrowButton;
 
 import org.omg.CORBA.Bounds;
 
-public class ActionListenerMap extends CreateWindow implements ActionListener {   
-	
+
+	public class ActionListenerMap extends CreateWindow implements ActionListener {   
 	static String crs;
 	static double minEast;
 	static double minNorth;
 	static double maxEast;
 	static double maxNorth;
-	double verhaeltnis;
+
+	static double verhaeltnis;
   	
  	 static auswaehlbarerBereich auswaehlbarerBereich ;
   
  	
- 	 JPanel panelMap;
+ 	static JPanel panelMap;
 	JFrame frame;
 	BasicArrowButton buttonOst, buttonWest, buttonNord, buttonSued;
 	JButton zoomIn, zoomOut, printToPDF,BereichAuswaehlen;
@@ -380,4 +382,36 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 			   
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------		 			   
 	   } // Ende der Action-Command
+	public static double getMinEast() {
+		return minEast;
+	}
+
+	public static void setMinEast(double minEast) {
+		ActionListenerMap.minEast = minEast;
+	}
+
+	public static double getMinNorth() {
+		return minNorth;
+	}
+
+	public static void setMinNorth(double minNorth) {
+		ActionListenerMap.minNorth = minNorth;
+	}
+
+	public static double getMaxEast() {
+		return maxEast;
+	}
+
+	public static void setMaxEast(double maxEast) {
+		ActionListenerMap.maxEast = maxEast;
+	}
+
+	public static double getMaxNorth() {
+		return maxNorth;
+	}
+
+	public static void setMaxNorth(double maxNorth) {
+		ActionListenerMap.maxNorth = maxNorth;
+	}
+
 }

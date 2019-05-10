@@ -19,6 +19,7 @@ public class CreateWindow {
 	JPanel panelMap = new JPanel(); 
 	JPanel panelNavigation = new JPanel();
 	static JTextArea cadDisplay = new JTextArea();
+    static JButton loadMap = new JButton("Lade Karte");
 	
 	public void openWindow() throws IOException {
 //------------------------------------------Ausgabefenster---------------------------------------------------------------------------------------------------		
@@ -77,7 +78,7 @@ public class CreateWindow {
      
      	
      // Karte-Laden-Button:
-     JButton loadMap = new JButton("Lade Karte");
+ 
      loadMap.setActionCommand("lade Karte");
      loadMap.setBounds(900, 10, 100, 40);
      frame.add(loadMap);
