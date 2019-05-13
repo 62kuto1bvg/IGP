@@ -78,21 +78,25 @@ public class Druckuebersicht  {
 		Kartenbild.setVisible(true);
 
 		JButton ButtonDrucken = new JButton("Drucken");
-		ButtonDrucken.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 5) * 4), 200, 50);
+		ButtonDrucken.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 8), 200, 50);
 		ButtonDrucken.setActionCommand("Druckmenue");
 		
+		JButton ButtonSpeichern = new JButton("Speichern");
+		ButtonSpeichern.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 7), 200, 50);
+		ButtonSpeichern.setActionCommand("Speicher");
+		
 		JButton ButtonausgewaehlteFarbeNordstern = new JButton("Farbe Nordstern");
-		ButtonausgewaehlteFarbeNordstern.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 5) * 3), 200, 50);
+		ButtonausgewaehlteFarbeNordstern.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 5), 200, 50);
 		ButtonausgewaehlteFarbeNordstern.setActionCommand("auswählen Farbe Nordstern");
 		
 
 		JButton ButtonausgewaehlteFarbeMassstab = new JButton("Farbe Massstab");
-		ButtonausgewaehlteFarbeMassstab.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 5) * 2), 200, 50);
+		ButtonausgewaehlteFarbeMassstab.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 3), 200, 50);
 		ButtonausgewaehlteFarbeMassstab.setActionCommand("auswählen Farbe Massstab");
 		
 		
 		JButton ButtonausgewaehlteFarbeGitter = new JButton("Farbe Gitter");
-		ButtonausgewaehlteFarbeGitter.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 5) * 1), 200, 50);
+		ButtonausgewaehlteFarbeGitter.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 1), 200, 50);
 		ButtonausgewaehlteFarbeGitter.setActionCommand("auswählen Farbe Gitter");
 
 		ActionListenerDruckuebersicht ActionListenerDruckuebersicht = new ActionListenerDruckuebersicht();
@@ -100,6 +104,7 @@ public class Druckuebersicht  {
 		ButtonausgewaehlteFarbeNordstern.addActionListener(ActionListenerDruckuebersicht);
 		ButtonausgewaehlteFarbeMassstab.addActionListener(ActionListenerDruckuebersicht);
 		ButtonausgewaehlteFarbeGitter.addActionListener(ActionListenerDruckuebersicht);
+		ButtonSpeichern.addActionListener(ActionListenerDruckuebersicht);
 		
 		// Massstabsleiste implementieren:
 		Massstabsleiste Ml = new Massstabsleiste();
@@ -127,6 +132,7 @@ public class Druckuebersicht  {
 		Koordgitter.setVisible(true);
 		
 		
+		FensterDruckuebersicht.add(ButtonSpeichern);
 		FensterDruckuebersicht.add(ButtonDrucken);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeMassstab);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeNordstern);
