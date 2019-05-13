@@ -81,7 +81,12 @@ public class Druckuebersicht  {
 		Kartenblatt.setLayout(null);
 
 	
-		
+//		JPanel KartenbildDruckergebniss = new JPanel();
+//
+//		LoadKartenBild newMap = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
+//		JLabel actualMap = (JLabel) newMap.showMap();
+//		KartenbildDruckergebniss.add(actualMap);
+//		
 		JPanel Kartenbild = new JPanel();
 
 		LoadKartenBild newMap = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
