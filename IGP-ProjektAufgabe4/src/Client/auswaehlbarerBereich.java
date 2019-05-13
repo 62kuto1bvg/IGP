@@ -76,9 +76,9 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
-		Rectangle a = getBounds();
-		int Hoehe = a.height;
-		int breite = a.width;
+		Rectangle ab = getBounds();
+		int Hoehe = ab.height;
+		int breite = ab.width;
 		double MaxNorth = ActionListenerMap.getMaxNorth();
 		double MaxEast = ActionListenerMap.getMaxEast();
 		double MinNorth = ActionListenerMap.getMinNorth();
