@@ -28,6 +28,7 @@ public class Druckuebersicht  {
 	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	double breite = dim.getWidth();
 	double hoehe = dim.getHeight();
+	int dpi=java.awt.Toolkit.getDefaultToolkit().getScreenResolution(); 
 	static JLayeredPane Kartenblatt = new JLayeredPane();
 
 	public void OeffneÜbersicht(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis)
@@ -39,12 +40,24 @@ public class Druckuebersicht  {
 		this.minNorth = minNorth;
 		this.crs = crs;
 		this.verhaeltnis = verhaeltnis;
-		int width=1000;
+		int width=0;
+		
+		////////////////////////umwandel in A4Format
+		
+		double A4inch= 42.0/2.54;
+		width=(int) A4inch*dpi;
+		System.out.println("width: "+width);	
+		
+		
+        ///////////////////////////////////////
+		
+		
+		
 		
 		// Hier kommt das Kartenformat, muss noch übergeben werden
 		// Die Wurzel, weil das das Seitenverältnis von Din A ist,
 		// bei Hochkanten plänen muss dies getauscht werden
-		int KarteBreite = 1000;
+		int KarteBreite=1000;
 		int KarteHoehe = (int) (KarteBreite / (Math.sqrt(2)));
 
 		// Fensterbreite soll nicht den Ganzen Bildschirm bedecken:
@@ -64,9 +77,11 @@ public class Druckuebersicht  {
 		// Kartenblatt soll das druckbare Papier werden:
 		Kartenblatt.setBorder(BorderFactory.createLineBorder(Color.black));
 		Kartenblatt.setBounds((int) (KarteBreite / 20), (int) (KarteHoehe / 20), KarteBreite, KarteHoehe);
-		Kartenblatt.setBackground(Color.WHITE);
+		Kartenblatt.setBackground(Color.WHITE); 
 		Kartenblatt.setLayout(null);
 
+	
+		
 		JPanel Kartenbild = new JPanel();
 
 		LoadKartenBild newMap = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);

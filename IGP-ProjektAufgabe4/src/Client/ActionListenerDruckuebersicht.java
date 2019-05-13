@@ -37,7 +37,7 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 
 			printjob.setJobName("Kartendruck");
 			printjob.setPrintable(new PrintObject());
-			//printjob.setPrintable(painter, PageFormat.);
+
 				if(printjob.printDialog())
 				{
 					try {
@@ -85,6 +85,7 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 			        Graphics2D g2d = bi.createGraphics(); 
 
 			        // Male das JPanel in das BufferedImage 
+			     
 			        Druckuebersicht.Kartenblatt.paint(g2d); 
 
 			        Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName("jpeg"); 
