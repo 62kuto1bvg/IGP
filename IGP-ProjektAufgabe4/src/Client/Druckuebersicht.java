@@ -30,7 +30,7 @@ public class Druckuebersicht  {
 	double hoehe = dim.getHeight();
 	int dpi=java.awt.Toolkit.getDefaultToolkit().getScreenResolution(); 
 	static JLayeredPane Kartenblatt = new JLayeredPane();
-
+	static JLayeredPane KartenblattDruck = new JLayeredPane();
 	public void OeffneÜbersicht(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis)
 			throws IOException {
 
@@ -40,13 +40,13 @@ public class Druckuebersicht  {
 		this.minNorth = minNorth;
 		this.crs = crs;
 		this.verhaeltnis = verhaeltnis;
-		int width=0;
+		int width=1000;
 		
 		////////////////////////umwandel in A4Format
 		
-		double A4inch= 42.0/2.54;
-		width=(int) A4inch*dpi;
-		System.out.println("width: "+width);	
+//		double A4inch= 42.0/2.54;
+//		int widthFormat=(int) A4inch*dpi;
+//		System.out.println("width: "+widthFormat);	
 		
 		
         ///////////////////////////////////////
@@ -60,6 +60,9 @@ public class Druckuebersicht  {
 		int KarteBreite=1000;
 		int KarteHoehe = (int) (KarteBreite / (Math.sqrt(2)));
 
+//		int KarteBreiteDruck=(int)widthFormat;
+//		int KarteHoeheDruck = (int) (KarteBreiteDruck / (Math.sqrt(2)));
+//		
 		// Fensterbreite soll nicht den Ganzen Bildschirm bedecken:
 		int FensterBreite = (int) ((breite / 5) * 4);
 		int FensterHoehe = (int) ((hoehe / 5) * 4);
@@ -80,23 +83,33 @@ public class Druckuebersicht  {
 		Kartenblatt.setBackground(Color.WHITE); 
 		Kartenblatt.setLayout(null);
 
-	
-//		JPanel KartenbildDruckergebniss = new JPanel();
-//
-//		LoadKartenBild newMap = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
-//		JLabel actualMap = (JLabel) newMap.showMap();
-//		KartenbildDruckergebniss.add(actualMap);
-//		
-		JPanel Kartenbild = new JPanel();
+//		KartenblattDruck.setBorder(BorderFactory.createLineBorder(Color.black));
+//		KartenblattDruck.setBounds((int) (KarteBreiteDruck / 20), (int) (KarteHoeheDruck / 20), KarteBreiteDruck, KarteHoeheDruck);
+//		KartenblattDruck.setBackground(Color.WHITE); 
+//		KartenblattDruck.setLayout(null);
 
+		
+		JPanel Kartenbild = new JPanel();
+//
+//		JPanel KartenbildDruck = new JPanel();
+		
 		LoadKartenBild newMap = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
 		JLabel actualMap = (JLabel) newMap.showMap();
 		Kartenbild.add(actualMap);
+		
+//		LoadKartenBild newMapDruck = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,widthFormat);
+//		JLabel actualMapDruck = (JLabel) newMapDruck.showMap();
+//		KartenbildDruck.add(actualMapDruck);
 
 		// Kartenbild.setBorder(BorderFactory.createLineBorder(Color.black));
 		Kartenbild.setBounds(20, 20, KarteBreite - 40, KarteHoehe - 40);
 		Kartenbild.setVisible(true);
 
+//		KartenbildDruck.setBounds(20, 20, KarteBreiteDruck - 40, KarteHoeheDruck - 40);
+//		KartenbildDruck.setVisible(true);
+//		
+		
+		
 		JButton ButtonDrucken = new JButton("Drucken");
 		ButtonDrucken.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 8), 200, 50);
 		ButtonDrucken.setActionCommand("Druckmenue");
@@ -131,6 +144,8 @@ public class Druckuebersicht  {
 		Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
 		Ml.setBounds(((int) ((KarteBreite / 10)*6)), (int) (KarteHoehe / 10)*9, ((KarteHoehe /10)*7), (KarteHoehe /10));
 		
+		
+		
 		// Nordpfeil einfügen:
 		Nordpfeil nordpfeil = new Nordpfeil();
 		nordpfeil.setBounds(((int) (KarteBreite / 10) * 8), (int) (KarteHoehe / 10), 300, 300);
@@ -163,14 +178,33 @@ public class Druckuebersicht  {
 		Kartenblatt.add(nordpfeil);
 		Kartenblatt.add(Kartenbild);
 		
+		
+		
 		Kartenblatt.setLayer(Koordgitter,400);
 		Kartenblatt.setLayer(nordpfeil, 400);
 		Kartenblatt.setLayer(nordpfeil, 400);
 		Kartenblatt.setLayer(Ml, 400);
+		
+	FensterDruckuebersicht.add(Kartenblatt);
+		FensterDruckuebersicht.setVisible(true);
+//		
+//		Koordgitter.setWidth(widthFormat);
+//		Ml.setWidth(widthFormat);
+//		
+//		KartenblattDruck.add(Koordgitter);
+//		KartenblattDruck.add(Ml);
+//		KartenblattDruck.add(nordpfeil);
+//		KartenblattDruck.add(Kartenbild);
+//		
+//		
+//		
+//		KartenblattDruck.setLayer(Koordgitter,400);
+//		KartenblattDruck.setLayer(nordpfeil, 400);
+//		KartenblattDruck.setLayer(nordpfeil, 400);
+//		KartenblattDruck.setLayer(Ml, 400);
 		// Kartenblatt.add(nordpfeil);
 		
-		FensterDruckuebersicht.add(Kartenblatt);
-		FensterDruckuebersicht.setVisible(true);
+		
 	}
 
 	public static void paint(Graphics2D g2d) {

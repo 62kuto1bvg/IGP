@@ -203,7 +203,15 @@ public class Koordinatengitter extends JPanel {
 
 	}
 
-//-------------------------------------------- Selbe Vorgehensweise für die Breitengrade: -------------------------------------------------------
+public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	//-------------------------------------------- Selbe Vorgehensweise für die Breitengrade: -------------------------------------------------------
 	public void paintComponent(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D) g;

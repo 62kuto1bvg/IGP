@@ -89,6 +89,12 @@ public class Massstabsleiste extends JPanel {
 
 	}
 
+
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
 	public void paintComponent(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D) g;
