@@ -53,7 +53,8 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 		g2.drawLine(startX, startY, startX, endeY);
 		g2.drawLine(startX, endeY, endeX, endeY);
 		g2.drawLine(endeX, endeY, endeX, startY);
-		this.repaint();
+	
+		
 
 	}
 
@@ -178,6 +179,7 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 		endeX = e.getX();
 		endeY = e.getY();
 
+		this.repaint();
 		// umrechnen des Kleinen fensters in neue BBboxkordinaten
 
 	}
