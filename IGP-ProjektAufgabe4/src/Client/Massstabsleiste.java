@@ -101,7 +101,7 @@ public class Massstabsleiste extends JPanel {
 		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeMassstabsleiste);
 		
 		//ANTIALIASING hilft gegen Kantenflimmern
-		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+		//g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 
 		// horizontale Linie		
 		g2.drawLine(0, (anteiligeBildschirmstrecke / 20), anteiligeBildschirmstrecke,

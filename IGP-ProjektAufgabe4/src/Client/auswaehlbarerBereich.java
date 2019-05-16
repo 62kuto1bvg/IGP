@@ -148,6 +148,7 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 				druckuebersicht.Oeffne‹bersicht(ActionListenerMap.crs, ActionListenerMap.minEast,
 						ActionListenerMap.minNorth, ActionListenerMap.maxEast, ActionListenerMap.maxNorth,
 						ActionListenerMap.verhaeltnis);
+				
 			} catch (IOException en) {
 				// TODO Auto-generated catch block
 				en.printStackTrace();

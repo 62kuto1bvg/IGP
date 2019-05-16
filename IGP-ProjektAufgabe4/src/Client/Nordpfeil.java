@@ -37,7 +37,7 @@ public class Nordpfeil extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Client.Druckuebersicht.ausgewaehlteFarbeNordstern);
 		//ANTIALIASING hilft gegen Kantenflimmern
-		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+		//g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 	
 		
 		g2d.fillPolygon(x1Points, y1Points, 3);

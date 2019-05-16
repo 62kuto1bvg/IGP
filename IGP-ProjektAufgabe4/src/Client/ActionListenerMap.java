@@ -37,17 +37,18 @@ import org.omg.CORBA.Bounds;
 	BasicArrowButton buttonOst, buttonWest, buttonNord, buttonSued;
 	JButton zoomIn, zoomOut, printToPDF,BereichAuswaehlen;
 	JComboBox<?> comboBoxCRS;
-	JLabel infoBBOXaenderung;
+    JComboBox<String> AuswahlFormat;
+    JLabel infoBBOXaenderung;
 	JTextField bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld;
 	JScrollPane display;
- 
+	static int AuswahlFormatIndex;
 	ArrayList<String> exportListe = new ArrayList<String>();		// Anlegen einer Exportliste (wird später "gefüttert" und ausgegeben)
 	static String exportFormat;										// wird im ActionListener initialisiert und später benötigt für das schreiben der Ausgabedatei
 //--------------------------------------------- Konstruktor: -----------------------------------------------------------------------------------------------------	
 	public ActionListenerMap(JPanel panelMap, JFrame frame, BasicArrowButton buttonOst, BasicArrowButton buttonWest,
 			BasicArrowButton buttonNord, BasicArrowButton buttonSued, JButton zoomIn, JButton zoomOut,
 			JButton printToPDF, JComboBox<String> comboBoxCRS, JButton BereichAuswaehlen, JTextField bBoxX1Feld,
-			JTextField bBoxY1Feld, JTextField bBoxX2Feld, JTextField bBoxY2Feld, JLabel infoBBOXaenderung) {
+			JTextField bBoxY1Feld, JTextField bBoxX2Feld, JTextField bBoxY2Feld, JLabel infoBBOXaenderung,JComboBox<String> AuswahlFormat) {
 		// TODO Auto-generated constructor stub
 	
 		super();
@@ -68,6 +69,7 @@ import org.omg.CORBA.Bounds;
 		this.BereichAuswaehlen=BereichAuswaehlen;
 		this.infoBBOXaenderung = infoBBOXaenderung;	
 		this.auswaehlbarerBereich = auswaehlbarerBereich;
+		this.AuswahlFormat=AuswahlFormat;
 	   }
 
 	//--------------------------------------- Action-Command:
@@ -156,6 +158,7 @@ import org.omg.CORBA.Bounds;
 		 	 	 	bBoxX2Feld.setText(""+Math.rint(maxEast*1000)/1000);
 		 	 	 	bBoxY2Feld.setText(""+Math.rint(maxNorth*1000)/1000);		 	 	 	
 		 	 	 infoBBOXaenderung.setVisible(true);
+		 	 	AuswahlFormat.setVisible(true);
 			  }		
 			  
 			  // Benutzerdefiniertes Anpassen der Bounding Box:
@@ -377,6 +380,17 @@ import org.omg.CORBA.Bounds;
 				   
 				   
 			   }
+			  
+			   
+   
+			   
+			   if(actionCommand.equals("AuswaehlenDINFormat")) {
+				   AuswahlFormatIndex=AuswahlFormat.getSelectedIndex();
+				System.out.println(AuswahlFormatIndex);
+				   
+			   }
+			   
+			   
 			   
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------		 			   
 	   } // Ende der Action-Command

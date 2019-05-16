@@ -19,10 +19,9 @@ public class CreateWindow {
 	JPanel panelMap = new JPanel(); 
 	JPanel panelNavigation = new JPanel();
 	static JTextArea cadDisplay = new JTextArea();
-  
-	 static JButton PrintToPDF = new JButton("PDF drucken");
+    static JButton PrintToPDF = new JButton("PDF drucken");
 	static JButton loadMap = new JButton("Lade Karte");
-   
+	
 	
 	public void openWindow() throws IOException {
 //------------------------------------------Ausgabefenster---------------------------------------------------------------------------------------------------		
@@ -138,6 +137,15 @@ public class CreateWindow {
      BereichAuswaehlen.setVisible(false);
      frame.add(BereichAuswaehlen);
     
+     String comboBoxListe[] = {"DIN-A4","DIN-A3","DIN-A2","DIN-A1","DIN-A0"};
+     JComboBox<String> AuswahlFormat = new JComboBox<String>(comboBoxListe);
+     AuswahlFormat.setVisible(false);
+     AuswahlFormat.setBounds(1150, 200, 150, 40);
+     AuswahlFormat.setBackground(Color.LIGHT_GRAY);
+     AuswahlFormat.setActionCommand("AuswaehlenDINFormat");
+     frame.add(AuswahlFormat);
+     
+     
      // printToPDF-Button:
      JButton PrintToPDF = new JButton("PDF drucken");
      PrintToPDF.setActionCommand("druck");
@@ -155,7 +163,7 @@ public class CreateWindow {
    
 //---------------------------------------------------ActionListener------------------------------------------------------------------------------------------------------------------------------------------------------
    	 //Listener anlegen:        
-     ActionListenerMap mapActionListener = new ActionListenerMap(panelMap, frame, buttonOst, buttonWest, buttonNord, buttonSued, zoomIn, zoomOut, PrintToPDF, comboBoxCRS,BereichAuswaehlen, bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld, infoBBOXaenderung);
+     ActionListenerMap mapActionListener = new ActionListenerMap(panelMap, frame, buttonOst, buttonWest, buttonNord, buttonSued, zoomIn, zoomOut, PrintToPDF, comboBoxCRS,BereichAuswaehlen, bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld, infoBBOXaenderung,AuswahlFormat);
      
      //Registrierung aller Objekte, die "abgehört" werden sollen:
     
@@ -173,6 +181,8 @@ public class CreateWindow {
      bBoxY1Feld.addActionListener(mapActionListener);
      bBoxX2Feld.addActionListener(mapActionListener);
      bBoxY2Feld.addActionListener(mapActionListener);
+     AuswahlFormat.addActionListener(mapActionListener);
+     
 //-------------------------------------------------------------------------------------------------------------------  
 	}
 }

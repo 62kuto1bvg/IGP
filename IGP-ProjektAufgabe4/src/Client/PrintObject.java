@@ -20,7 +20,7 @@ public class PrintObject implements Printable {
 		Graphics2D g2d  = (Graphics2D)graphics;
 		g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
 		
-		Druckuebersicht.Kartenblatt.paint(g2d);
+		Druckausgabe.KartenblattDruck.paint(g2d);
 		//Druckuebersicht.Kartenbild.paint(g2d);
 	
 		return PAGE_EXISTS;

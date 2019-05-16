@@ -41,11 +41,16 @@ public class Druckausgabe {
 			double breite = dim.getWidth();
 			double hoehe = dim.getHeight();
 			int dpi = java.awt.Toolkit.getDefaultToolkit().getScreenResolution();
-		
+		//////////////////Breiten der DinFormate/////////////////////////////
+			
+			double breitenDinFormate[]={29.7,42.0,59.4,84.1,118,9};
+			
+			//////////////////////// umwandel in DIN-Format
 
-			//////////////////////// umwandel in A4Format
-
-			double A4inch = 42.0 / 2.54;
+			int index=ActionListenerMap.AuswahlFormatIndex;
+			
+			
+			double A4inch = breitenDinFormate[index] / 2.54;
 			int widthFormat = (int) A4inch * dpi;
 			System.out.println("width: " + widthFormat);
 			double verhaeltnissUebersichtDruck = (widthFormat / 1000.00);
@@ -89,35 +94,55 @@ public class Druckausgabe {
 			
 
 //////////////////////////////////////////////////////////////////////////
+		
+			int XNordpfeil=0;
+			int YNordpfeil=0;
+			int Xmleiste=0;
+			int Ymleiste=0;
+			Nordpfeil.x=(verhaeltnissUebersichtDruck);
+			
 			ArrayList<Component> Kartenelemente = Verschieben.Kartenelemente;
 
 			for (int i = 0; i < Kartenelemente.size(); i++) {
 				System.out.println(Kartenelemente.get(i).getClass().toString());
 				if (Kartenelemente.get(i).getClass().toString().contains("Nordpfeil")) {
-					System.out.println("verhaeltnissUebersichtDruck "+verhaeltnissUebersichtDruck);
-				
-					Nordpfeil.x=(verhaeltnissUebersichtDruck);
-					int Width = (int) ((Kartenelemente.get(i).getX()) * verhaeltnissUebersichtDruck);
-					System.out.println("Width=" + Width);
-					int Height = (int) ((Kartenelemente.get(i).getY()) * verhaeltnissUebersichtDruck);
-					System.out.println("Height=" + Height);
-
-					Nordpfeil nordpeil = new Nordpfeil();
-					nordpeil.setVisible(true);
-					nordpeil.setBounds(Width, Height, 300, 300);
-					KartenblattDruck.add(nordpeil);
-					KartenblattDruck.setLayer(nordpfeil, 400);
-				
-				
-				
-				
+						
+					XNordpfeil = (int) ((Kartenelemente.get(i).getX()) * verhaeltnissUebersichtDruck);
+					YNordpfeil = (int) ((Kartenelemente.get(i).getY()) * verhaeltnissUebersichtDruck);
+					
 				}  else if(Kartenelemente.get(i).getClass().toString().contains("leiste")) {
-					System.out.println("NEEEEEEEEEEEEEEEIIIIIIIIIIIIIIIIIINNNNNNNNNN");
+					
+					Xmleiste = (int) ((Kartenelemente.get(i).getX()) * verhaeltnissUebersichtDruck);
+					Ymleiste = (int) ((Kartenelemente.get(i).getY()) * verhaeltnissUebersichtDruck);
 				}
 			}
+				
+			
+			
+			
+			
+			Nordpfeil nordpeil = new Nordpfeil();
+			nordpeil.setVisible(true);
+			nordpeil.setBounds(XNordpfeil, YNordpfeil, 300, 300);
+			KartenblattDruck.add(nordpeil);
+			
+			
+			Massstabsleiste Ml= new Massstabsleiste();
+			Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,widthFormat);
+			nordpeil.setVisible(true);
+			Ml.setBounds((Xmleiste), Ymleiste, ((KarteHoeheDruck /10)*7), (KarteHoeheDruck /10));
+			KartenblattDruck.add(Ml);
+			
+			
+			
 			KartenblattDruck.add(KartenbildDruck);
 			KartenbildDruck.setVisible(true);
+			
+			
+			
+			
 			KartenblattDruck.add(Koordgitter);
+			KartenblattDruck.setLayer(nordpfeil, 400);
 			KartenblattDruck.setLayer(Koordgitter,400);
 			KartenblattDruck.setLayer(Koordgitter,400);
 			KartenblattDruck.setLayer(KartenbildDruck,0);

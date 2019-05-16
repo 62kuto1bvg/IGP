@@ -92,7 +92,7 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 			        // Erstelle ein BufferedImage 
 			        int w =Druckausgabe.KartenblattDruck.getWidth(); 
 			        int h = Druckausgabe.KartenblattDruck.getHeight(); 
-			        float quality = 1f; 
+			       // float quality = 1f; 
 			        BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB); 
 			        Graphics2D g2d = bi.createGraphics(); 
 
