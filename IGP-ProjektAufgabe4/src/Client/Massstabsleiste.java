@@ -39,6 +39,7 @@ public class Massstabsleiste extends JPanel {
 		double Verhal = DeltaX / Math.sqrt(2);
 		double Abzug = (DeltaX - Verhal) / 2;
 
+		
 		this.minNorth = minNorth + Abzug;
 		this.maxNorth = maxNorth - Abzug;
 

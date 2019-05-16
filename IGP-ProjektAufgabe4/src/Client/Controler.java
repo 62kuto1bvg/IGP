@@ -8,5 +8,6 @@ public class Controler {
     	// Fenster öffnen:
     	CreateWindow window = new CreateWindow();
     	window.openWindow();
+    	
     }
 }

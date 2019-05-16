@@ -37,6 +37,7 @@ public class LoadMap{
 			maxx = maxEast;
 			maxy = maxNorth;			
 		}
+		
 		else {
 			minx = minNorth;
 			miny = minEast;

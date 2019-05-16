@@ -40,6 +40,7 @@ public class Nordpfeil extends JPanel {
 		//g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 	
 		
+		
 		g2d.fillPolygon(x1Points, y1Points, 3);
 
 		

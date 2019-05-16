@@ -21,6 +21,8 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 	int endeX = 0;
 	int endeY = 0;
 
+	
+	
 	public auswaehlbarerBereich(Rectangle border) {
 
 		this.setOpaque(false);

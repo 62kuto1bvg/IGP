@@ -23,8 +23,10 @@ public class Verschieben implements MouseListener,MouseMotionListener {
 			
 			Client.Druckuebersicht.Kartenblatt.repaint();
 			
+			
 		}
 	}
+	
 	
 	
 	@Override

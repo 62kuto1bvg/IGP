@@ -88,10 +88,11 @@ public class CreateWindow {
      // Navigations-Buttons:    
      BasicArrowButton buttonOst = new BasicArrowButton(BasicArrowButton.EAST);	// Pfeil-Butto erstellen (hier Pfeil nach rechts)
      buttonOst.setActionCommand("Nach Osten");									// Kommando setzen
-     buttonOst.setBounds(1000, 350, 30, 100);  									// Button dimensionieren und positionieren
+     buttonOst.setBounds(1000, 350, 30, 100);  									// B utton dimensionieren und positionieren
      buttonOst.setBackground(Color.LIGHT_GRAY);									// Farbe
      buttonOst.setVisible(false);												// Button unsichtbar setzen
      frame.add(buttonOst);														// dem Panel hinzufügen    
+     
      
      BasicArrowButton buttonWest = new BasicArrowButton(BasicArrowButton.WEST);
      buttonWest.setActionCommand("Nach Westen");
@@ -102,6 +103,8 @@ public class CreateWindow {
      
      BasicArrowButton buttonNord = new BasicArrowButton(BasicArrowButton.NORTH);
      buttonNord.setActionCommand("Nach Norden");
+     
+     
      buttonNord.setBounds(650, 23, 100, 30);
      buttonNord.setBackground(Color.LIGHT_GRAY);
      buttonNord.setVisible(false);

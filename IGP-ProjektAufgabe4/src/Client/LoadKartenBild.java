@@ -34,6 +34,7 @@ public class LoadKartenBild {
 		this.DeltaX = maxEast - minEast;
 		this.DeltaY = maxNorth - minNorth;
 
+		
 		double Verhal = DeltaX / Math.sqrt(2);
 		double Abzug = (DeltaX - Verhal) / 2;
 
