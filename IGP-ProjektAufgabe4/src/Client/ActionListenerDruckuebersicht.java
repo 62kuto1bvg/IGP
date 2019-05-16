@@ -53,6 +53,18 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 			if (actionCommand.equals("Speicher")) {
 			
 			{
+				
+				
+
+				Druckausgabe druckausgabe =new Druckausgabe();
+				
+				try {
+					druckausgabe.erstelleDruckausgabe(Druckuebersicht.crs, Druckuebersicht.minEast,Druckuebersicht.minNorth, Druckuebersicht.maxEast, Druckuebersicht.maxNorth, Druckuebersicht.verhaeltnis,Druckuebersicht.nordpfeil);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				JFileChooser chooser2 = new JFileChooser();
 				try {chooser2.setCurrentDirectory(new File(".").getCanonicalFile());
 
@@ -72,27 +84,27 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 
 				
 					else {
-						fileName = fileName + ".jpg";
+						fileName = fileName + ".png";
 					}
 					System.out.println(fileName);
 				
 				
 			        // Erstelle ein BufferedImage 
-			        int w =Druckuebersicht. Kartenblatt.getWidth(); 
-			        int h = Druckuebersicht. Kartenblatt.getHeight(); 
+			        int w =Druckausgabe.KartenblattDruck.getWidth(); 
+			        int h = Druckausgabe.KartenblattDruck.getHeight(); 
 			        float quality = 1f; 
 			        BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB); 
 			        Graphics2D g2d = bi.createGraphics(); 
 
 			        // Male das JPanel in das BufferedImage 
 			     
-			        Druckuebersicht.Kartenblatt.paint(g2d); 
+			        Druckausgabe.KartenblattDruck.paint(g2d); 
 
-			        Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName("jpeg"); 
+			        Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName("png"); 
 			        ImageWriter writer = (ImageWriter) iter.next(); 
 			        ImageWriteParam iwp = writer.getDefaultWriteParam(); 
-			        iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT); 
-			        iwp.setCompressionQuality(quality); 
+//			        iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT); 
+//			        iwp.setCompressionQuality(quality); 
 
 			        try { 
 			            FileImageOutputStream fos = new FileImageOutputStream(new File(fileName)); 

@@ -12,13 +12,27 @@ public class Nordpfeil extends JPanel {
 	/**
 	* 
 	*/
+	
 	private static final long serialVersionUID = 1L;
+	public static double x=1.00;
+	
+	
+	
+	
+
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+
+
 
 	public void paintComponent(Graphics g) {
-
+//x ist zur veränderung der breite des Nordpfeiles
 		//Polygon für linkes Dreieck
-		int[] x1Points = new int[] { 50, 0, 50 };
-		int[] y1Points = new int[] { 50, 100, 0 };
+		int[] x1Points = new int[] { (int) (x*50),(int) (x*0), (int) (x*50) };
+		int[] y1Points = new int[] { (int) (x*50), (int) (x*100), (int) (x*0) };
 
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Client.Druckuebersicht.ausgewaehlteFarbeNordstern);
@@ -30,13 +44,13 @@ public class Nordpfeil extends JPanel {
 
 		
 		//Polygon für rechtes Dreieck
-		int[] x2Points = new int[] { 50, 100, 50 };
-		int[] y2Points = new int[] { 50, 100, 0 };
+		int[] x2Points = new int[] { (int) (x*50), (int) (x*100),(int) (x*50) };
+		int[] y2Points = new int[] { (int) (x*50), (int) (x*100), (int) (x*0) };
 
 		
 		
 		g2d.drawPolygon(x2Points, y2Points, 3);
-		g2d.drawString("NORD", 35, 110);
+		g2d.drawString("NORD",(int)(x*35),(int)(x*110));
 
 	}
 

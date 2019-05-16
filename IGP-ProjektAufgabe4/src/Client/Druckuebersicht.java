@@ -13,24 +13,26 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 public class Druckuebersicht  {
-	double maxEast;
-	double maxNorth;
-	double minEast;
-	double minNorth;
-	double verhaeltnis;
-	String crs;
+	static double maxEast;
+	static double maxNorth;
+	static double minEast;
+	static double minNorth;
+	static double verhaeltnis;
+	static String crs;
 	int X,Y;
 	static Color ausgewaehlteFarbeNordstern;
 	static Color ausgewaehlteFarbeMassstabsleiste;
 	static Color ausgewaehlteFarbeKoordinatengitter;
-	
+	static Nordpfeil nordpfeil = new Nordpfeil();
 	// Bildschirmgröße herrausfinden (für dynamisches Fenster):
 	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	double breite = dim.getWidth();
 	double hoehe = dim.getHeight();
 	int dpi=java.awt.Toolkit.getDefaultToolkit().getScreenResolution(); 
 	static JLayeredPane Kartenblatt = new JLayeredPane();
-	static JLayeredPane KartenblattDruck = new JLayeredPane();
+
+
+
 	public void OeffneÜbersicht(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis)
 			throws IOException {
 
@@ -42,14 +44,12 @@ public class Druckuebersicht  {
 		this.verhaeltnis = verhaeltnis;
 		int width=1000;
 		
-		////////////////////////umwandel in A4Format
-		
-//		double A4inch= 42.0/2.54;
-//		int widthFormat=(int) A4inch*dpi;
-//		System.out.println("width: "+widthFormat);	
+	
 		
 		
-        ///////////////////////////////////////
+		
+		
+		
 		
 		
 		
@@ -60,15 +60,14 @@ public class Druckuebersicht  {
 		int KarteBreite=1000;
 		int KarteHoehe = (int) (KarteBreite / (Math.sqrt(2)));
 
-//		int KarteBreiteDruck=(int)widthFormat;
-//		int KarteHoeheDruck = (int) (KarteBreiteDruck / (Math.sqrt(2)));
-//		
+
 		// Fensterbreite soll nicht den Ganzen Bildschirm bedecken:
 		int FensterBreite = (int) ((breite / 5) * 4);
 		int FensterHoehe = (int) ((hoehe / 5) * 4);
 
 		JFrame FensterDruckuebersicht = new JFrame("Druckübersicht");
 
+		
 		// Größe dynamisch, sollte in der Bildschirmmitte sein [NOCH ZU PRÜFEN]:
 		FensterDruckuebersicht.setBounds((int) (breite / (10)), (int) (hoehe / (10)), FensterBreite, FensterHoehe);
 	
@@ -83,32 +82,21 @@ public class Druckuebersicht  {
 		Kartenblatt.setBackground(Color.WHITE); 
 		Kartenblatt.setLayout(null);
 
-//		KartenblattDruck.setBorder(BorderFactory.createLineBorder(Color.black));
-//		KartenblattDruck.setBounds((int) (KarteBreiteDruck / 20), (int) (KarteHoeheDruck / 20), KarteBreiteDruck, KarteHoeheDruck);
-//		KartenblattDruck.setBackground(Color.WHITE); 
-//		KartenblattDruck.setLayout(null);
 
 		
 		JPanel Kartenbild = new JPanel();
-//
-//		JPanel KartenbildDruck = new JPanel();
+	
 		
 		LoadKartenBild newMap = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
 		JLabel actualMap = (JLabel) newMap.showMap();
 		Kartenbild.add(actualMap);
-		
-//		LoadKartenBild newMapDruck = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,widthFormat);
-//		JLabel actualMapDruck = (JLabel) newMapDruck.showMap();
-//		KartenbildDruck.add(actualMapDruck);
 
-		// Kartenbild.setBorder(BorderFactory.createLineBorder(Color.black));
+
+		Kartenbild.setBorder(BorderFactory.createLineBorder(Color.black));
 		Kartenbild.setBounds(20, 20, KarteBreite - 40, KarteHoehe - 40);
 		Kartenbild.setVisible(true);
+	
 
-//		KartenbildDruck.setBounds(20, 20, KarteBreiteDruck - 40, KarteHoeheDruck - 40);
-//		KartenbildDruck.setVisible(true);
-//		
-		
 		
 		JButton ButtonDrucken = new JButton("Drucken");
 		ButtonDrucken.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 8), 200, 50);
@@ -147,7 +135,7 @@ public class Druckuebersicht  {
 		
 		
 		// Nordpfeil einfügen:
-		Nordpfeil nordpfeil = new Nordpfeil();
+	
 		nordpfeil.setBounds(((int) (KarteBreite / 10) * 8), (int) (KarteHoehe / 10), 300, 300);
 	
 		// Drag and Drop:		
@@ -185,26 +173,52 @@ public class Druckuebersicht  {
 		Kartenblatt.setLayer(nordpfeil, 400);
 		Kartenblatt.setLayer(Ml, 400);
 		
-	FensterDruckuebersicht.add(Kartenblatt);
+	    FensterDruckuebersicht.add(Kartenblatt);
+
 		FensterDruckuebersicht.setVisible(true);
-//		
-//		Koordgitter.setWidth(widthFormat);
-//		Ml.setWidth(widthFormat);
-//		
-//		KartenblattDruck.add(Koordgitter);
-//		KartenblattDruck.add(Ml);
-//		KartenblattDruck.add(nordpfeil);
-//		KartenblattDruck.add(Kartenbild);
-//		
-//		
-//		
-//		KartenblattDruck.setLayer(Koordgitter,400);
-//		KartenblattDruck.setLayer(nordpfeil, 400);
-//		KartenblattDruck.setLayer(nordpfeil, 400);
-//		KartenblattDruck.setLayer(Ml, 400);
-		// Kartenblatt.add(nordpfeil);
 		
 		
+		
+	}
+
+	public double getMaxEast() {
+		return maxEast;
+	}
+
+	public void setMaxEast(double maxEast) {
+		this.maxEast = maxEast;
+	}
+
+	public double getMaxNorth() {
+		return maxNorth;
+	}
+
+	public void setMaxNorth(double maxNorth) {
+		this.maxNorth = maxNorth;
+	}
+
+	public double getMinEast() {
+		return minEast;
+	}
+
+	public void setMinEast(double minEast) {
+		this.minEast = minEast;
+	}
+
+	public double getMinNorth() {
+		return minNorth;
+	}
+
+	public void setMinNorth(double minNorth) {
+		this.minNorth = minNorth;
+	}
+
+	public Nordpfeil getNordpfeil() {
+		return nordpfeil;
+	}
+
+	public void setNordpfeil(Nordpfeil nordpfeil) {
+		this.nordpfeil = nordpfeil;
 	}
 
 	public static void paint(Graphics2D g2d) {

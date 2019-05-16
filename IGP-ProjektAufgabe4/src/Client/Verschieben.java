@@ -4,21 +4,42 @@ import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
+import java.util.ArrayList;
 
 
 public class Verschieben implements MouseListener,MouseMotionListener {
 
-	private int X,Y;
+	
+
+  static   ArrayList<Component>Kartenelemente = new ArrayList<>();
+	
+    private int X,Y;
+    
 	public Verschieben(Component... pns) {
 		for (Component panel : pns) {
 			panel.addMouseListener(this);
 			panel.addMouseMotionListener(this);
+			Kartenelemente.add(panel);
 			
 			Client.Druckuebersicht.Kartenblatt.repaint();
+			
 		}
 	}
 	
+	
+	@Override
+	public String toString() {
+		return "Verschieben [X=" + X + ", Y=" + Y + "]";
+	}
+
+
+	public ArrayList<Component> getKartenelemente() {
+		return Kartenelemente;
+	}
+
+	public void setKartenelemente(ArrayList<Component> kartenelemente) {
+		Kartenelemente = kartenelemente;
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
