@@ -21,10 +21,11 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 	int endeX = 0;
 	int endeY = 0;
 
-	
-	
+	int mitteX=0;
+	int mitteY=0;
+		
 	public auswaehlbarerBereich(Rectangle border) {
-
+if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 		this.setOpaque(false);
 
 		this.setBounds(border);
@@ -33,9 +34,9 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 		this.addMouseMotionListener(this);
 
 	}
-
+	}
 	public void paint(Graphics g) {
-
+		if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.setColor(Color.BLACK);
@@ -57,7 +58,25 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 		g2.drawLine(endeX, endeY, endeX, startY);
 	
 		
+		}
+		
+		if(ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
+		Graphics2D g2 = (Graphics2D) g;
 
+		g2.setColor(Color.BLACK);
+		
+		
+		g2.drawLine(mitteX, mitteY, mitteX+50, mitteY+50);
+//		g2.drawLine(startX, startY, startX, endeY);
+//		g2.drawLine(startX, endeY, endeX, endeY);
+//		g2.drawLine(endeX, endeY, endeX, startY);
+	
+		
+		}
+		
+		
+		
+		
 	}
 
 	@Override
@@ -126,7 +145,7 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 		
 
 			CreateWindow.loadMap.doClick();
-		} else {
+		} else if(ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
 			
 
 			
@@ -190,7 +209,10 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
+		mitteY=e.getY();
+		mitteX=e.getX();
 
+		this.repaint();
 //	int eX=e.getX();
 //		int eY=e.getY();
 //		System.out.println(eX);

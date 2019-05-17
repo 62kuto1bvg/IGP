@@ -50,14 +50,19 @@ public class CreateWindow {
      	frame.add(tfCRS);
      
      // Anzeige für die Bounding Box Koordinaten:
+  
+    
      JTextField bBoxX1Feld = new JTextField();
      JTextField bBoxY1Feld = new JTextField();
      JTextField bBoxX2Feld = new JTextField();
      JTextField bBoxY2Feld = new JTextField();
+     JTextField Massstab = new JTextField();
+     Massstab.setBounds(1150, 300, 150, 40);
      bBoxX1Feld.setBounds(30, 90, 100, 20);
      bBoxY1Feld.setBounds(30, 110, 100, 20);
      bBoxX2Feld.setBounds(140, 90, 100, 20);
      bBoxY2Feld.setBounds(140, 110, 100, 20);
+     Massstab.setActionCommand("Massstabszahl");
      bBoxX1Feld.setActionCommand("BBox Xmin geändert");
      bBoxY1Feld.setActionCommand("BBox Ymin geändert");
      bBoxX2Feld.setActionCommand("BBox Xmax geändert");
@@ -66,10 +71,12 @@ public class CreateWindow {
      bBoxY1Feld.setVisible(false);
      bBoxX2Feld.setVisible(false);
      bBoxY2Feld.setVisible(false);
+     Massstab.setVisible(false);
      frame.add(bBoxX1Feld);
      frame.add(bBoxY1Feld);
      frame.add(bBoxX2Feld);
      frame.add(bBoxY2Feld);
+     frame.add(Massstab);
      	JLabel infoBBOXaenderung = new JLabel();
      	infoBBOXaenderung.setText("<html><body>Beachte: Alle Änderungen der BBox-Koordinaten müssen mit Enter bestätigt werden. Anschließend muss die Karte neu geladen werden</body></html>");
      	infoBBOXaenderung.setBounds(30, 130, 300, 60);
@@ -143,7 +150,7 @@ public class CreateWindow {
      String comboBoxListe[] = {"DIN-A4","DIN-A3","DIN-A2","DIN-A1","DIN-A0"};
      JComboBox<String> AuswahlFormat = new JComboBox<String>(comboBoxListe);
      AuswahlFormat.setVisible(false);
-     AuswahlFormat.setBounds(1150, 200, 150, 40);
+     AuswahlFormat.setBounds(1150, 100, 150, 40);
      AuswahlFormat.setBackground(Color.LIGHT_GRAY);
      AuswahlFormat.setActionCommand("AuswaehlenDINFormat");
      frame.add(AuswahlFormat);
@@ -158,7 +165,12 @@ public class CreateWindow {
      frame.add(PrintToPDF);
      
      
- 
+     JButton MassstabOK = new JButton("Massstab bestaetigen");
+     MassstabOK.setBounds(1300, 300, 200, 40);
+     MassstabOK.setActionCommand("MassstabEingabe");
+     MassstabOK.setBackground(Color.LIGHT_GRAY);
+     MassstabOK.setVisible(false);
+     frame.add(MassstabOK);
           
 //------------------------------------------------    
 // Fenster öffnen:
@@ -166,7 +178,7 @@ public class CreateWindow {
    
 //---------------------------------------------------ActionListener------------------------------------------------------------------------------------------------------------------------------------------------------
    	 //Listener anlegen:        
-     ActionListenerMap mapActionListener = new ActionListenerMap(panelMap, frame, buttonOst, buttonWest, buttonNord, buttonSued, zoomIn, zoomOut, PrintToPDF, comboBoxCRS,BereichAuswaehlen, bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld, infoBBOXaenderung,AuswahlFormat);
+     ActionListenerMap mapActionListener = new ActionListenerMap(panelMap, frame, buttonOst, buttonWest, buttonNord, buttonSued, zoomIn, zoomOut, PrintToPDF, comboBoxCRS,BereichAuswaehlen, bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld, infoBBOXaenderung,AuswahlFormat,MassstabOK,Massstab);
      
      //Registrierung aller Objekte, die "abgehört" werden sollen:
     
@@ -184,7 +196,9 @@ public class CreateWindow {
      bBoxY1Feld.addActionListener(mapActionListener);
      bBoxX2Feld.addActionListener(mapActionListener);
      bBoxY2Feld.addActionListener(mapActionListener);
+     Massstab.addActionListener(mapActionListener);
      AuswahlFormat.addActionListener(mapActionListener);
+     MassstabOK.addActionListener(mapActionListener);
      
 //-------------------------------------------------------------------------------------------------------------------  
 	}
