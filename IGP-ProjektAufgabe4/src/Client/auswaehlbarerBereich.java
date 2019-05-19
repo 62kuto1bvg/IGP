@@ -81,7 +81,69 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if(ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
+			
+		mitteY=e.getY();
+		mitteX=e.getX();
 
+		Rectangle ab = getBounds();
+		int Hoehe = ab.height;
+		int breite = ab.width;
+		double MaxNorth = ActionListenerMap.getMaxNorth();
+		double MaxEast = ActionListenerMap.getMaxEast();
+		double MinNorth = ActionListenerMap.getMinNorth();
+		double MinEast = ActionListenerMap.getMinEast();
+
+		
+		
+		double deltaY = ((MaxNorth - MinNorth) * (Hoehe - mitteY)) / Hoehe;
+	 double Yausgewählt=(ActionListenerMap.minNorth + deltaY);
+		double deltaX = ((mitteX * (MaxEast - MinEast)) / breite);
+		double Xausgewählt=(ActionListenerMap.minEast + deltaX);
+		
+		
+		////////////////////Für den Auswählbarebereich der Massstabsgrösse wird die Papierbreite Benötigt
+		
+		double breitenDinFormate[]={29.7,42.0,59.4,84.1,118,9};
+		
+		int index=ActionListenerMap.AuswahlFormatIndex;
+		double DinFormatLaenge = breitenDinFormate[index];
+		double laengeEcht=(DinFormatLaenge*ActionListenerMap.Massstabszahl)/100;
+		
+		
+		System.out.println("DinFormatLaenge"+DinFormatLaenge);
+		System.out.println("laengeEcht"+laengeEcht);
+		System.out.println("laengeEcht"+laengeEcht);
+		
+		//Die Breite des bildes ist somit berechnet. was jetzt fehlt ist die geomtrische umrechnung der Koordinaten
+		//Dies erfolgt über bogenberechnungen
+		
+		int erdradius = 6371000;
+		double alpha=deltaY;
+		// Umkreis auf Breitengrad
+
+		double radiusUmkreis = Math.cos(alpha * ((2 * Math.PI) / 360)) * erdradius;
+
+		double beta=(laengeEcht*180)/(radiusUmkreis*Math.PI);	
+		//Umrechnen in neue BBoxkoordinaten
+		double auswahlminNorth=Xausgewählt-(beta/2);
+		double auswahlmaxNorth=Xausgewählt+(beta/2);
+		
+		double auswahlminEast=Yausgewählt-((beta/2)/Math.sqrt(2));
+		double auswahlmaxEast=Yausgewählt+((beta/2)/Math.sqrt(2));
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		this.repaint();
+		
+		
+}
 	}
 
 	@Override
@@ -105,6 +167,11 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 		double MinNorth = ActionListenerMap.getMinNorth();
 		double MinEast = ActionListenerMap.getMinEast();
 
+		
+		
+		
+		
+		
 		
 /////////////um sicherzugehen, das auch mit einem ansichtskästchen gearbeitet werden , welches falscherum aufgezogen ist, muss dieses überprüft werden///////
 		
@@ -209,13 +276,15 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+		if(ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
+		
 		mitteY=e.getY();
 		mitteX=e.getX();
 
 		this.repaint();
-//	int eX=e.getX();
-//		int eY=e.getY();
-//		System.out.println(eX);
-//		System.out.println(eY);
+		
+		
+}
 	}
 }

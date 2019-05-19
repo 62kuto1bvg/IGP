@@ -27,7 +27,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 	static double maxNorth;
 	static double verhaeltnis;
 
-	static String auswaehlbarerBereichStatus = "Navigation";
+	 static String auswaehlbarerBereichStatus = "Navigation";
 
 	static JPanel panelMap;
 	JFrame frame;
@@ -43,8 +43,8 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 	ArrayList<String> exportListe = new ArrayList<String>(); // Anlegen einer Exportliste (wird später "gefüttert" und
 																// ausgegeben)
 	static String exportFormat;
-	static String masstabstext;
-	int Massstabszahl = 0;
+	String masstabstext;
+	static int Massstabszahl = 0;
 
 	// wird im ActionListener initialisiert und später benötigt für das schreiben
 	// der Ausgabedatei
