@@ -24,6 +24,7 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 	int mitteX=0;
 	int mitteY=0;
 		
+	double breiteansichtsfenster=0;
 	public auswaehlbarerBereich(Rectangle border) {
 if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 		this.setOpaque(false);
@@ -66,11 +67,13 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 		g2.setColor(Color.BLACK);
 		
 		
-		g2.drawLine(mitteX, mitteY, mitteX+50, mitteY+50);
-//		g2.drawLine(startX, startY, startX, endeY);
-//		g2.drawLine(startX, endeY, endeX, endeY);
-//		g2.drawLine(endeX, endeY, endeX, startY);
-	
+		g2.drawLine((int)(mitteX-(breiteansichtsfenster/2)),(int)( mitteY-(breiteansichtsfenster/2)/Math.sqrt(2)), (int)(mitteX-(breiteansichtsfenster/2)),(int)( mitteY+(breiteansichtsfenster/2)/Math.sqrt(2)));
+		g2.drawLine((int)(mitteX+(breiteansichtsfenster/2)),(int)( mitteY-(breiteansichtsfenster/2)/Math.sqrt(2)), (int)(mitteX+(breiteansichtsfenster/2)),(int)( mitteY+(breiteansichtsfenster/2)/Math.sqrt(2)));
+
+		g2.drawLine((int)(mitteX-(breiteansichtsfenster/2)),(int)( mitteY+(breiteansichtsfenster/2)/Math.sqrt(2)), (int)(mitteX+(breiteansichtsfenster/2)),(int)( mitteY+(breiteansichtsfenster/2)/Math.sqrt(2)));
+		
+		g2.drawLine((int)(mitteX-(breiteansichtsfenster/2)),(int)( mitteY-(breiteansichtsfenster/2)/Math.sqrt(2)), (int)(mitteX+(breiteansichtsfenster/2)),(int)( mitteY-(breiteansichtsfenster/2)/Math.sqrt(2)));
+
 		
 		}
 		
@@ -97,7 +100,7 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 		
 		
 		double deltaY = ((MaxNorth - MinNorth) * (Hoehe - mitteY)) / Hoehe;
-	 double Yausgewählt=(ActionListenerMap.minNorth + deltaY);
+	    double Yausgewählt=(ActionListenerMap.minNorth + deltaY);
 		double deltaX = ((mitteX * (MaxEast - MinEast)) / breite);
 		double Xausgewählt=(ActionListenerMap.minEast + deltaX);
 		
@@ -109,17 +112,13 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 		int index=ActionListenerMap.AuswahlFormatIndex;
 		double DinFormatLaenge = breitenDinFormate[index];
 		double laengeEcht=(DinFormatLaenge*ActionListenerMap.Massstabszahl)/100;
-		
-		
-		System.out.println("DinFormatLaenge"+DinFormatLaenge);
-		System.out.println("laengeEcht"+laengeEcht);
-		System.out.println("laengeEcht"+laengeEcht);
+
 		
 		//Die Breite des bildes ist somit berechnet. was jetzt fehlt ist die geomtrische umrechnung der Koordinaten
 		//Dies erfolgt über bogenberechnungen
 		
 		int erdradius = 6371000;
-		double alpha=deltaY;
+		double alpha=Yausgewählt;
 		// Umkreis auf Breitengrad
 
 		double radiusUmkreis = Math.cos(alpha * ((2 * Math.PI) / 360)) * erdradius;
@@ -132,11 +131,25 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 		double auswahlminEast=Yausgewählt-((beta/2)/Math.sqrt(2));
 		double auswahlmaxEast=Yausgewählt+((beta/2)/Math.sqrt(2));
 		
+		///zur Darstellung des Ansichtsfensters des formates wird jetzt allerdings die "echte breite benötigt"
+		
+		double betagesamt = ((ActionListenerMap.maxEast - ActionListenerMap.minEast));
+		
+		int Bogenlaengegesamt = (int) ((radiusUmkreis * (Math.PI) * betagesamt) / 180);
 		
 		
+		double FaktormassstabAnsicht=(Bogenlaengegesamt/laengeEcht);
 		
+		breiteansichtsfenster=(breite/FaktormassstabAnsicht);
 		
+		System.out.println("breiteansichtsfenster "+breiteansichtsfenster);
+		System.out.println("FaktormassstabAnsicht "+FaktormassstabAnsicht);
+		System.out.println("Bogenlaengegesamt "+Bogenlaengegesamt);
 		
+		System.out.println("radiusUmkreis "+radiusUmkreis);
+		System.out.println("betagesamt "+betagesamt);
+		
+	
 		
 		
 		

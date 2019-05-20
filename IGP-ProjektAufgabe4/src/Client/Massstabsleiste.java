@@ -74,6 +74,12 @@ public class Massstabsleiste extends JPanel {
 		double gekurzteverkleinerteBogenlaenge = Bogenlaenge / (Math.pow(10, (Ziffernanzahl - 1)));
 		double gekurzteverkleinerteBogenlaengerundet = Math.round(gekurzteverkleinerteBogenlaenge);
 
+		
+		System.out.println("TEEESTBogenlaengegesamt "+Bogenlaengegesamt);
+		
+		
+		
+		
 		// Anschliessend wieder multipliziert, so das die Dimension der Strecke wieder
 		// ähnlich ist wie der auf der Karte
 		// So wurde zumbeispiel aus 22430 die Zahl 20000 erzeugt. Dies war notwendig, um
