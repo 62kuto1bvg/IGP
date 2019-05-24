@@ -24,10 +24,12 @@ public class Druckuebersicht  {
 	static Color ausgewaehlteFarbeMassstabsleiste;
 	static Color ausgewaehlteFarbeKoordinatengitter;
 	static Nordpfeil nordpfeil = new Nordpfeil();
+
 	// Bildschirmgröße herrausfinden (für dynamisches Fenster):
 	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	double breite = dim.getWidth();
 	double hoehe = dim.getHeight();
+	//dpi ist die Pixel pro zoll
 	int dpi=java.awt.Toolkit.getDefaultToolkit().getScreenResolution(); 
 	static JLayeredPane Kartenblatt = new JLayeredPane();
 
@@ -47,16 +49,8 @@ public class Druckuebersicht  {
 	
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		// Hier kommt das Kartenformat, muss noch übergeben werden
-		// Die Wurzel, weil das das Seitenverältnis von Din A ist,
-		// bei Hochkanten plänen muss dies getauscht werden
+		// Die Wurzel(2), weil das das Seitenverältnis von Din A ist,
+	
 		int KarteBreite=1000;
 		int KarteHoehe = (int) (KarteBreite / (Math.sqrt(2)));
 
@@ -83,10 +77,10 @@ public class Druckuebersicht  {
 		Kartenblatt.setLayout(null);
 
 
-		
+		//Kartenbild ist das Bild, welches vom WmsServer gedownloadet wird
 		JPanel Kartenbild = new JPanel();
 	
-		
+		//Bild wird in ein JLabel gesteckt
 		LoadKartenBild newMap = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
 		JLabel actualMap = (JLabel) newMap.showMap();
 		Kartenbild.add(actualMap);
@@ -135,7 +129,6 @@ public class Druckuebersicht  {
 		
 		
 		// Nordpfeil einfügen:
-	
 		nordpfeil.setBounds(((int) (KarteBreite / 10) * 8), (int) (KarteHoehe / 10), 300, 300);
 	
 		// Drag and Drop:		

@@ -153,7 +153,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 
 			// Navigations- und DRUCKEN-Buttons sichtbar setzen:
 			Massstab.setVisible(true);
-			MassstabOK.setVisible(true);
+		//	MassstabOK.setVisible(true);
 			buttonOst.setVisible(true);
 			buttonWest.setVisible(true);
 			buttonNord.setVisible(true);

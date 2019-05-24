@@ -1,6 +1,8 @@
 package Client;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,8 +21,15 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.FileImageOutputStream;
+import javax.swing.BorderFactory;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
 
 public class ActionListenerDruckuebersicht implements ActionListener {
 
@@ -53,10 +62,18 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 			
 			if (actionCommand.equals("Speicher")) {
 			
-			{
-				
-				
+			
 
+					JFrame BitteWarten = new JFrame("Bitte warten");
+
+					BitteWarten.setBounds(200, 200, 400,100);
+					JTextField Warntext = new JTextField("Bitte warten");
+					Warntext.setText("Karte wird Heruntergeladen");
+					Warntext.setBounds(50, 250, 400, 400);
+					BitteWarten.add(Warntext);
+					Warntext.setVisible(true);
+					BitteWarten.setVisible(true);
+				
 				Druckausgabe druckausgabe =new Druckausgabe();
 				
 				try {
@@ -65,6 +82,7 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				BitteWarten.setVisible(false);
 				
 				JFileChooser chooser2 = new JFileChooser();
 				try {chooser2.setCurrentDirectory(new File(".").getCanonicalFile());
@@ -120,30 +138,36 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 
 				}
 
-			}
-		
+			
 
-		if (actionCommand.equals("auswählen Farbe Nordstern")) {
-			{
-				JColorChooser Farben = new JColorChooser();			
-				Client.Druckuebersicht.ausgewaehlteFarbeNordstern = Farben.showDialog(null, "Waehlen Sie die Stiftfarbe", Color.BLACK);
-				Client.Druckuebersicht.Kartenblatt.repaint();
-			}
+	if(actionCommand.equals("auswählen Farbe Nordstern"))
+
+	{
+		{
+			JColorChooser Farben = new JColorChooser();
+			Client.Druckuebersicht.ausgewaehlteFarbeNordstern = Farben.showDialog(null, "Waehlen Sie die Stiftfarbe",
+					Color.BLACK);
+			Client.Druckuebersicht.Kartenblatt.repaint();
 		}
-		
-		if (actionCommand.equals("auswählen Farbe Massstab")) {
-			{
-				JColorChooser Farben = new JColorChooser();				
-				Client.Druckuebersicht.ausgewaehlteFarbeMassstabsleiste = Farben.showDialog(null, "Waehlen Sie die Stiftfarbe", Color.BLACK);
-				Client.Druckuebersicht.Kartenblatt.repaint();
-			}
-		}
-		
-				if (actionCommand.equals("auswählen Farbe Gitter")) {
-			{
-				JColorChooser Farben = new JColorChooser();				
-				Client.Druckuebersicht.ausgewaehlteFarbeKoordinatengitter = Farben.showDialog(null, "Waehlen Sie die Stiftfarbe", Color.BLACK);
-				Client.Druckuebersicht.Kartenblatt.repaint();
 	}
-			}
+
+	if(actionCommand.equals("auswählen Farbe Massstab"))
+	{
+		{
+			JColorChooser Farben = new JColorChooser();
+			Client.Druckuebersicht.ausgewaehlteFarbeMassstabsleiste = Farben.showDialog(null,
+					"Waehlen Sie die Stiftfarbe", Color.BLACK);
+			Client.Druckuebersicht.Kartenblatt.repaint();
+		}
+	}
+
+	if(actionCommand.equals("auswählen Farbe Gitter"))
+	{
+		{
+			JColorChooser Farben = new JColorChooser();
+			Client.Druckuebersicht.ausgewaehlteFarbeKoordinatengitter = Farben.showDialog(null,
+					"Waehlen Sie die Stiftfarbe", Color.BLACK);
+			Client.Druckuebersicht.Kartenblatt.repaint();
+		}
+	}
 }}

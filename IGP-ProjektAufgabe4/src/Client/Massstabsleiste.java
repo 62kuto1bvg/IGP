@@ -35,7 +35,6 @@ public class Massstabsleiste extends JPanel {
 
 		DeltaX = maxEast - minEast;
 		DeltaY = maxNorth - minNorth;
-
 		double Verhal = DeltaX / Math.sqrt(2);
 		double Abzug = (DeltaX - Verhal) / 2;
 
@@ -64,20 +63,18 @@ public class Massstabsleiste extends JPanel {
 
 		// es muss eine gerade zahl erzeugt werden, welche im groben mit der Strecke
 		// übereinstimmt. Dies ist notwendig, um eine gerade ZaHl auf die
-		// MassstABSLEISTE ZU BRINGEN
+		// Massstabsleiste zu bringen
 
 		// es wird die Anzahl der Ziffer benötigt
 		String StreckeBogen = String.valueOf(Bogenlaenge);
 		int Ziffernanzahl = StreckeBogen.length();
+		
+		
 		// Die strecke wird geteilt und dann gerundet
 
 		double gekurzteverkleinerteBogenlaenge = Bogenlaenge / (Math.pow(10, (Ziffernanzahl - 1)));
 		double gekurzteverkleinerteBogenlaengerundet = Math.round(gekurzteverkleinerteBogenlaenge);
 
-		
-		System.out.println("TEEESTBogenlaengegesamt "+Bogenlaengegesamt);
-		
-		
 		
 		
 		// Anschliessend wieder multipliziert, so das die Dimension der Strecke wieder

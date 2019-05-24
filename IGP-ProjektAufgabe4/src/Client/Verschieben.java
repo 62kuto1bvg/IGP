@@ -9,8 +9,7 @@ import java.util.ArrayList;
 
 public class Verschieben implements MouseListener,MouseMotionListener {
 
-	
-
+//DieseKlasse ermöglicht das verschieben der Element in LayeredPanel
   static   ArrayList<Component>Kartenelemente = new ArrayList<>();
 	
     private int X,Y;
