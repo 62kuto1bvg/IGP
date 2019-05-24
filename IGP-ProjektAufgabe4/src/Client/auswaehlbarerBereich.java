@@ -21,148 +21,163 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 	int endeX = 0;
 	int endeY = 0;
 
-	int mitteX=0;
-	int mitteY=0;
-		
-	double breiteansichtsfenster=0;
+	int mitteX = 0;
+	int mitteY = 0;
+
+	double breiteansichtsfenster = 0;
+
 	public auswaehlbarerBereich(Rectangle border) {
-if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
-		this.setOpaque(false);
+		if (!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
+			this.setOpaque(false);
 
-		this.setBounds(border);
-		this.repaint();
-		this.addMouseListener(this);
-		this.addMouseMotionListener(this);
+			this.setBounds(border);
+			this.repaint();
+			this.addMouseListener(this);
+			this.addMouseMotionListener(this);
 
+		}
 	}
-	}
+
 	public void paint(Graphics g) {
-		if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
-		Graphics2D g2 = (Graphics2D) g;
+		if (!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
+			Graphics2D g2 = (Graphics2D) g;
 
-		g2.setColor(Color.BLACK);
-		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation")) {
-			int deltax = startX - endeX;
-			endeY = startY + deltax;
-		} else if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
-			int deltax = startX - endeX;
-			endeY = (int) (startY + (deltax / Math.sqrt(2)));
-			g2.setColor(Color.BLUE);
+			g2.setColor(Color.BLACK);
+			if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation")) {
+				int deltax = startX - endeX;
+				endeY = startY + deltax;
+			} else if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
+				int deltax = startX - endeX;
+				endeY = (int) (startY + (deltax / Math.sqrt(2)));
+				g2.setColor(Color.BLUE);
+
+			}
+
+			g2.drawLine(startX, startY, endeX, startY);
+			g2.drawLine(startX, startY, startX, endeY);
+			g2.drawLine(startX, endeY, endeX, endeY);
+			g2.drawLine(endeX, endeY, endeX, startY);
 
 		}
-		
 
-		
-		g2.drawLine(startX, startY, endeX, startY);
-		g2.drawLine(startX, startY, startX, endeY);
-		g2.drawLine(startX, endeY, endeX, endeY);
-		g2.drawLine(endeX, endeY, endeX, startY);
-	
-		
+		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
+			Graphics2D g2 = (Graphics2D) g;
+
+			g2.setColor(Color.BLACK);
+			g2.drawLine((int) (mitteX - (breiteansichtsfenster / 2)),
+					(int) (mitteY - (breiteansichtsfenster / 2) / Math.sqrt(2)),
+					(int) (mitteX - (breiteansichtsfenster / 2)),
+					(int) (mitteY + (breiteansichtsfenster / 2) / Math.sqrt(2)));
+			g2.drawLine((int) (mitteX + (breiteansichtsfenster / 2)),
+					(int) (mitteY - (breiteansichtsfenster / 2) / Math.sqrt(2)),
+					(int) (mitteX + (breiteansichtsfenster / 2)),
+					(int) (mitteY + (breiteansichtsfenster / 2) / Math.sqrt(2)));
+			g2.drawLine((int) (mitteX - (breiteansichtsfenster / 2)),
+					(int) (mitteY + (breiteansichtsfenster / 2) / Math.sqrt(2)),
+					(int) (mitteX + (breiteansichtsfenster / 2)),
+					(int) (mitteY + (breiteansichtsfenster / 2) / Math.sqrt(2)));
+			g2.drawLine((int) (mitteX - (breiteansichtsfenster / 2)),
+					(int) (mitteY - (breiteansichtsfenster / 2) / Math.sqrt(2)),
+					(int) (mitteX + (breiteansichtsfenster / 2)),
+					(int) (mitteY - (breiteansichtsfenster / 2) / Math.sqrt(2)));
+
 		}
-		
-		if(ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
-		Graphics2D g2 = (Graphics2D) g;
 
-		g2.setColor(Color.BLACK);
-		
-		
-		g2.drawLine((int)(mitteX-(breiteansichtsfenster/2)),(int)( mitteY-(breiteansichtsfenster/2)/Math.sqrt(2)), (int)(mitteX-(breiteansichtsfenster/2)),(int)( mitteY+(breiteansichtsfenster/2)/Math.sqrt(2)));
-		g2.drawLine((int)(mitteX+(breiteansichtsfenster/2)),(int)( mitteY-(breiteansichtsfenster/2)/Math.sqrt(2)), (int)(mitteX+(breiteansichtsfenster/2)),(int)( mitteY+(breiteansichtsfenster/2)/Math.sqrt(2)));
-
-		g2.drawLine((int)(mitteX-(breiteansichtsfenster/2)),(int)( mitteY+(breiteansichtsfenster/2)/Math.sqrt(2)), (int)(mitteX+(breiteansichtsfenster/2)),(int)( mitteY+(breiteansichtsfenster/2)/Math.sqrt(2)));
-		
-		g2.drawLine((int)(mitteX-(breiteansichtsfenster/2)),(int)( mitteY-(breiteansichtsfenster/2)/Math.sqrt(2)), (int)(mitteX+(breiteansichtsfenster/2)),(int)( mitteY-(breiteansichtsfenster/2)/Math.sqrt(2)));
-
-		
-		}
-		
-		
-		
-		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
-			
-		mitteY=e.getY();
-		mitteX=e.getX();
+		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 
-		Rectangle ab = getBounds();
-		int Hoehe = ab.height;
-		int breite = ab.width;
-		double MaxNorth = ActionListenerMap.getMaxNorth();
-		double MaxEast = ActionListenerMap.getMaxEast();
-		double MinNorth = ActionListenerMap.getMinNorth();
-		double MinEast = ActionListenerMap.getMinEast();
+			mitteY = e.getY();
+			mitteX = e.getX();
 
-		
-		
-		double deltaY = ((MaxNorth - MinNorth) * (Hoehe - mitteY)) / Hoehe;
-	    double Yausgew‰hlt=(ActionListenerMap.minNorth + deltaY);
-		double deltaX = ((mitteX * (MaxEast - MinEast)) / breite);
-		double Xausgew‰hlt=(ActionListenerMap.minEast + deltaX);
-		
-		
-		////////////////////F¸r den Ausw‰hlbarebereich der Massstabsgrˆsse wird die Papierbreite Benˆtigt
-		
-		double breitenDinFormate[]={29.7,42.0,59.4,84.1,118,9};
-		
-		int index=ActionListenerMap.AuswahlFormatIndex;
-		double DinFormatLaenge = breitenDinFormate[index];
-		double laengeEcht=(DinFormatLaenge*ActionListenerMap.Massstabszahl)/100;
+			Rectangle ab = getBounds();
+			int Hoehe = ab.height;
+			int breite = ab.width;
+			double MaxNorth = ActionListenerMap.getMaxNorth();
+			double MaxEast = ActionListenerMap.getMaxEast();
+			double MinNorth = ActionListenerMap.getMinNorth();
+			double MinEast = ActionListenerMap.getMinEast();
 
-		
-		//Die Breite des bildes ist somit berechnet. was jetzt fehlt ist die geomtrische umrechnung der Koordinaten
-		//Dies erfolgt ¸ber bogenberechnungen
-		
-		int erdradius = 6371000;
-		double alpha=Yausgew‰hlt;
-		// Umkreis auf Breitengrad
+			double auswahlminNorth;
+			double auswahlmaxNorth;
+			double auswahlminEast;
+			double auswahlmaxEast;
 
-		double radiusUmkreis = Math.cos(alpha * ((2 * Math.PI) / 360)) * erdradius;
+			double deltaY = ((MaxNorth - MinNorth) * (Hoehe - mitteY)) / Hoehe;
+			double Yausgew‰hlt = (ActionListenerMap.minNorth + deltaY);
+			double deltaX = ((mitteX * (MaxEast - MinEast)) / breite);
+			double Xausgew‰hlt = (ActionListenerMap.minEast + deltaX);
 
-		double beta=(laengeEcht*180)/(radiusUmkreis*Math.PI);	
-		//Umrechnen in neue BBoxkoordinaten
-		double auswahlminNorth=Xausgew‰hlt-(beta/2);
-		double auswahlmaxNorth=Xausgew‰hlt+(beta/2);
-		
-		double auswahlminEast=Yausgew‰hlt-((beta/2)/Math.sqrt(2));
-		double auswahlmaxEast=Yausgew‰hlt+((beta/2)/Math.sqrt(2));
-		
-		///zur Darstellung des Ansichtsfensters des formates wird jetzt allerdings die "echte breite benˆtigt"
-		
-		double betagesamt = ((ActionListenerMap.maxEast - ActionListenerMap.minEast));
-		
-		int Bogenlaengegesamt = (int) ((radiusUmkreis * (Math.PI) * betagesamt) / 180);
-		
-		
-		double FaktormassstabAnsicht=(Bogenlaengegesamt/laengeEcht);
-		
-		breiteansichtsfenster=(breite/FaktormassstabAnsicht);
-		
-		System.out.println("breiteansichtsfenster "+breiteansichtsfenster);
-		System.out.println("FaktormassstabAnsicht "+FaktormassstabAnsicht);
-		System.out.println("Bogenlaengegesamt "+Bogenlaengegesamt);
-		
-		System.out.println("radiusUmkreis "+radiusUmkreis);
-		System.out.println("betagesamt "+betagesamt);
-		
-	
-		
-		
-		
-		this.repaint();
-		
-		
-}
+			//////////////////// F¸r den Ausw‰hlbarebereich der Massstabsgrˆsse wird die
+			//////////////////// Papierbreite Benˆtigt
+
+			double breitenDinFormate[] = { 29.7, 42.0, 59.4, 84.1, 118, 9 };
+
+			int index = ActionListenerMap.AuswahlFormatIndex;
+			double DinFormatLaenge = breitenDinFormate[index];
+			double laengeEcht = (DinFormatLaenge * ActionListenerMap.Massstabszahl) / 100;
+
+			// Die Breite des bildes ist somit berechnet. was jetzt fehlt ist die
+			// geomtrische umrechnung der Koordinaten
+			// Dies erfolgt ¸ber bogenberechnungen
+
+			int erdradius = 6371000;
+			double alpha = Yausgew‰hlt;
+			double alphaDelta = MaxNorth - MinNorth;
+
+			// Umkreis auf Breitengrad
+
+			double radiusUmkreis = Math.cos(alpha * ((2 * Math.PI) / 360)) * erdradius;
+
+			double beta = (laengeEcht * 180) / (radiusUmkreis * Math.PI);
+			// Umrechnen in neue BBoxkoordinaten
+
+			/// zur Darstellung des Ansichtsfensters des formates wird jetzt allerdings die
+			/// "echte breite benˆtigt"
+
+			double betagesamt = ((ActionListenerMap.maxEast - ActionListenerMap.minEast));
+
+			int Bogenlaengegesamt = (int) ((radiusUmkreis * (Math.PI) * betagesamt) / 180);
+
+			double FaktormassstabAnsicht = (Bogenlaengegesamt / laengeEcht);
+
+			breiteansichtsfenster = (breite / FaktormassstabAnsicht);
+
+			if (e.getClickCount() == 2) {
+
+				Druckuebersicht druckuebersicht2 = new Druckuebersicht();
+				auswahlminEast = Xausgew‰hlt - (beta / 2);
+				auswahlmaxEast = Xausgew‰hlt + (beta / 2);
+
+				auswahlminNorth = Yausgew‰hlt - (((breiteansichtsfenster / Math.sqrt(2)) / 2) * alphaDelta) / Hoehe;
+
+				auswahlmaxNorth = Yausgew‰hlt + (((breiteansichtsfenster / Math.sqrt(2)) / 2) * alphaDelta) / Hoehe;
+
+				ActionListenerMap.setMinNorth((auswahlminNorth));
+				ActionListenerMap.setMaxNorth((auswahlmaxNorth));
+				ActionListenerMap.setMinEast((auswahlminEast));
+				ActionListenerMap.setMaxEast((auswahlmaxEast));
+				try {
+					druckuebersicht2.Oeffne‹bersicht(ActionListenerMap.crs, ActionListenerMap.minEast,
+							ActionListenerMap.minNorth, ActionListenerMap.maxEast, ActionListenerMap.maxNorth,
+							ActionListenerMap.verhaeltnis);
+
+				} catch (IOException en) {
+					// TODO Auto-generated catch block
+					en.printStackTrace();
+				}
+
+			}
+
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-			
+
 		startX = e.getX();
 		startY = e.getY();
 
@@ -180,55 +195,24 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 		double MinNorth = ActionListenerMap.getMinNorth();
 		double MinEast = ActionListenerMap.getMinEast();
 
-		
-		
-		
-		
-		
-		
 /////////////um sicherzugehen, das auch mit einem ansichtsk‰stchen gearbeitet werden , welches falscherum aufgezogen ist, muss dieses ¸berpr¸ft werden///////
-		
-		
-		if ((startX>endeX)) {
-			
-			int TauschStart=startX;
-			startX=startY;
+
+		if ((startX > endeX)) {
+
+			int TauschStart = startX;
+			startX = startY;
 			startY = TauschStart;
-		
-			int TauschEnde=endeX;
-			endeX=endeY;
+
+			int TauschEnde = endeX;
+			endeX = endeY;
 			endeY = TauschEnde;
-		
-			
+
 		}
-	
-		
-		
-		
+
 ////////////////////////////////////////////	
-		
+
 		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation")) {
-			
-			
-			
-		double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
-		ActionListenerMap.setMaxNorth((ActionListenerMap.maxNorth - deltaY));
 
-		double deltaY2 = ((MaxNorth - MinNorth) * (Hoehe - startY)) / Hoehe;
-		ActionListenerMap.setMinNorth((ActionListenerMap.minNorth + deltaY2));
-
-		double deltaX = (startX * (MaxEast - MinEast) / breite);
-		ActionListenerMap.setMinEast((ActionListenerMap.minEast + deltaX));
-
-		double deltaX2 = ((breite - endeX) * (MaxEast - MinEast) / breite);
-		ActionListenerMap.setMaxEast((ActionListenerMap.maxEast - deltaX2));
-		
-
-			CreateWindow.loadMap.doClick();
-		} else if(ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
-			
-
-			
 			double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
 			ActionListenerMap.setMaxNorth((ActionListenerMap.maxNorth - deltaY));
 
@@ -240,8 +224,21 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 
 			double deltaX2 = ((breite - endeX) * (MaxEast - MinEast) / breite);
 			ActionListenerMap.setMaxEast((ActionListenerMap.maxEast - deltaX2));
-			
-		
+
+			CreateWindow.loadMap.doClick();
+		} else if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
+
+			double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
+			ActionListenerMap.setMaxNorth((ActionListenerMap.maxNorth - deltaY));
+
+			double deltaY2 = ((MaxNorth - MinNorth) * (Hoehe - startY)) / Hoehe;
+			ActionListenerMap.setMinNorth((ActionListenerMap.minNorth + deltaY2));
+
+			double deltaX = (startX * (MaxEast - MinEast) / breite);
+			ActionListenerMap.setMinEast((ActionListenerMap.minEast + deltaX));
+
+			double deltaX2 = ((breite - endeX) * (MaxEast - MinEast) / breite);
+			ActionListenerMap.setMaxEast((ActionListenerMap.maxEast - deltaX2));
 
 			Druckuebersicht druckuebersicht = new Druckuebersicht();
 
@@ -249,7 +246,7 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 				druckuebersicht.Oeffne‹bersicht(ActionListenerMap.crs, ActionListenerMap.minEast,
 						ActionListenerMap.minNorth, ActionListenerMap.maxEast, ActionListenerMap.maxNorth,
 						ActionListenerMap.verhaeltnis);
-				
+
 			} catch (IOException en) {
 				// TODO Auto-generated catch block
 				en.printStackTrace();
@@ -289,15 +286,14 @@ if(!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
-		if(ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
-		
-		mitteY=e.getY();
-		mitteX=e.getX();
 
-		this.repaint();
-		
-		
-}
+		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
+
+			mitteY = e.getY();
+			mitteX = e.getX();
+
+			this.repaint();
+
+		}
 	}
 }
