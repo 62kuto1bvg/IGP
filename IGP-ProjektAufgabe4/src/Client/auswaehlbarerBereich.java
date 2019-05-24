@@ -28,7 +28,11 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 
 	double breiteansichtsfenster = 0;
 
+	
+	//Hier wird die größe des Fenster in dem gezoomt wird übergebe, damit mit den Massen gerechnet werden kann
+
 	public auswaehlbarerBereich(Rectangle border) {
+		//negative if-abfrage
 		if (!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 			this.setOpaque(false);
 
@@ -41,19 +45,26 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 	}
 
 	public void paint(Graphics g) {
+	//Zeichnung
+		
 		if (!ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
 			Graphics2D g2 = (Graphics2D) g;
-
+			
+			//Zeichnen des Navigationsfenster, das Schwarze
 			g2.setColor(Color.BLACK);
 			if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation")) {
 				int deltax = startX - endeX;
 				endeY = startY + deltax;
+				
+				
 			} else if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
 				int deltax = startX - endeX;
 				endeY = (int) (startY + (deltax / Math.sqrt(2)));
 				g2.setColor(Color.BLUE);
 
 			}
+			//Zeichen  des blauen Kartenauswahlfensters
+			//Das fenster kann nur in eine richtung aufgezogen werden
 			if ((startX < endeX)) {
 				g2.drawLine(startX, startY, endeX, startY);
 				g2.drawLine(startX, startY, startX, endeY);
@@ -63,7 +74,7 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 		}
 
 		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht"))
-
+			//Falls ein Masstab ausgewählt worden ist, kann wird hiermit das Vorlagenfenster erzeugt
 		{
 			Graphics2D g2 = (Graphics2D) g;
 
@@ -92,13 +103,15 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
-
+			//Abgreifen der Koordinaten der Maus
 			mitteY = e.getY();
 			mitteX = e.getX();
-
+			//Geometrie des Zeichenfensters
 			Rectangle ab = getBounds();
 			int Hoehe = ab.height;
 			int breite = ab.width;
+			
+			//getter der BBoxkoordinaten
 			double MaxNorth = ActionListenerMap.getMaxNorth();
 			double MaxEast = ActionListenerMap.getMaxEast();
 			double MinNorth = ActionListenerMap.getMinNorth();
@@ -109,6 +122,8 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 			double auswahlminEast;
 			double auswahlmaxEast;
 
+			
+			//Umrechnen des AusgewähltenPunktes in Koordinaten
 			double deltaY = ((MaxNorth - MinNorth) * (Hoehe - mitteY)) / Hoehe;
 			double Yausgewählt = (ActionListenerMap.minNorth + deltaY);
 			double deltaX = ((mitteX * (MaxEast - MinEast)) / breite);
@@ -136,8 +151,7 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 			double radiusUmkreis = Math.cos(alpha * ((2 * Math.PI) / 360)) * erdradius;
 
 			double beta = (laengeEcht * 180) / (radiusUmkreis * Math.PI);
-			// Umrechnen in neue BBoxkoordinaten
-
+		
 			/// zur Darstellung des Ansichtsfensters des formates wird jetzt allerdings die
 			/// "echte breite benötigt"
 
@@ -149,14 +163,22 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 
 			breiteansichtsfenster = (breite / FaktormassstabAnsicht);
 
+			
+			
+			
+			
+			//Wenn der bereich des Blattes angezeigt ist und ich doppelclicke wird die Druckübersicht geöffnet
+			
 			if (e.getClickCount() == 2) {
 
 				Druckuebersicht druckuebersicht2 = new Druckuebersicht();
+				
+				
+				
+				//Umrechen der Auswahlmaskeneckpunte in Koordinaten
 				auswahlminEast = Xausgewählt - (beta / 2);
 				auswahlmaxEast = Xausgewählt + (beta / 2);
-
 				auswahlminNorth = Yausgewählt - (((breiteansichtsfenster / Math.sqrt(2)) / 2) * alphaDelta) / Hoehe;
-
 				auswahlmaxNorth = Yausgewählt + (((breiteansichtsfenster / Math.sqrt(2)) / 2) * alphaDelta) / Hoehe;
 
 				ActionListenerMap.setMinNorth((auswahlminNorth));
@@ -166,6 +188,8 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 
 				System.out.println("breiteansichtsfenster" + breiteansichtsfenster);
 
+				
+				//warnfenster, falls der Masstab zu gross oder zu klein sein sollte
 				if (breiteansichtsfenster < 20) {
 
 					JFrame FensterWarnungGrossmasstaeblich = new JFrame();
@@ -212,6 +236,8 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+		
 
 		startX = e.getX();
 		startY = e.getY();
@@ -234,6 +260,7 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 
 ////////////////////////////////////////////	
 
+			//Umrechnen de Koordinaten im Navigationsmodus
 			if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation")) {
 
 				double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
@@ -249,6 +276,9 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 				ActionListenerMap.setMaxEast((ActionListenerMap.maxEast - deltaX2));
 
 				CreateWindow.loadMap.doClick();
+				
+				
+				//Umrechnen de Koordinaten im Kartenauswahlmodus
 			} else if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
 
 				double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
