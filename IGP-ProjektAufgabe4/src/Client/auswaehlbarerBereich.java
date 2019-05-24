@@ -10,8 +10,10 @@ import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 public class auswaehlbarerBereich extends JPanel implements MouseListener, MouseMotionListener {
@@ -52,15 +54,17 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 				g2.setColor(Color.BLUE);
 
 			}
-
-			g2.drawLine(startX, startY, endeX, startY);
-			g2.drawLine(startX, startY, startX, endeY);
-			g2.drawLine(startX, endeY, endeX, endeY);
-			g2.drawLine(endeX, endeY, endeX, startY);
-
+			if ((startX < endeX)) {
+				g2.drawLine(startX, startY, endeX, startY);
+				g2.drawLine(startX, startY, startX, endeY);
+				g2.drawLine(startX, endeY, endeX, endeY);
+				g2.drawLine(endeX, endeY, endeX, startY);
+			}
 		}
 
-		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht")) {
+		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Masstabsansicht"))
+
+		{
 			Graphics2D g2 = (Graphics2D) g;
 
 			g2.setColor(Color.BLACK);
@@ -159,14 +163,45 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 				ActionListenerMap.setMaxNorth((auswahlmaxNorth));
 				ActionListenerMap.setMinEast((auswahlminEast));
 				ActionListenerMap.setMaxEast((auswahlmaxEast));
-				try {
-					druckuebersicht2.Oeffne‹bersicht(ActionListenerMap.crs, ActionListenerMap.minEast,
-							ActionListenerMap.minNorth, ActionListenerMap.maxEast, ActionListenerMap.maxNorth,
-							ActionListenerMap.verhaeltnis);
 
-				} catch (IOException en) {
-					// TODO Auto-generated catch block
-					en.printStackTrace();
+				System.out.println("breiteansichtsfenster" + breiteansichtsfenster);
+
+				if (breiteansichtsfenster < 20) {
+
+					JFrame FensterWarnungGrossmasstaeblich = new JFrame();
+
+					FensterWarnungGrossmasstaeblich.setBounds(200, 200, 400, 100);
+					JTextField Warntext = new JTextField("Ausschnitt zu groﬂ, bitte reinzoomen");
+					Warntext.setText("Ausschnitt zu groﬂ, bitte reinzoomen");
+					Warntext.setBounds(50, 250, 400, 400);
+					FensterWarnungGrossmasstaeblich.add(Warntext);
+					Warntext.setVisible(true);
+					FensterWarnungGrossmasstaeblich.setVisible(true);
+				}
+
+				else if (breiteansichtsfenster > 1000) {
+
+					JFrame FensterWarnungKleinmasstaeblich = new JFrame();
+
+					FensterWarnungKleinmasstaeblich.setBounds(200, 200, 400,100);
+					JTextField Warntext = new JTextField("Ausschnitt zu Klein, bitte rauszoomen");
+					Warntext.setText("Ausschnitt zu groﬂ, bitte reinzoomen");
+					Warntext.setBounds(50, 250, 400, 400);
+					FensterWarnungKleinmasstaeblich.add(Warntext);
+					Warntext.setVisible(true);
+					FensterWarnungKleinmasstaeblich.setVisible(true);
+				}
+
+				else {
+					try {
+						druckuebersicht2.Oeffne‹bersicht(ActionListenerMap.crs, ActionListenerMap.minEast,
+								ActionListenerMap.minNorth, ActionListenerMap.maxEast, ActionListenerMap.maxNorth,
+								ActionListenerMap.verhaeltnis);
+
+					} catch (IOException en) {
+						// TODO Auto-generated catch block
+						en.printStackTrace();
+					}
 				}
 
 			}
@@ -186,79 +221,70 @@ public class auswaehlbarerBereich extends JPanel implements MouseListener, Mouse
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-
-		Rectangle ab = getBounds();
-		int Hoehe = ab.height;
-		int breite = ab.width;
-		double MaxNorth = ActionListenerMap.getMaxNorth();
-		double MaxEast = ActionListenerMap.getMaxEast();
-		double MinNorth = ActionListenerMap.getMinNorth();
-		double MinEast = ActionListenerMap.getMinEast();
+		if ((startX < endeX)) {
+			Rectangle ab = getBounds();
+			int Hoehe = ab.height;
+			int breite = ab.width;
+			double MaxNorth = ActionListenerMap.getMaxNorth();
+			double MaxEast = ActionListenerMap.getMaxEast();
+			double MinNorth = ActionListenerMap.getMinNorth();
+			double MinEast = ActionListenerMap.getMinEast();
 
 /////////////um sicherzugehen, das auch mit einem ansichtsk‰stchen gearbeitet werden , welches falscherum aufgezogen ist, muss dieses ¸berpr¸ft werden///////
 
-		if ((startX > endeX)) {
-
-			int TauschStart = startX;
-			startX = startY;
-			startY = TauschStart;
-
-			int TauschEnde = endeX;
-			endeX = endeY;
-			endeY = TauschEnde;
-
-		}
-
 ////////////////////////////////////////////	
 
-		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation")) {
+			if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation")) {
 
-			double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
-			ActionListenerMap.setMaxNorth((ActionListenerMap.maxNorth - deltaY));
+				double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
+				ActionListenerMap.setMaxNorth((ActionListenerMap.maxNorth - deltaY));
 
-			double deltaY2 = ((MaxNorth - MinNorth) * (Hoehe - startY)) / Hoehe;
-			ActionListenerMap.setMinNorth((ActionListenerMap.minNorth + deltaY2));
+				double deltaY2 = ((MaxNorth - MinNorth) * (Hoehe - startY)) / Hoehe;
+				ActionListenerMap.setMinNorth((ActionListenerMap.minNorth + deltaY2));
 
-			double deltaX = (startX * (MaxEast - MinEast) / breite);
-			ActionListenerMap.setMinEast((ActionListenerMap.minEast + deltaX));
+				double deltaX = (startX * (MaxEast - MinEast) / breite);
+				ActionListenerMap.setMinEast((ActionListenerMap.minEast + deltaX));
 
-			double deltaX2 = ((breite - endeX) * (MaxEast - MinEast) / breite);
-			ActionListenerMap.setMaxEast((ActionListenerMap.maxEast - deltaX2));
+				double deltaX2 = ((breite - endeX) * (MaxEast - MinEast) / breite);
+				ActionListenerMap.setMaxEast((ActionListenerMap.maxEast - deltaX2));
 
-			CreateWindow.loadMap.doClick();
-		} else if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
+				CreateWindow.loadMap.doClick();
+			} else if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
 
-			double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
-			ActionListenerMap.setMaxNorth((ActionListenerMap.maxNorth - deltaY));
+				double deltaY = (((MaxNorth - MinNorth)) * endeY) / Hoehe;
+				ActionListenerMap.setMaxNorth((ActionListenerMap.maxNorth - deltaY));
 
-			double deltaY2 = ((MaxNorth - MinNorth) * (Hoehe - startY)) / Hoehe;
-			ActionListenerMap.setMinNorth((ActionListenerMap.minNorth + deltaY2));
+				double deltaY2 = ((MaxNorth - MinNorth) * (Hoehe - startY)) / Hoehe;
+				ActionListenerMap.setMinNorth((ActionListenerMap.minNorth + deltaY2));
 
-			double deltaX = (startX * (MaxEast - MinEast) / breite);
-			ActionListenerMap.setMinEast((ActionListenerMap.minEast + deltaX));
+				double deltaX = (startX * (MaxEast - MinEast) / breite);
+				ActionListenerMap.setMinEast((ActionListenerMap.minEast + deltaX));
 
-			double deltaX2 = ((breite - endeX) * (MaxEast - MinEast) / breite);
-			ActionListenerMap.setMaxEast((ActionListenerMap.maxEast - deltaX2));
+				double deltaX2 = ((breite - endeX) * (MaxEast - MinEast) / breite);
+				ActionListenerMap.setMaxEast((ActionListenerMap.maxEast - deltaX2));
 
-			Druckuebersicht druckuebersicht = new Druckuebersicht();
+				Druckuebersicht druckuebersicht = new Druckuebersicht();
 
-			try {
-				druckuebersicht.Oeffne‹bersicht(ActionListenerMap.crs, ActionListenerMap.minEast,
-						ActionListenerMap.minNorth, ActionListenerMap.maxEast, ActionListenerMap.maxNorth,
-						ActionListenerMap.verhaeltnis);
+				try {
+					druckuebersicht.Oeffne‹bersicht(ActionListenerMap.crs, ActionListenerMap.minEast,
+							ActionListenerMap.minNorth, ActionListenerMap.maxEast, ActionListenerMap.maxNorth,
+							ActionListenerMap.verhaeltnis);
 
-			} catch (IOException en) {
-				// TODO Auto-generated catch block
-				en.printStackTrace();
+				} catch (IOException en) {
+					// TODO Auto-generated catch block
+					en.printStackTrace();
+				}
 			}
+
+			startX = 0;
+			startY = 0;
+			endeX = 0;
+			endeY = 0;
+
+		} else {
+
 		}
-
-		startX = 0;
-		startY = 0;
-		endeX = 0;
-		endeY = 0;
-
-	}
+	};
 
 	@Override
 	public void mouseEntered(MouseEvent e) {

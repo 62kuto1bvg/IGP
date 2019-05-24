@@ -36,7 +36,7 @@ public class Koordinatengitter extends JPanel {
 
 		// Behelf, um voerst den Kartenausschnitt auf DIN Format zu bekommen:
 
-		if (!ActionListenerMap.auswaehlbarerBereichStatus.contains("Kartenauswahl")) {
+		if (ActionListenerMap.auswaehlbarerBereichStatus.contains("Navigation")) {
 		
 			DeltaX = maxEast - minEast;
 			DeltaY = maxNorth - minNorth;
@@ -47,6 +47,8 @@ public class Koordinatengitter extends JPanel {
 			this.minNorth = minN + Abzug;
 			this.maxNorth = maxN - Abzug;
 		}
+		
+		
 		else {
 			this.minNorth = minN;
 			this.maxNorth = maxN;	
@@ -201,7 +203,7 @@ public class Koordinatengitter extends JPanel {
 			double Breiten = Breitengrade.get(j);
 
 			double deltaBreite = (Breiten - minNorth);
-			double hight = (((width / Math.sqrt(2)) - 40));
+			double hight = (((width / Math.sqrt(2))));
 			double breiteBildschirm = (((deltaBreite) * (hight)) / alpha);
 			Breitengradetransformiert.add(breiteBildschirm);
 
@@ -242,11 +244,11 @@ public class Koordinatengitter extends JPanel {
 		for (int j = 0; j < Breitengradetransformiert.size(); j++) {
 
 			Double breite = Breitengradetransformiert.get(j);
-			if (breite < 20 || breite > (width / Math.sqrt(2)) - 20) {
+			if (breite < 20 || breite > (width / Math.sqrt(2)) ) {
 
 			} else {
-				g2.drawLine(0, (int) ((((width / Math.sqrt(2)) - (breite))) - 20), width,
-						(int) (((width / Math.sqrt(2)) - (breite))) - 20);
+				g2.drawLine(0, (int) ((((width / Math.sqrt(2)) - (breite)-20))), width,
+						(int) (((width / Math.sqrt(2)) - (breite)-20)));
 
 				// Beschriften der senkrechten Linien:
 				String Breitetext = String.valueOf(Math.round(Breitengrade.get(j) * 100) / 100.0);
