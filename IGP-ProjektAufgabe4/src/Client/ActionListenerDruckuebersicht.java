@@ -170,4 +170,40 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 			Client.Druckuebersicht.Kartenblatt.repaint();
 		}
 	}
+	
+	
+	
+	if(actionCommand.equals("LegendeSkalieren"))
+	{
+		{
+			if(Druckuebersicht.LegendeSkalierungsmodus.contains("Aus")) {
+				Druckuebersicht.LegendeSkalierungsmodus="An";
+				Druckuebersicht.ausgewählteSkalierung=Color.DARK_GRAY;
+				
+				Client.Druckuebersicht.Kartenblatt.repaint();
+				Client.Druckuebersicht.FensterDruckuebersicht.repaint();
+			
+				System.out.println(Druckuebersicht.LegendeSkalierungsmodus);
+			}
+			
+
+			else if(Druckuebersicht.LegendeSkalierungsmodus.contains("An")) {
+				Druckuebersicht.LegendeSkalierungsmodus="Aus";
+				Druckuebersicht.ausgewählteSkalierung=Color.LIGHT_GRAY;
+				
+				Client.Druckuebersicht.Kartenblatt.repaint();
+				Client.Druckuebersicht.FensterDruckuebersicht.repaint();
+				System.out.println(Druckuebersicht.LegendeSkalierungsmodus);
+			}
+			
+			
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 }}

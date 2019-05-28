@@ -3,6 +3,7 @@ package Client;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.io.IOException;
 import javax.swing.BorderFactory;
@@ -13,6 +14,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 public class Druckuebersicht  {
+	static JFrame FensterDruckuebersicht = new JFrame("Druckübersicht");
 	static double maxEast;
 	static double maxNorth;
 	static double minEast;
@@ -24,7 +26,7 @@ public class Druckuebersicht  {
 	static Color ausgewaehlteFarbeMassstabsleiste;
 	static Color ausgewaehlteFarbeKoordinatengitter;
 	static Nordpfeil nordpfeil = new Nordpfeil();
-
+	static LayerLegende LayerLegende =new LayerLegende();
 	// Bildschirmgröße herrausfinden (für dynamisches Fenster):
 	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	double breite = dim.getWidth();
@@ -32,8 +34,9 @@ public class Druckuebersicht  {
 	//dpi ist die Pixel pro zoll
 	int dpi=java.awt.Toolkit.getDefaultToolkit().getScreenResolution(); 
 	static JLayeredPane Kartenblatt = new JLayeredPane();
-
-
+	static String LegendeSkalierungsmodus="Aus";
+	static Color ausgewählteSkalierung=Color.LIGHT_GRAY;
+	Skalierung Skalierung=new Skalierung();	
 
 	public void OeffneÜbersicht(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis)
 			throws IOException {
@@ -59,7 +62,7 @@ public class Druckuebersicht  {
 		int FensterBreite = (int) ((breite / 5) * 4);
 		int FensterHoehe = (int) ((hoehe / 5) * 4);
 
-		JFrame FensterDruckuebersicht = new JFrame("Druckübersicht");
+	
 
 		
 		// Größe dynamisch, sollte in der Bildschirmmitte sein [NOCH ZU PRÜFEN]:
@@ -71,7 +74,7 @@ public class Druckuebersicht  {
 		FensterDruckuebersicht.setLayout(null);
 
 		// Kartenblatt soll das druckbare Papier werden:
-		Kartenblatt.setBorder(BorderFactory.createLineBorder(Color.black));
+	
 		Kartenblatt.setBounds((int) (KarteBreite / 20), (int) (KarteHoehe / 20), KarteBreite, KarteHoehe);
 		Kartenblatt.setBackground(Color.WHITE); 
 		Kartenblatt.setLayout(null);
@@ -93,20 +96,28 @@ public class Druckuebersicht  {
 
 		
 		JButton ButtonDrucken = new JButton("Drucken");
-		ButtonDrucken.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 8), 200, 50);
+		ButtonDrucken.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 8.5), 200, 50);
 		ButtonDrucken.setActionCommand("Druckmenue");
 		
 		JButton ButtonSpeichern = new JButton("Speichern");
-		ButtonSpeichern.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 7), 200, 50);
+		ButtonSpeichern.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 7.5), 200, 50);
 		ButtonSpeichern.setActionCommand("Speicher");
 		
+		
+		
+		JButton ButtonLegendeSkalieren = new JButton("Legende skalieren");
+		ButtonLegendeSkalieren.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 5), 200, 50);
+		ButtonLegendeSkalieren.setBackground(ausgewählteSkalierung);
+		ButtonLegendeSkalieren.setActionCommand("LegendeSkalieren");
+		
+		
 		JButton ButtonausgewaehlteFarbeNordstern = new JButton("Farbe Nordstern");
-		ButtonausgewaehlteFarbeNordstern.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 5), 200, 50);
+		ButtonausgewaehlteFarbeNordstern.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 3), 200, 50);
 		ButtonausgewaehlteFarbeNordstern.setActionCommand("auswählen Farbe Nordstern");
 		
 
 		JButton ButtonausgewaehlteFarbeMassstab = new JButton("Farbe Massstab");
-		ButtonausgewaehlteFarbeMassstab.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 3), 200, 50);
+		ButtonausgewaehlteFarbeMassstab.setBounds((int) ((FensterBreite / 5) * 4), (int) ((FensterHoehe / 10) * 2), 200, 50);
 		ButtonausgewaehlteFarbeMassstab.setActionCommand("auswählen Farbe Massstab");
 		
 		
@@ -120,58 +131,87 @@ public class Druckuebersicht  {
 		ButtonausgewaehlteFarbeMassstab.addActionListener(ActionListenerDruckuebersicht);
 		ButtonausgewaehlteFarbeGitter.addActionListener(ActionListenerDruckuebersicht);
 		ButtonSpeichern.addActionListener(ActionListenerDruckuebersicht);
+		ButtonLegendeSkalieren.addActionListener(ActionListenerDruckuebersicht);
 		
 		// Massstabsleiste implementieren:
 		Massstabsleiste Ml = new Massstabsleiste();
 		Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
 		Ml.setBounds(((int) ((KarteBreite / 10)*6)), (int) (KarteHoehe / 10)*9, ((KarteHoehe /10)*7), (KarteHoehe /10));
 		
+		LayerLegende.setBounds((int) (KarteBreite / 10) * 8,0,(int) (KarteBreite / 10) * 2,KarteHoehe);
 		
+		
+		
+		Rectangle Bounds= new Rectangle(0,0,KarteBreite, KarteHoehe);
+		Skalierung Skalierung=new Skalierung();	
+		Skalierung.erzeugeSkalierung(Bounds);
 		
 		// Nordpfeil einfügen:
-		nordpfeil.setBounds(((int) (KarteBreite / 10) * 8), (int) (KarteHoehe / 10), 300, 300);
+		nordpfeil.setBounds(((int) (KarteBreite / 10) * 2), (int) (KarteHoehe / 10), 300, 300);
 	
 		// Drag and Drop:		
+		
+		
+		
+		//Wenn die Legende im Skaliermodus ist, darf Diese nicht verschoben werden
+			 if(LegendeSkalierungsmodus.contains("An")) {
+				
+			 }
+			 else if(LegendeSkalierungsmodus.contains("Aus")) {
+		Verschieben vsLayerLegende= new Verschieben(LayerLegende);
 		Verschieben vsNordpfeil = new Verschieben(nordpfeil);
-		Verschieben vsMassstab = new Verschieben(Ml);
-		
-		
+		Verschieben vsMassstab = new Verschieben(Ml);		
+		}
 	
+		
 		
 	    // Koordinatengitter:
 		Koordinatengitter Koordgitter = new Koordinatengitter();
 		Koordgitter.erzeugeKoordinatengitter(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width);
 		Koordgitter.setBounds(0, 0, KarteBreite, KarteHoehe);
 		
+		LayerLegende.setVisible(true);
 		nordpfeil.setVisible(true);
 		Ml.setVisible(true);
 		Koordgitter.setVisible(true);
 		
 		
+		FensterDruckuebersicht.add(ButtonLegendeSkalieren);
 		FensterDruckuebersicht.add(ButtonSpeichern);
 		FensterDruckuebersicht.add(ButtonDrucken);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeMassstab);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeNordstern);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeGitter);
 
+		Kartenblatt.add(LayerLegende);
+		Kartenblatt.add(Skalierung);
 		Kartenblatt.add(Koordgitter);
 		Kartenblatt.add(Ml);
 		Kartenblatt.add(nordpfeil);
 		Kartenblatt.add(Kartenbild);
+		Kartenblatt.setBorder(BorderFactory.createLineBorder(Color.black));
+	
 		
 		
-		
+		Kartenblatt.setLayer(Skalierung,500);
+		Kartenblatt.setLayer(LayerLegende,400);
 		Kartenblatt.setLayer(Koordgitter,400);
 		Kartenblatt.setLayer(nordpfeil, 400);
 		Kartenblatt.setLayer(nordpfeil, 400);
 		Kartenblatt.setLayer(Ml, 400);
 		
-	    FensterDruckuebersicht.add(Kartenblatt);
-
+		FensterDruckuebersicht.add(Kartenblatt);
 		FensterDruckuebersicht.setVisible(true);
 		
-		
-		
+			
+	}
+
+	public static Color getAusgewählteSkalierung() {
+		return ausgewählteSkalierung;
+	}
+
+	public static void setAusgewählteSkalierung(Color ausgewählteSkalierung) {
+		Druckuebersicht.ausgewählteSkalierung = ausgewählteSkalierung;
 	}
 
 	public double getMaxEast() {

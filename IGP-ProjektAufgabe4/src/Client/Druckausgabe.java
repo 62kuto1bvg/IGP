@@ -99,6 +99,9 @@ public class Druckausgabe {
 			int YNordpfeil = 0;
 			int Xmleiste = 0;
 			int Ymleiste = 0;
+			int Xmlegende = 0;
+			int Ymlegende = 0;
+			
 			Nordpfeil.x = (verhaeltnissUebersichtDruck);
 
 			
@@ -120,9 +123,20 @@ public class Druckausgabe {
 					Xmleiste = (int) ((Kartenelemente.get(i).getX()) * verhaeltnissUebersichtDruck);
 					Ymleiste = (int) ((Kartenelemente.get(i).getY()) * verhaeltnissUebersichtDruck);
 				}
+				else if (Kartenelemente.get(i).getClass().toString().contains("Legende")) {
+
+					Xmlegende = (int) ((Kartenelemente.get(i).getX()) * verhaeltnissUebersichtDruck);
+					Ymlegende = (int) ((Kartenelemente.get(i).getY()) * verhaeltnissUebersichtDruck);
+				}
+				
+				
+				
+				
+				
 			}
 
 			Nordpfeil nordpeil = new Nordpfeil();
+			LayerLegende ll=new LayerLegende();
 			nordpeil.setVisible(true);
 			nordpeil.setBounds(XNordpfeil, YNordpfeil, 800, 800);
 			Nordpfeil.x=verhaeltnissUebersichtDruck;
@@ -134,13 +148,19 @@ public class Druckausgabe {
 			Ml.setBounds((Xmleiste), Ymleiste, ((KarteHoeheDruck / 10) * 7), (KarteHoeheDruck / 10));
 			KartenblattDruck.add(Ml);
 
+			ll.setBounds(Xmlegende,Ymlegende,(int) (KarteBreiteDruck / 10) * 2,KarteHoeheDruck);
+			ll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+		
+			KartenblattDruck.add(ll);
+			
 			KartenblattDruck.add(KartenbildDruck);
 			KartenbildDruck.setVisible(true);
 
+			
 			KartenblattDruck.add(Koordgitter);
 			KartenblattDruck.setLayer(nordpfeil, 400);
-			KartenblattDruck.setLayer(Koordgitter, 400);
-			KartenblattDruck.setLayer(Koordgitter, 400);
+			KartenblattDruck.setLayer(Koordgitter, 300);
+			KartenblattDruck.setLayer(ll, 400);
 			KartenblattDruck.setLayer(KartenbildDruck, 0);
 
 			FensterDruck.add(KartenblattDruck);
