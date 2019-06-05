@@ -36,7 +36,7 @@ public class Druckuebersicht  {
 	static JLayeredPane Kartenblatt = new JLayeredPane();
 	static String LegendeSkalierungsmodus="Aus";
 	static Color ausgewählteSkalierung=Color.LIGHT_GRAY;
-	Skalierung Skalierung=new Skalierung();	
+	//Skalierung Skalierung=new Skalierung();	
 
 	public void OeffneÜbersicht(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis)
 			throws IOException {
@@ -136,18 +136,18 @@ public class Druckuebersicht  {
 		// Massstabsleiste implementieren:
 		Massstabsleiste Ml = new Massstabsleiste();
 		Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
-		Ml.setBounds(((int) ((KarteBreite / 10)*6)), (int) (KarteHoehe / 10)*9, ((KarteHoehe /10)*7), (KarteHoehe /10));
+		Ml.setBounds(((int) ((KarteBreite / 10)*1)), (int) (KarteHoehe / 10)*8, ((KarteHoehe /10)*7), (KarteHoehe /10));
 		
-		LayerLegende.setBounds((int) (KarteBreite / 10) * 8,0,(int) (KarteBreite / 10) * 2,KarteHoehe);
+		LayerLegende.setBounds((int) (KarteBreite / 10) * 8,0,((int) (KarteBreite / 10) * 2),(KarteHoehe));
 		
 		
 		
 		Rectangle Bounds= new Rectangle(0,0,KarteBreite, KarteHoehe);
-		Skalierung Skalierung=new Skalierung();	
-		Skalierung.erzeugeSkalierung(Bounds);
+		//Skalierung Skalierung=new Skalierung();	
+		//Skalierung.erzeugeSkalierung(Bounds);
 		
 		// Nordpfeil einfügen:
-		nordpfeil.setBounds(((int) (KarteBreite / 10) * 2), (int) (KarteHoehe / 10), 300, 300);
+		nordpfeil.setBounds(((int) (KarteBreite / 10) * 1), (int) (KarteHoehe / 10), 300, 300);
 	
 		// Drag and Drop:		
 		
@@ -176,7 +176,7 @@ public class Druckuebersicht  {
 		Koordgitter.setVisible(true);
 		
 		
-		FensterDruckuebersicht.add(ButtonLegendeSkalieren);
+		//FensterDruckuebersicht.add(ButtonLegendeSkalieren);
 		FensterDruckuebersicht.add(ButtonSpeichern);
 		FensterDruckuebersicht.add(ButtonDrucken);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeMassstab);
@@ -184,7 +184,7 @@ public class Druckuebersicht  {
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeGitter);
 
 		Kartenblatt.add(LayerLegende);
-		Kartenblatt.add(Skalierung);
+		//Kartenblatt.add(Skalierung);
 		Kartenblatt.add(Koordgitter);
 		Kartenblatt.add(Ml);
 		Kartenblatt.add(nordpfeil);
@@ -193,7 +193,7 @@ public class Druckuebersicht  {
 	
 		
 		
-		Kartenblatt.setLayer(Skalierung,500);
+		//Kartenblatt.setLayer(Skalierung,500);
 		Kartenblatt.setLayer(LayerLegende,400);
 		Kartenblatt.setLayer(Koordgitter,400);
 		Kartenblatt.setLayer(nordpfeil, 400);

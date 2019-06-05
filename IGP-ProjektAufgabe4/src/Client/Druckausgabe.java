@@ -148,7 +148,7 @@ public class Druckausgabe {
 			Ml.setBounds((Xmleiste), Ymleiste, ((KarteHoeheDruck / 10) * 7), (KarteHoeheDruck / 10));
 			KartenblattDruck.add(Ml);
 
-			ll.setBounds(Xmlegende,Ymlegende,(int) (KarteBreiteDruck / 10) * 2,KarteHoeheDruck);
+			ll.setBounds(Xmlegende,Ymlegende,((int) (KarteBreiteDruck / 10) * 2),KarteHoeheDruck);
 			ll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		
 			KartenblattDruck.add(ll);

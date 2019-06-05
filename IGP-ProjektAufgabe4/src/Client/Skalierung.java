@@ -1,4 +1,4 @@
-package Client;
+/*package Client;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -123,4 +123,4 @@ public class Skalierung  extends JPanel implements MouseListener, MouseMotionLis
 		
 	}
 
-}
+} */
