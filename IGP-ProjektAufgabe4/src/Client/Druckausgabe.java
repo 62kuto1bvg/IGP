@@ -148,7 +148,8 @@ public class Druckausgabe extends JPanel  {
 			
 			ll.setBounds((int) (KarteBreiteDruck / 10) * 8, KarteHoeheDruck/40,(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40)+7),KarteHoeheDruck - (KarteHoeheDruck/20));
 			ll.setBorder(BorderFactory.createLineBorder(Color.BLACK, (int)verhaeltnissUebersichtDruck, true));
-  
+			int Legendenbreite=(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40)+7);
+			ll.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat,Legendenbreite);
 			KartenblattDruck.add(ll);
 			KartenblattDruck.add(KartenbildDruck);
 			

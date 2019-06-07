@@ -67,7 +67,7 @@ public class Druckuebersicht extends JPanel  {
 		int FensterHoehe = (int) ((hoehe / 5) * 4);
 
 	
-
+	
 		
 		// Größe dynamisch, sollte in der Bildschirmmitte sein [NOCH ZU PRÜFEN]:
 		FensterDruckuebersicht.setBounds((int) (breite / (10)), (int) (hoehe / (10)), FensterBreite, FensterHoehe);
@@ -143,7 +143,8 @@ public class Druckuebersicht extends JPanel  {
 		Ml.setBounds(((int) ((KarteBreite / 10)*1)), (int) (KarteHoehe / 10)*8, ((KarteHoehe /10)*7), (KarteHoehe /10));
 		
 		LayerLegende.setBounds((int) (KarteBreite / 10) * 8, KarteHoehe/40,(((int) (KarteBreite / 10) * 2)-(KarteBreite/40)),KarteHoehe - (KarteHoehe/20));
-		
+		int Legendenbreite=(int)(((int) (KarteBreite / 10) * 2)-(KarteBreite/40));
+		LayerLegende.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width,Legendenbreite);
 		// Nordpfeil einfügen:
 		nordpfeil.setBounds(((int) (KarteBreite / 10) * 1), (int) (KarteHoehe / 10), 300, 300);
 	

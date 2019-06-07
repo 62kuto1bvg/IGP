@@ -1,6 +1,7 @@
 package Client;
 
 import java.awt.BasicStroke;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -240,7 +241,7 @@ public class Koordinatengitter extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeKoordinatengitter);
 		g2.setStroke(new BasicStroke(strichdicke));
-	
+		g2.setFont(new Font("Calibri", Font.PLAIN,(int) 15*strichdicke));
 		// Zeichnen der senkrechten Linien:
 		for (int j = 0; j < Laengengradetransformiert.size(); j++) {
 
@@ -252,7 +253,7 @@ public class Koordinatengitter extends JPanel {
 
 				// Beschriften der senkrechten Linien:
 				String Breitetext = String.valueOf(Math.round(Laengengrade.get(j) * 100) / 100.0);
-				g2.drawString(Breitetext, laenge + 15, 45);
+				g2.drawString(Breitetext, laenge + (int)(width / Math.sqrt(2)/40), (int) ((width / Math.sqrt(2)/30)));
 			}
 		}
 
@@ -263,11 +264,11 @@ public class Koordinatengitter extends JPanel {
 
 			} else {
 				g2.drawLine(0, (int) ((((width / Math.sqrt(2)) - (breite) - 20))), width-(width/20)-1,
-						(int) (((width / Math.sqrt(2)) - (breite) - 20)));
+						(int) (((width / Math.sqrt(2)) - (breite)-20)));
 
 				// Beschriften der senkrechten Linien:
 				String Breitetext = String.valueOf(Math.round(Breitengrade.get(j) * 100) / 100.0);
-				g2.drawString(Breitetext, 30, (int) ((width / Math.sqrt(2)) - (breite)) + 5);
+				g2.drawString(Breitetext, (width/60), (int) ((width / Math.sqrt(2)) - (breite)) + (width/100));
 
 
 			}
