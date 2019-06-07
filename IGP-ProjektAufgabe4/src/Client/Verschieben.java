@@ -1,6 +1,7 @@
 package Client;
 
 import java.awt.Component;
+import java.awt.Panel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -73,8 +74,9 @@ public class Verschieben implements MouseListener,MouseMotionListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		if (!e.getComponent().toString().contains("LayerLegende")) {
 		e.getComponent().setLocation((e.getX()+e.getComponent().getX())-X,(e.getY()+e.getComponent().getY())-Y );
-		
+		}
 	Client.Druckuebersicht.Kartenblatt.repaint();
 }
 	@Override

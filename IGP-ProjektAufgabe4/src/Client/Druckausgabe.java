@@ -3,6 +3,7 @@ package Client;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-public class Druckausgabe {
+public class Druckausgabe extends JPanel  {
 	double maxEast;
 	double maxNorth;
 	double minEast;
@@ -23,7 +24,7 @@ public class Druckausgabe {
 	static JLayeredPane KartenblattDruck = new JLayeredPane();
 
 	public void erstelleDruckausgabe(String crs, double minEast, double minNorth, double maxEast, double maxNorth,
-			double verhaeltnis, Nordpfeil nordpfeil) throws IOException {
+			double verhaeltnis, Nordpfeil nordpfeil) throws IOException  {
 
 		{
 //Diese Klasse ist ähnlich der Druckübersicht, wurde aber erstellt weil die Druckübersicht nur 1000 Pixel breit ist, wir aber eine groesser Pixeldichte der Karte wollen
@@ -70,7 +71,7 @@ public class Druckausgabe {
 			FensterDruck.setLayout(null);
 
 			// Kartenblatt soll das druckbare Papier werden:
-			KartenblattDruck.setBorder(BorderFactory.createLineBorder(Color.black));
+			KartenblattDruck.setBorder(BorderFactory.createLineBorder(Color.black,(int)verhaeltnissUebersichtDruck));
 			KartenblattDruck.setBounds(0, 0, KarteBreiteDruck, KarteHoeheDruck);
 			KartenblattDruck.setBackground(Color.WHITE);
 			KartenblattDruck.setLayout(null);
@@ -82,17 +83,16 @@ public class Druckausgabe {
 			JLabel actualMapDruck = (JLabel) newMapDruck.showMap();
 			KartenbildDruck.add(actualMapDruck);
 
-			KartenbildDruck.setBorder(BorderFactory.createLineBorder(Color.black));
-			KartenbildDruck.setBounds(20, 20, KarteBreiteDruck - 40, KarteHoeheDruck - 40);
+			KartenbildDruck.setBorder(BorderFactory.createLineBorder(Color.black,(int)verhaeltnissUebersichtDruck));
+			KartenbildDruck.setBounds(KarteBreiteDruck/40, KarteHoeheDruck/40,( KarteBreiteDruck - (KarteBreiteDruck/20)), KarteHoeheDruck - (KarteHoeheDruck/20));
 			KartenbildDruck.setVisible(true);
 			KartenblattDruck.setLayout(null);
 
 			// Erzeugen des Koordinatengitters
 
 			Koordinatengitter Koordgitter = new Koordinatengitter();
-			Koordgitter.erzeugeKoordinatengitter(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat);
-			Koordgitter.setBounds(0, 0, KarteBreiteDruck, KarteHoeheDruck);
-
+			Koordgitter.erzeugeKoordinatengitter(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat,(int)verhaeltnissUebersichtDruck);
+			Koordgitter.setBounds(KarteBreiteDruck/40, KarteHoeheDruck/40,( KarteBreiteDruck - (KarteBreiteDruck/20)), KarteHoeheDruck - (KarteHoeheDruck/20));
 			//////////////////////Problematisch ist jetzt die Drag and Drop funktion in der Druckansicht.////////////////////////////////////////////////////
 			//Da die Kartenelemente verschoben worden sind, muessen dies auch in der druckzusammenstellung verschoben werden.
 			int XNordpfeil = 0;
@@ -128,15 +128,11 @@ public class Druckausgabe {
 					Xmlegende = (int) ((Kartenelemente.get(i).getX()) * verhaeltnissUebersichtDruck);
 					Ymlegende = (int) ((Kartenelemente.get(i).getY()) * verhaeltnissUebersichtDruck);
 				}
-				
-				
-				
-				
-				
+					
 			}
 
 			Nordpfeil nordpeil = new Nordpfeil();
-			LayerLegende ll=new LayerLegende();
+			
 			nordpeil.setVisible(true);
 			nordpeil.setBounds(XNordpfeil, YNordpfeil, 800, 800);
 			Nordpfeil.x=verhaeltnissUebersichtDruck;
@@ -147,26 +143,43 @@ public class Druckausgabe {
 			nordpeil.setVisible(true);
 			Ml.setBounds((Xmleiste), Ymleiste, ((KarteHoeheDruck / 10) * 7), (KarteHoeheDruck / 10));
 			KartenblattDruck.add(Ml);
-
-			ll.setBounds(Xmlegende,Ymlegende,((int) (KarteBreiteDruck / 10) * 2),KarteHoeheDruck);
-			ll.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-		
+			
+			LayerLegende ll=new LayerLegende();
+			
+			ll.setBounds((int) (KarteBreiteDruck / 10) * 8, KarteHoeheDruck/40,(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40)+7),KarteHoeheDruck - (KarteHoeheDruck/20));
+			ll.setBorder(BorderFactory.createLineBorder(Color.BLACK, (int)verhaeltnissUebersichtDruck, true));
+  
 			KartenblattDruck.add(ll);
-			
 			KartenblattDruck.add(KartenbildDruck);
-			KartenbildDruck.setVisible(true);
-
 			
+			JPanel HintergrundDruck=new JPanel();
+			HintergrundDruck.setLayout(null);
+			HintergrundDruck.setBounds(0,0,KarteBreiteDruck, KarteHoeheDruck);
+			HintergrundDruck.setBorder(BorderFactory.createLineBorder(Color.black));
+			HintergrundDruck.setBackground(Color.WHITE);
+			
+			
+			HintergrundDruck.setVisible(true);
+			KartenbildDruck.setVisible(true);
 			KartenblattDruck.add(Koordgitter);
+			
+			
+			
+			KartenblattDruck.add(HintergrundDruck);
+			KartenblattDruck.setLayer(ll, 1000);
 			KartenblattDruck.setLayer(nordpfeil, 400);
-			KartenblattDruck.setLayer(Koordgitter, 300);
-			KartenblattDruck.setLayer(ll, 400);
-			KartenblattDruck.setLayer(KartenbildDruck, 0);
+			KartenblattDruck.setLayer(Koordgitter, 500);
+			KartenblattDruck.setLayer(KartenbildDruck, 400);
 
 			FensterDruck.add(KartenblattDruck);
 			FensterDruck.setVisible(true);
-
-		}
+		
 	}
+		}
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			}
+		
+
 
 }

@@ -1,5 +1,6 @@
 package Client;
 
+import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Koordinatengitter extends JPanel {
 	String crs;
 	double DeltaX, DeltaY;
 	int width;
+	int strichdicke;
 	ArrayList<Integer> Laengengradetransformiert = new ArrayList<>();
 	ArrayList<Double> Laengengrade = new ArrayList<>();
 
@@ -29,7 +31,7 @@ public class Koordinatengitter extends JPanel {
 	ArrayList<Double> Breitengrade = new ArrayList<>();
 
 	public void erzeugeKoordinatengitter(String crs, double minE, double minN, double maxE, double maxN,
-			double verhaeltnis, int width) {
+			double verhaeltnis, int width, int strichdicke) {
 
 		this.crs = crs;
 		this.minEast = minE;
@@ -38,7 +40,7 @@ public class Koordinatengitter extends JPanel {
 		// this.maxNorth = maxNorth;
 		this.verhaeltnis = verhaeltnis;
 		this.width = (int) width;
-
+		this.strichdicke=strichdicke;
 		// Behelf, um voerst den Kartenausschnitt auf DIN Format zu bekommen, da der
 		// Kartenauschnitt beim Zoomen quadratisch ist:
 
@@ -237,12 +239,13 @@ public class Koordinatengitter extends JPanel {
 
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeKoordinatengitter);
-
+		g2.setStroke(new BasicStroke(strichdicke));
+	
 		// Zeichnen der senkrechten Linien:
 		for (int j = 0; j < Laengengradetransformiert.size(); j++) {
 
 			int laenge = Laengengradetransformiert.get(j);
-			if ((laenge < 20) || laenge > (width - 20)) {
+			if ((laenge < 20) || laenge > (width - (width/20))) {
 
 			} else {
 				g2.drawLine(laenge, 0, laenge, (int) (width / Math.sqrt(2)));
@@ -259,7 +262,7 @@ public class Koordinatengitter extends JPanel {
 			if (breite < 20 || breite > (width / Math.sqrt(2))) {
 
 			} else {
-				g2.drawLine(0, (int) ((((width / Math.sqrt(2)) - (breite) - 20))), width,
+				g2.drawLine(0, (int) ((((width / Math.sqrt(2)) - (breite) - 20))), width-(width/20)-1,
 						(int) (((width / Math.sqrt(2)) - (breite) - 20)));
 
 				// Beschriften der senkrechten Linien:

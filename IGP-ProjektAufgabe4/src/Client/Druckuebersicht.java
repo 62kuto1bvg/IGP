@@ -1,7 +1,9 @@
 package Client;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -13,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-public class Druckuebersicht  {
+public class Druckuebersicht extends JPanel  {
 	static JFrame FensterDruckuebersicht = new JFrame("Druckübersicht");
 	static double maxEast;
 	static double maxNorth;
@@ -37,10 +39,12 @@ public class Druckuebersicht  {
 	static String LegendeSkalierungsmodus="Aus";
 	static Color ausgewählteSkalierung=Color.LIGHT_GRAY;
 	//Skalierung Skalierung=new Skalierung();	
+	
 
 	public void OeffneÜbersicht(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis)
 			throws IOException {
-
+		
+	
 		this.maxEast = maxEast;
 		this.maxNorth = maxNorth;
 		this.minEast = minEast;
@@ -74,10 +78,10 @@ public class Druckuebersicht  {
 		FensterDruckuebersicht.setLayout(null);
 
 		// Kartenblatt soll das druckbare Papier werden:
-	
-		Kartenblatt.setBounds((int) (KarteBreite / 20), (int) (KarteHoehe / 20), KarteBreite, KarteHoehe);
-		Kartenblatt.setBackground(Color.WHITE); 
 		Kartenblatt.setLayout(null);
+		Kartenblatt.setBounds((int) (KarteBreite / 20), (int) (KarteHoehe / 20), KarteBreite, KarteHoehe);
+		Kartenblatt.setBackground(Color.RED);
+	
 
 
 		//Kartenbild ist das Bild, welches vom WmsServer gedownloadet wird
@@ -90,7 +94,7 @@ public class Druckuebersicht  {
 
 
 		Kartenbild.setBorder(BorderFactory.createLineBorder(Color.black));
-		Kartenbild.setBounds(20, 20, KarteBreite - 40, KarteHoehe - 40);
+		Kartenbild.setBounds(KarteBreite/40, KarteHoehe/40,( KarteBreite - (KarteBreite/20)), KarteHoehe - (KarteHoehe/20));
 		Kartenbild.setVisible(true);
 	
 
@@ -138,13 +142,7 @@ public class Druckuebersicht  {
 		Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
 		Ml.setBounds(((int) ((KarteBreite / 10)*1)), (int) (KarteHoehe / 10)*8, ((KarteHoehe /10)*7), (KarteHoehe /10));
 		
-		LayerLegende.setBounds((int) (KarteBreite / 10) * 8,0,((int) (KarteBreite / 10) * 2),(KarteHoehe));
-		
-		
-		
-		Rectangle Bounds= new Rectangle(0,0,KarteBreite, KarteHoehe);
-		//Skalierung Skalierung=new Skalierung();	
-		//Skalierung.erzeugeSkalierung(Bounds);
+		LayerLegende.setBounds((int) (KarteBreite / 10) * 8, KarteHoehe/40,(((int) (KarteBreite / 10) * 2)-(KarteBreite/40)),KarteHoehe - (KarteHoehe/20));
 		
 		// Nordpfeil einfügen:
 		nordpfeil.setBounds(((int) (KarteBreite / 10) * 1), (int) (KarteHoehe / 10), 300, 300);
@@ -154,21 +152,18 @@ public class Druckuebersicht  {
 		
 		
 		//Wenn die Legende im Skaliermodus ist, darf Diese nicht verschoben werden
-			 if(LegendeSkalierungsmodus.contains("An")) {
-				
-			 }
-			 else if(LegendeSkalierungsmodus.contains("Aus")) {
+			 
+			
 		Verschieben vsLayerLegende= new Verschieben(LayerLegende);
 		Verschieben vsNordpfeil = new Verschieben(nordpfeil);
 		Verschieben vsMassstab = new Verschieben(Ml);		
-		}
-	
 		
 		
 	    // Koordinatengitter:
 		Koordinatengitter Koordgitter = new Koordinatengitter();
-		Koordgitter.erzeugeKoordinatengitter(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width);
-		Koordgitter.setBounds(0, 0, KarteBreite, KarteHoehe);
+		Koordgitter.erzeugeKoordinatengitter(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width,1);
+		Koordgitter.setBounds(KarteBreite/40, KarteHoehe/40,( KarteBreite - (KarteBreite/20)), KarteHoehe - (KarteHoehe/20));
+		
 		
 		LayerLegende.setVisible(true);
 		nordpfeil.setVisible(true);
@@ -182,30 +177,48 @@ public class Druckuebersicht  {
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeMassstab);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeNordstern);
 		FensterDruckuebersicht.add(ButtonausgewaehlteFarbeGitter);
-
+		
+		
+		
+		JPanel Hintergrund=new JPanel();
+		Hintergrund.setLayout(null);
+		Hintergrund.setBounds(0,0,KarteBreite, KarteHoehe);
+		Hintergrund.setBorder(BorderFactory.createLineBorder(Color.black));
+		Hintergrund.setBackground(Color.WHITE);
+		Hintergrund.setVisible(true);
+	
+		
+		
+		Kartenblatt.setLayout(null);
 		Kartenblatt.add(LayerLegende);
-		//Kartenblatt.add(Skalierung);
 		Kartenblatt.add(Koordgitter);
 		Kartenblatt.add(Ml);
 		Kartenblatt.add(nordpfeil);
 		Kartenblatt.add(Kartenbild);
-		Kartenblatt.setBorder(BorderFactory.createLineBorder(Color.black));
+		Kartenblatt.add(Hintergrund);
 	
 		
-		
+
+		Kartenblatt.setBackground(Color.WHITE);
 		//Kartenblatt.setLayer(Skalierung,500);
-		Kartenblatt.setLayer(LayerLegende,400);
+		Kartenblatt.setLayer(LayerLegende,1000);
 		Kartenblatt.setLayer(Koordgitter,400);
 		Kartenblatt.setLayer(nordpfeil, 400);
-		Kartenblatt.setLayer(nordpfeil, 400);
 		Kartenblatt.setLayer(Ml, 400);
+		
+		
 		
 		FensterDruckuebersicht.add(Kartenblatt);
 		FensterDruckuebersicht.setVisible(true);
 		
 			
 	}
-
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+	
+		}
+	
+	
 	public static Color getAusgewählteSkalierung() {
 		return ausgewählteSkalierung;
 	}
