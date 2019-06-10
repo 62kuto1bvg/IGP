@@ -86,7 +86,7 @@ public class Druckuebersicht extends JPanel  {
 
 		//Kartenbild ist das Bild, welches vom WmsServer gedownloadet wird
 		JPanel Kartenbild = new JPanel();
-	
+		Kartenbild.setBackground(Color.WHITE);
 		//Bild wird in ein JLabel gesteckt
 		LoadKartenBild newMap = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
 		JLabel actualMap = (JLabel) newMap.showMap();
@@ -144,7 +144,9 @@ public class Druckuebersicht extends JPanel  {
 		
 		LayerLegende.setBounds((int) (KarteBreite / 10) * 8, KarteHoehe/40,(((int) (KarteBreite / 10) * 2)-(KarteBreite/40)),KarteHoehe - (KarteHoehe/20));
 		int Legendenbreite=(int)(((int) (KarteBreite / 10) * 2)-(KarteBreite/40));
-		LayerLegende.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width,Legendenbreite);
+		int LegendenKartenbreite=(int)(Legendenbreite/5)*3;
+		 
+		LayerLegende.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width,Legendenbreite,LegendenKartenbreite);
 		// Nordpfeil einfügen:
 		nordpfeil.setBounds(((int) (KarteBreite / 10) * 1), (int) (KarteHoehe / 10), 300, 300);
 	

@@ -1,5 +1,6 @@
 package Client;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.MediaTracker;
 import java.io.IOException;
@@ -63,6 +64,7 @@ public class LoadKartenLegende {
 //		System.out.println(urlGetMap);
 		JLabel map = new JLabel(i);
 		i.setImageObserver(map);
+		map.setBackground(Color.WHITE);
 //-------------------------------------------------------------		
 		System.out.println("Bild geladen");
 		System.out.println("Seitenverhältnis: 1:" + verhaeltnis);

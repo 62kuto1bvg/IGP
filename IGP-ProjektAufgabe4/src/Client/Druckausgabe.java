@@ -78,9 +78,10 @@ public class Druckausgabe extends JPanel  {
 
 			// Laden der Karte, diesmal aber mit mehr pixeln
 			JPanel KartenbildDruck = new JPanel();
-			LoadKartenBild newMapDruck = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,
-					widthFormat);
+			LoadKartenBild newMapDruck = new LoadKartenBild(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,	widthFormat);
 			JLabel actualMapDruck = (JLabel) newMapDruck.showMap();
+			actualMapDruck.setBackground(Color.WHITE);
+			KartenbildDruck.setBackground(Color.WHITE);
 			KartenbildDruck.add(actualMapDruck);
 
 			KartenbildDruck.setBorder(BorderFactory.createLineBorder(Color.black,(int)verhaeltnissUebersichtDruck));
@@ -149,7 +150,8 @@ public class Druckausgabe extends JPanel  {
 			ll.setBounds((int) (KarteBreiteDruck / 10) * 8, KarteHoeheDruck/40,(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40)+7),KarteHoeheDruck - (KarteHoeheDruck/20));
 			ll.setBorder(BorderFactory.createLineBorder(Color.BLACK, (int)verhaeltnissUebersichtDruck, true));
 			int Legendenbreite=(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40)+7);
-			ll.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat,Legendenbreite);
+			int LegendenKartenbreite=(int)(Legendenbreite/5)*3;
+			ll.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat,Legendenbreite,LegendenKartenbreite);
 			KartenblattDruck.add(ll);
 			KartenblattDruck.add(KartenbildDruck);
 			
