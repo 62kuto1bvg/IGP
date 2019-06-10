@@ -2,6 +2,8 @@ package Client;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.MediaTracker;
 import java.io.IOException;
 import java.net.URL;
@@ -61,6 +63,8 @@ public class LoadKartenLegende {
 		i = new ImageIcon(new URL(urlGetMap));
 		while (i.getImageLoadStatus() == MediaTracker.LOADING)
 			;
+
+
 //		System.out.println(urlGetMap);
 		JLabel map = new JLabel(i);
 		i.setImageObserver(map);
