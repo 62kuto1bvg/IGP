@@ -151,7 +151,8 @@ public class Druckausgabe extends JPanel  {
 			ll.setBorder(BorderFactory.createLineBorder(Color.BLACK, (int)verhaeltnissUebersichtDruck, true));
 			int Legendenbreite=(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40)+7);
 			int LegendenKartenbreite=(int)(Legendenbreite/5)*3;
-			ll.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat,Legendenbreite,LegendenKartenbreite);
+			int Legendenhoehe=KarteHoeheDruck - (KarteHoeheDruck/20);
+			ll.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat,Legendenbreite,Legendenhoehe,LegendenKartenbreite,verhaeltnissUebersichtDruck);
 			KartenblattDruck.add(ll);
 			KartenblattDruck.add(KartenbildDruck);
 			
@@ -161,15 +162,20 @@ public class Druckausgabe extends JPanel  {
 			HintergrundDruck.setBorder(BorderFactory.createLineBorder(Color.black));
 			HintergrundDruck.setBackground(Color.WHITE);
 			
+
+			Rahmen Rahmen=new Rahmen(KarteBreiteDruck,KarteHoeheDruck,(int)verhaeltnissUebersichtDruck);
+			Rahmen.setBounds(0, 0,KarteBreiteDruck,KarteHoeheDruck);
+			Rahmen.setVisible(true);
 			
 			HintergrundDruck.setVisible(true);
 			KartenbildDruck.setVisible(true);
 			KartenblattDruck.add(Koordgitter);
 			
 			
-			
+			KartenblattDruck.add(Rahmen);
 			KartenblattDruck.add(HintergrundDruck);
-			KartenblattDruck.setLayer(ll, 1000);
+			KartenblattDruck.setLayer(ll, 900);
+			KartenblattDruck.setLayer(Rahmen, 1000);
 			KartenblattDruck.setLayer(nordpfeil, 400);
 			KartenblattDruck.setLayer(Koordgitter, 500);
 			KartenblattDruck.setLayer(KartenbildDruck, 400);

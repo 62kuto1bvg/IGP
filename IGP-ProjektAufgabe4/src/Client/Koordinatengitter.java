@@ -241,7 +241,7 @@ public class Koordinatengitter extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeKoordinatengitter);
 		g2.setStroke(new BasicStroke(strichdicke));
-		g2.setFont(new Font("Calibri", Font.PLAIN,(int) 15*strichdicke));
+		g2.setFont(new Font("Verdana", Font.PLAIN,(int) 15*strichdicke));
 		// Zeichnen der senkrechten Linien:
 		for (int j = 0; j < Laengengradetransformiert.size(); j++) {
 

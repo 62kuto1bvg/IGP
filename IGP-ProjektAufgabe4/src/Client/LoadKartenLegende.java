@@ -31,9 +31,7 @@ public class LoadKartenLegende {
 		this.verhaeltnis = verhaeltnis;
 		this.width = width;
 
-			 this.maxNorth = maxNorth;	
-			
-			 this.minNorth = minNorth;
+	
 		
 		
 	}
@@ -44,14 +42,14 @@ public class LoadKartenLegende {
 
 		if (crs.equalsIgnoreCase("CRS:84")) {
 			// width = 1000;
-			widthRandlos = ((int) width) - 40;
+			widthRandlos = ((int) width);
 			height = widthRandlos;
 			urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="
 					+ minEast + "," + minNorth + "," + maxEast + "," + maxNorth + "&CRS=" + crs + "&WIDTH=" + width
 					+ "&HEIGHT=" + (int) height + "&LAYERS=OI.Mosaic.NaturalColor.Feathering&FORMAT=image/png";
 		} else {
 //				width=2600;
-			widthRandlos = (int) width - 40;
+			widthRandlos = (int) width;
 			height = widthRandlos;
 
 			urlGetMap = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&VERSION=1.3.0&request=GetMap&BBOX="

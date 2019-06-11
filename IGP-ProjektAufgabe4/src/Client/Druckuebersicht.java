@@ -39,8 +39,9 @@ public class Druckuebersicht extends JPanel  {
 	static String LegendeSkalierungsmodus="Aus";
 	static Color ausgewählteSkalierung=Color.LIGHT_GRAY;
 	//Skalierung Skalierung=new Skalierung();	
+	int KarteHoehe;
+	int KarteBreite;
 	
-
 	public void OeffneÜbersicht(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis)
 			throws IOException {
 		
@@ -58,8 +59,8 @@ public class Druckuebersicht extends JPanel  {
 		
 		// Die Wurzel(2), weil das das Seitenverältnis von Din A ist,
 	
-		int KarteBreite=1000;
-		int KarteHoehe = (int) (KarteBreite / (Math.sqrt(2)));
+		 KarteBreite=1000;
+		 KarteHoehe = (int) (KarteBreite / (Math.sqrt(2)));
 
 
 		// Fensterbreite soll nicht den Ganzen Bildschirm bedecken:
@@ -144,9 +145,10 @@ public class Druckuebersicht extends JPanel  {
 		
 		LayerLegende.setBounds((int) (KarteBreite / 10) * 8, KarteHoehe/40,(((int) (KarteBreite / 10) * 2)-(KarteBreite/40)),KarteHoehe - (KarteHoehe/20));
 		int Legendenbreite=(int)(((int) (KarteBreite / 10) * 2)-(KarteBreite/40));
+		int Legendenhoehe=KarteHoehe - (KarteHoehe/20);
 		int LegendenKartenbreite=(int)(Legendenbreite/5)*3;
 		 
-		LayerLegende.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width,Legendenbreite,LegendenKartenbreite);
+		LayerLegende.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width,Legendenbreite,Legendenhoehe,LegendenKartenbreite,1);
 		// Nordpfeil einfügen:
 		nordpfeil.setBounds(((int) (KarteBreite / 10) * 1), (int) (KarteHoehe / 10), 300, 300);
 	
@@ -190,21 +192,27 @@ public class Druckuebersicht extends JPanel  {
 		Hintergrund.setBackground(Color.WHITE);
 		Hintergrund.setVisible(true);
 	
+	
 		
+		Rahmen Rahmen=new Rahmen(KarteBreite,KarteHoehe,1);
+		Rahmen.setBounds(0, 0,KarteBreite,KarteHoehe);
+		Rahmen.setVisible(true);
 		
 		Kartenblatt.setLayout(null);
+		Kartenblatt.add(Rahmen);
 		Kartenblatt.add(LayerLegende);
 		Kartenblatt.add(Koordgitter);
 		Kartenblatt.add(Ml);
 		Kartenblatt.add(nordpfeil);
 		Kartenblatt.add(Kartenbild);
 		Kartenblatt.add(Hintergrund);
-	
+		
 		
 
 		Kartenblatt.setBackground(Color.WHITE);
 		//Kartenblatt.setLayer(Skalierung,500);
-		Kartenblatt.setLayer(LayerLegende,1000);
+		Kartenblatt.setLayer(LayerLegende,900);
+		Kartenblatt.setLayer(Rahmen,1000);
 		Kartenblatt.setLayer(Koordgitter,400);
 		Kartenblatt.setLayer(nordpfeil, 400);
 		Kartenblatt.setLayer(Ml, 400);
@@ -216,10 +224,9 @@ public class Druckuebersicht extends JPanel  {
 		
 			
 	}
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-	
-		}
+
+		
+		
 	
 	
 	public static Color getAusgewählteSkalierung() {
