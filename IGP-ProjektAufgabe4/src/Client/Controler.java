@@ -10,8 +10,6 @@ public class Controler {
     	window.openWindow();
     	
     	
-    	String url = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&request=GetCapabilities";
-    	GetMetadata test = new GetMetadata(url);
-    	test.getMetafromXML();
+    	
     }
 }

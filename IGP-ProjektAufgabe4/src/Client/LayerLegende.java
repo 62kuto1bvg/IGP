@@ -119,6 +119,7 @@ public class LayerLegende extends JLayeredPane {
 		Titel.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*12)));
 		Titel.setBorder(new LineBorder(Color.WHITE, 2));
 		
+		    	
 		//Für das unterstrichene
 		Font Titelfont = Titel.getFont();
 		Map attributes = Titelfont.getAttributes();
@@ -142,15 +143,26 @@ public class LayerLegende extends JLayeredPane {
 		Benutzer.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*12)));
 		Benutzer.setBorder(new LineBorder(Color.WHITE, 2));
 		
+		////Metadaten auslesen und ablegen////
+		String url = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&request=GetCapabilities";
+    	GetMetadata Meta = new GetMetadata(url);
+    	Meta.getMetafromXML();
 		
-				
-	
+		JTextField Metadata = new JTextField();
+		String Title = Meta.LayerTitle.toString();
+		String Contact = Meta.ContactPerson.toString();
+    	Metadata.setText(Title + " \n" + Contact);
+		Metadata.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*30),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
+		Metadata.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*10)));		
+		Metadata.setBorder(new LineBorder(Color.WHITE, 2));
+		
 		
 		
 		
 		this.add(BildCopernicuslabel);
 		this.add(BildHftlabel);
 		this.add(Titel);
+		this.add(Metadata);
 		this.add(Datumtext);
 		this.add(Benutzer);
 		
@@ -168,7 +180,7 @@ public class LayerLegende extends JLayeredPane {
 		this.setLayer(Titel, 800);
 		this.setLayer(Datumtext, 800);
 		this.setLayer(Benutzer, 800);
-		
+		this.setLayer(Metadata, 800);
 	}
 	
 	
