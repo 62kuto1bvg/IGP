@@ -21,7 +21,8 @@ public class GetMetadata {
 	
 public void getMetafromXML() {
 		
-		MetaDList Meta = new MetaDList();		
+		MetaDList Meta = new MetaDList();
+		Metadata Legende = new Metadata();
 		try {
 			 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -36,14 +37,16 @@ public void getMetafromXML() {
 					 // verfügbare Raumbezugsysteme und BoundingBoxes auslesen:
 					 NodeList childList = layerNode.getChildNodes();
 					 for (int j = 0; j < childList.getLength(); j++) {
-						 System.out.println(childList.item(j));
+//						 System.out.println(childList.item(j));
 						 if(childList.item(j).getNodeName().equalsIgnoreCase("Abstract")) {
 							Abstract=(childList.item(j).getTextContent());
-							System.out.println(Abstract);
+//							System.out.println(Abstract);
+							Legende.setAbstract(Abstract);
 							}
 						 if(childList.item(j).getNodeName().equalsIgnoreCase("Title")) {
 							 LayerTitle=(childList.item(j).getTextContent());
-							 System.out.println(LayerTitle);
+//							 System.out.println(LayerTitle);
+							 Legende.setLayerTitle(LayerTitle);
 						 }
 					 }		 
 		        }
@@ -57,15 +60,17 @@ public void getMetafromXML() {
 					  for (int j = 0; j < childList.getLength(); j++) {
 						  if(childList.item(j).getNodeName().equalsIgnoreCase("ContactPerson")) {
 						  	ContactPerson=(childList.item(j).getTextContent());
-						  	System.out.println(ContactPerson);
-						  	
+//						  	System.out.println(ContactPerson);
+						  	Legende.setContactPerson(ContactPerson); 
 						  }
 					  }
 					}
-			 	}		 
-} catch (Exception e) {
-	 e.printStackTrace();
-}
+			 	}
+			 Meta.add(Legende);
+			 System.out.println(Legende);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 			 
-}
+	}
 }

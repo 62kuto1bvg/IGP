@@ -6,7 +6,9 @@ public class Metadata {
 	String LayerTitle;
 	String Abstract;
 	String ContactPerson;
-
+public Metadata () {
+	
+}
 public Metadata (String LayerTitle, String Abstract,String ContactPerson) {
 	 super();
 	this.Abstract=Abstract;
