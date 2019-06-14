@@ -36,8 +36,10 @@ public class LayerLegende extends JLayeredPane {
 	int xobenKoordinate;
 	int yobenKoordinate;
 	double verhaeltnissUebersichtDruck;
+	double BreiteKarte;
+	
 	public void fuelleLegende(String crs, double minEast, double minNorth, double maxEast, double maxNorth,
-			double verhaeltnis, int width, int Legendenbreite,int Legendenhoehe, int BreiteKartenausschnitt,double verhaeltnissUebersichtDruck) throws IOException {
+			double verhaeltnis, int width, int Legendenbreite,int Legendenhoehe, int BreiteKartenausschnitt,double verhaeltnissUebersichtDruck,double BreiteKarte) throws IOException {
 		
 		this.setLayout(null);
 
@@ -54,6 +56,8 @@ public class LayerLegende extends JLayeredPane {
 		this.BreiteKartenausschnitt = BreiteKartenausschnitt;
 		this.Legendenhoehe=Legendenhoehe;
 		this.verhaeltnissUebersichtDruck=verhaeltnissUebersichtDruck;
+		this.BreiteKarte=BreiteKarte;
+		
 		// Die legendenKoordinaten sind kleinermasstäblich. damit es übersichtlicher
 		// wird.
 		double Deltax = maxEast - minEast;
@@ -128,11 +132,11 @@ public class LayerLegende extends JLayeredPane {
 		
 		//////Erzeugt am Textfeld
 		
-		String Datum = (new SimpleDateFormat("yy.MM.dd").format(new java.util.Date()));
+		String Datum = (new SimpleDateFormat("dd.MM.yy HH:mm").format(new java.util.Date()));
 		JTextField Datumtext = new JTextField();
 		Datumtext.setText("erzeugt am: "+Datum);
 		Datumtext.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*73),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
-		Datumtext.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*12)));
+		Datumtext.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));
 		Datumtext.setBorder(new LineBorder(Color.WHITE, 2));
 		
 		
@@ -140,47 +144,118 @@ public class LayerLegende extends JLayeredPane {
 		String user = System.getProperty("user.name"); 
 		Benutzer.setText("erstellt von: "+user);
 		Benutzer.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*68),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
-		Benutzer.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*12)));
+		Benutzer.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));
 		Benutzer.setBorder(new LineBorder(Color.WHITE, 2));
 		
-		////Metadaten auslesen und ablegen////
+		////Metadaten auslesen und ablegen///////////////////
 		String url = "http://cidportal.jrc.ec.europa.eu/copernicus/services/ows/wms/public/core003?service=WMS&request=GetCapabilities";
     	GetMetadata Meta = new GetMetadata(url);
     	Meta.getMetafromXML();
 		
-		JTextArea Metadata = new JTextArea();										// Für einen mehrzeiligen Text ist eine JTextArea zu benutzen
+		JTextArea TTitle = new JTextArea();
+		// Für einen mehrzeiligen Text ist eine JTextArea zu benutzen
 		String Title = Meta.LayerTitle.toString();
-		String Contact = Meta.ContactPerson.toString();
-    	Metadata.setText(Title + " \n" + Contact);
-		Metadata.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*30),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(75/10));		// Anpassung der Tiefe für mehrzeiligen Text
-		Metadata.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));		
-		Metadata.setBorder(new LineBorder(Color.WHITE, 2));
+		for (int i = 0; i < Title.length(); i++) {
+				if (i % 30 == 0 ) {
+					Title= (Title.substring(0, i))+"\n"+(Title.substring(i, Title.length()));
+					//System.out.println(Kombi);
+				}
+							
+		}
+    	String Ausgabetitle = ("Arbeitstitel: "+Title);
+    	TTitle.setText(Ausgabetitle);
+    	TTitle.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*28),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(350/100));		// Anpassung der Tiefe für mehrzeiligen Text
+    	TTitle.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));		
+    	TTitle.setBorder(new LineBorder(Color.WHITE, 2));
+    	System.out.println("Titel"+Ausgabetitle);
+    																																																			
+    	String Contact = Meta.ContactPerson.toString();
+    	
+    	for (int i = 0; i < Contact.length(); i++) {
+			if (i % 30 == 0 ) {
+				Contact= (Contact.substring(0, i))+"\n"+(Contact.substring(i, Contact.length()));
+				//System.out.println(Kombi);
+			}
+						
+	}	
+    	
+    	String Ausgabecontact = ("Kontakt: "+ Contact);
+		JTextArea CContact = new JTextArea();
+		CContact.setText(Ausgabecontact);
+		CContact.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*35),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(350/100));		// Anpassung der Tiefe für mehrzeiligen Text
+		CContact.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));		
+		CContact.setBorder(new LineBorder(Color.WHITE, 2));
+		System.out.println("Kontakt" + Ausgabecontact);
 		
 		
+		
+		
+		
+		//Berechnung Massstab///////////////////////////////////////////////////////
+		
+		
+		
+		int erdradius = 6371000;
+		double alpha = ((maxNorth + minNorth) / 2);
+
+		// Umkreis auf Breitengrad
+
+		double radiusUmkreis = Math.cos(alpha * ((2 * Math.PI) / 360)) * erdradius;
+
+		// Winkel Bogensegment
+		double beta = ((maxEast - minEast));
+
+		
+		int Bogenlaengegesamt = (int) ((radiusUmkreis * (Math.PI) * beta) / 180);
+		
+	
+		String Massstabszahl;
+		
+		if(BreiteKarte==0) {
+			Massstabszahl="n/A";
+		}
+		
+		
+		else {
+		long Massstabszahldouble=(long) (Bogenlaengegesamt/(BreiteKarte/100));
+		Massstabszahl=String.valueOf(Massstabszahldouble);
+		}
+		
+		
+		///////////////////////////////////////////////////////////////////////////////
+		
+
+
+		JTextField Scale = new JTextField();
+	
+		Scale.setText("Massstab 1:"+Massstabszahl);
+		Scale.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*65),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
+		Scale.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));
+		Scale.setBorder(new LineBorder(Color.WHITE, 2));
 		
 		
 		this.add(BildCopernicuslabel);
 		this.add(BildHftlabel);
 		this.add(Titel);
-		this.add(Metadata);
+		this.add(TTitle);
+		this.add(CContact);
 		this.add(Datumtext);
 		this.add(Benutzer);
-		
-		
+		this.add(Scale);
 		
 		
 
-		
-		
 		this.setLayer(Hintergrund,100);
 		this.setLayer(Kartenbild, 500);
 		this.setLayer(rk,800);
 		this.setLayer(BildCopernicuslabel, 800);
 		this.setLayer(BildHftlabel, 800);
 		this.setLayer(Titel, 800);
-		this.setLayer(Datumtext, 800);
-		this.setLayer(Benutzer, 800);
-		this.setLayer(Metadata, 800);
+		this.setLayer(Datumtext, 803);
+		this.setLayer(Benutzer, 802);
+		this.setLayer(Scale, 801);
+		this.setLayer(TTitle, 800);
+		this.setLayer(CContact, 801);
 	}
 	
 	

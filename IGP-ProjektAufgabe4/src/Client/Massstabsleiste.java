@@ -1,6 +1,8 @@
 package Client;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -19,9 +21,12 @@ public class Massstabsleiste extends JPanel {
 	double width;
 	public int anteiligeBildschirmstrecke;
 	public int vereinfachteverkleinerteBogenlänge;
-
+	public int Skalierung;
+	
+	
+	
 	public void erstelleMassstabsleiste(String crs, double minEast, double minNorth, double maxEast, double maxNorth,
-			double verhaeltnis, int width) {
+			double verhaeltnis, int width, int Skalierung) {
 
 		this.crs = crs;
 		this.minEast = minEast;
@@ -30,7 +35,7 @@ public class Massstabsleiste extends JPanel {
 		// this.maxNorth = maxNorth;
 		this.verhaeltnis = verhaeltnis;
 		this.width = width-40;
-
+		this.Skalierung=Skalierung;
 		// Behelf um Voerst den Kartenausschnitt auf DIN Format zu bekommen
 
 		DeltaX = maxEast - minEast;
@@ -102,8 +107,10 @@ public class Massstabsleiste extends JPanel {
 	public void paintComponent(Graphics g) {
 
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeMassstabsleiste);
 		
+		g2.setStroke(new BasicStroke((int)Skalierung*1));
+		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeMassstabsleiste);
+		g2.setFont(new Font("Verdana", Font.PLAIN,(int) 10*Skalierung));
 		//ANTIALIASING hilft gegen Kantenflimmern
 		//g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 

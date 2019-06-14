@@ -140,15 +140,23 @@ public class Druckuebersicht extends JPanel  {
 		
 		// Massstabsleiste implementieren:
 		Massstabsleiste Ml = new Massstabsleiste();
-		Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width);
+		Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis,width,1);
 		Ml.setBounds(((int) ((KarteBreite / 10)*1)), (int) (KarteHoehe / 10)*8, ((KarteHoehe /10)*7), (KarteHoehe /10));
 		
 		LayerLegende.setBounds((int) (KarteBreite / 10) * 8, KarteHoehe/40,(((int) (KarteBreite / 10) * 2)-(KarteBreite/40)),KarteHoehe - (KarteHoehe/20));
 		int Legendenbreite=(int)(((int) (KarteBreite / 10) * 2)-(KarteBreite/40));
 		int Legendenhoehe=KarteHoehe - (KarteHoehe/20);
 		int LegendenKartenbreite=(int)(Legendenbreite/5)*3;
-		 
-		LayerLegende.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width,Legendenbreite,Legendenhoehe,LegendenKartenbreite,1);
+		
+		
+		//umrechnen der Bildschirmbreite in "echte" CM
+		double breite = dim.getWidth();
+		double hoehe = dim.getHeight();
+		int dpi = java.awt.Toolkit.getDefaultToolkit().getScreenResolution();
+		
+
+		
+		LayerLegende.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width,Legendenbreite,Legendenhoehe,LegendenKartenbreite,1,0);
 		// Nordpfeil einfügen:
 		nordpfeil.setBounds(((int) (KarteBreite / 10) * 1), (int) (KarteHoehe / 10), 300, 300);
 	

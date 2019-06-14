@@ -100,8 +100,7 @@ public class Druckausgabe extends JPanel  {
 			int YNordpfeil = 0;
 			int Xmleiste = 0;
 			int Ymleiste = 0;
-			int Xmlegende = 0;
-			int Ymlegende = 0;
+			
 			
 			Nordpfeil.x = (verhaeltnissUebersichtDruck);
 
@@ -124,11 +123,8 @@ public class Druckausgabe extends JPanel  {
 					Xmleiste = (int) ((Kartenelemente.get(i).getX()) * verhaeltnissUebersichtDruck);
 					Ymleiste = (int) ((Kartenelemente.get(i).getY()) * verhaeltnissUebersichtDruck);
 				}
-				else if (Kartenelemente.get(i).getClass().toString().contains("Legende")) {
-
-					Xmlegende = (int) ((Kartenelemente.get(i).getX()) * verhaeltnissUebersichtDruck);
-					Ymlegende = (int) ((Kartenelemente.get(i).getY()) * verhaeltnissUebersichtDruck);
-				}
+		
+				
 					
 			}
 
@@ -140,7 +136,7 @@ public class Druckausgabe extends JPanel  {
 			KartenblattDruck.add(nordpeil);
 
 			Massstabsleiste Ml = new Massstabsleiste();
-			Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat);
+			Ml.erstelleMassstabsleiste(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat,(int)verhaeltnissUebersichtDruck);
 			nordpeil.setVisible(true);
 			Ml.setBounds((Xmleiste), Ymleiste, ((KarteHoeheDruck / 10) * 7), (KarteHoeheDruck / 10));
 			KartenblattDruck.add(Ml);
@@ -152,7 +148,7 @@ public class Druckausgabe extends JPanel  {
 			int Legendenbreite=(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40)+7);
 			int LegendenKartenbreite=(int)(Legendenbreite/5)*3;
 			int Legendenhoehe=KarteHoeheDruck - (KarteHoeheDruck/20);
-			ll.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat,Legendenbreite,Legendenhoehe,LegendenKartenbreite,verhaeltnissUebersichtDruck);
+			ll.fuelleLegende(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, widthFormat,Legendenbreite,Legendenhoehe,LegendenKartenbreite,verhaeltnissUebersichtDruck,breitenDinFormate[index]);
 			KartenblattDruck.add(ll);
 			KartenblattDruck.add(KartenbildDruck);
 			
@@ -176,8 +172,9 @@ public class Druckausgabe extends JPanel  {
 			KartenblattDruck.add(HintergrundDruck);
 			KartenblattDruck.setLayer(ll, 900);
 			KartenblattDruck.setLayer(Rahmen, 1000);
-			KartenblattDruck.setLayer(nordpfeil, 400);
-			KartenblattDruck.setLayer(Koordgitter, 500);
+			KartenblattDruck.setLayer(nordpeil, 800);
+			KartenblattDruck.setLayer(Ml, 800);
+			KartenblattDruck.setLayer(Koordgitter, 800);
 			KartenblattDruck.setLayer(KartenbildDruck, 400);
 
 			FensterDruck.add(KartenblattDruck);
