@@ -39,6 +39,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 	JLabel infoBBOXaenderung;
 	JTextField bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld;
 	JScrollPane display;
+	JLabel txtErklärung;
 	static int AuswahlFormatIndex;
 	ArrayList<String> exportListe = new ArrayList<String>(); // Anlegen einer Exportliste (wird später "gefüttert" und
 																// ausgegeben)
@@ -53,7 +54,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 			BasicArrowButton buttonNord, BasicArrowButton buttonSued, JButton zoomIn, JButton zoomOut,
 			JButton printToPDF, JComboBox<String> comboBoxCRS, JButton BereichAuswaehlen, JTextField bBoxX1Feld,
 			JTextField bBoxY1Feld, JTextField bBoxX2Feld, JTextField bBoxY2Feld, JLabel infoBBOXaenderung,
-			JComboBox<String> AuswahlFormat, JButton MassstabOK, JTextField Massstab) {
+			JComboBox<String> AuswahlFormat, JButton MassstabOK, JTextField Massstab, JLabel txtErklärung) {
 		// TODO Auto-generated constructor stub
 
 		super();
@@ -73,6 +74,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 		this.bBoxY2Feld = bBoxY2Feld;
 		this.BereichAuswaehlen = BereichAuswaehlen;
 		this.infoBBOXaenderung = infoBBOXaenderung;
+		this.txtErklärung = txtErklärung;
 
 		this.AuswahlFormat = AuswahlFormat;
 		this.MassstabOK = MassstabOK;
@@ -173,6 +175,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 			bBoxX2Feld.setText("" + Math.rint(maxEast * 1000) / 1000);
 			bBoxY2Feld.setText("" + Math.rint(maxNorth * 1000) / 1000);
 			infoBBOXaenderung.setVisible(true);
+			txtErklärung.setVisible(true);
 
 		}
 

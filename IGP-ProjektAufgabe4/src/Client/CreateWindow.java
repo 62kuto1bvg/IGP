@@ -1,7 +1,12 @@
 package Client;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.io.IOException;
+
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -9,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
 
 public class CreateWindow {
@@ -16,6 +22,7 @@ public class CreateWindow {
 	
 	static JFrame frame = new JFrame();
 	JPanel panelTextfields = new JPanel();
+	JPanel panelLogo = new JPanel();	//Panel für das Logo links oben
 	JPanel panelMap = new JPanel(); 
 	JPanel panelNavigation = new JPanel();
 	static JTextArea cadDisplay = new JTextArea();
@@ -34,6 +41,25 @@ public class CreateWindow {
 
      panelMap.setBounds(350, 50, 650, 650);	//Position und Größe des Map-Panels
 //--------------------------------------------------------------------------------------------------------     
+    /*
+     //Hintergrundbild
+     ImageIcon imgLinkBackgr = new ImageIcon("C:/Users/timon/Documents/Studium/6. Semester/IGP/Logo/background.jpg");
+	 JLabel bckgrbild = new JLabel("",imgLinkBackgr, JLabel.CENTER);
+	 bckgrbild.setBounds(0,0,1200,700);
+     frame.getContentPane().add(bckgrbild);
+     */
+     
+     // Logo links oben
+     panelLogo.setBounds(10, 10, 240, 180); //Position und Größe des Logo-Panels
+     ImageIcon imgLink = new ImageIcon(getClass().getResource("FertigesLogo.png"));
+	 JLabel logo = new JLabel(imgLink);
+	 //logo.setVisible(true);
+	 panelLogo.add(logo);
+     frame.getContentPane().add(panelLogo);
+     
+   //--------------------------------------------------------------------------------------------------------     
+
+     
      // Drop-Down-Menu Koord.System:
      GetBBox bBoxChoice = new GetBBox(url);												// zählen der verfügbaren CRS (hier 7)
      String [] auswahlCRS = new String [bBoxChoice.getBBoxfromXML().amountBBoxes()];	// Anlegen des Arrays
@@ -43,25 +69,24 @@ public class CreateWindow {
      
      JComboBox<String> comboBoxCRS = new JComboBox<String>(auswahlCRS);   				// Anlegen des Drop-Down-Menüs...
      comboBoxCRS.setActionCommand("Drop-Down CRS");
-     comboBoxCRS.setBounds(230, 60, 100, 20);
+     comboBoxCRS.setBounds(230, 200, 100, 20);
      frame.add(comboBoxCRS);
      	JLabel tfCRS = new JLabel("gewünschtes Koordinatensystem:");						// Textfeld vor dem Drop-Down-Menü...
-     	tfCRS.setBounds(10, 60, 200, 20);
+     	tfCRS.setBounds(10, 200, 200, 20);
      	frame.add(tfCRS);
      
      // Anzeige für die Bounding Box Koordinaten:
   
-    
      JTextField bBoxX1Feld = new JTextField();
      JTextField bBoxY1Feld = new JTextField();
      JTextField bBoxX2Feld = new JTextField();
      JTextField bBoxY2Feld = new JTextField();
      JTextField Massstab = new JTextField();
      Massstab.setBounds(1150, 300, 150, 40);
-     bBoxX1Feld.setBounds(30, 90, 100, 20);
-     bBoxY1Feld.setBounds(30, 110, 100, 20);
-     bBoxX2Feld.setBounds(140, 90, 100, 20);
-     bBoxY2Feld.setBounds(140, 110, 100, 20);
+     bBoxX1Feld.setBounds(30, 390, 100, 20);
+     bBoxY1Feld.setBounds(30, 410, 100, 20);
+     bBoxX2Feld.setBounds(140, 390, 100, 20);
+     bBoxY2Feld.setBounds(140, 410, 100, 20);
      Massstab.setActionCommand("Massstabszahl");
      bBoxX1Feld.setActionCommand("BBox Xmin geändert");
      bBoxY1Feld.setActionCommand("BBox Ymin geändert");
@@ -78,8 +103,8 @@ public class CreateWindow {
      frame.add(bBoxY2Feld);
      frame.add(Massstab);
      	JLabel infoBBOXaenderung = new JLabel();
-     	infoBBOXaenderung.setText("<html><body>Beachte: Alle Änderungen der BBox-Koordinaten müssen mit Enter bestätigt werden. Anschließend muss die Karte neu geladen werden</body></html>");
-     	infoBBOXaenderung.setBounds(30, 130, 300, 60);
+     	infoBBOXaenderung.setText("<html><body>Beachte: Alle Änderungen der BBox-Koordinaten müssen mit Enter bestätigt werden. Anschließend muss die Karte neu geladen werden <br><br> Links Oben: min Ost; Rechts Oben: max Ost; Links Unten: min Nord; Rechts Oben: max Nord</body></html>");
+     	infoBBOXaenderung.setBounds(30, 280, 300, 100);
      	frame.add(infoBBOXaenderung);
      	infoBBOXaenderung.setVisible(false);
      
@@ -154,6 +179,27 @@ public class CreateWindow {
      AuswahlFormat.setBackground(Color.LIGHT_GRAY);
      AuswahlFormat.setActionCommand("AuswaehlenDINFormat");
      frame.add(AuswahlFormat);
+     TitledBorder title; //Umrandung ab hier
+     title = BorderFactory.createTitledBorder("DIN-Format Auswahl");
+     title.setTitleColor(Color.black);
+     title.setBorder(BorderFactory.createRaisedBevelBorder());
+//     title.setBorder(BorderFactory.createLoweredBevelBorder());
+     AuswahlFormat.setBorder(title);             // Umrandung mit Überschrift
+     
+     // Textfeld Funktion erklären
+  	JLabel txtErklärung = new JLabel(
+  			"<html><h3>Navigation:</h3> Über Buttons oder mit festgehaltener Maus Fenster im Bild aufziehen<br><h3>DIN-Format Auswahl:</h3>Auswählen des gewünschten Druck-Formates"
+  			+ "<br><h3>Maßstab-Eingabe:</h3> Gewünschten Maßstab eingeben => Enter => Klick in das Bild <br>=> Kartenfenster wird angezeigt=> Doppelklick = gewünschte Position festhalten</html>");						// Textfeld
+  	txtErklärung.setBounds(1350, 100, 500, 220);
+  	frame.add(txtErklärung);
+    TitledBorder titleerkl;  // Umrandung ab hier
+    titleerkl = BorderFactory.createTitledBorder("Benutzer-Erklärung");
+    titleerkl.setTitleColor(Color.black);
+    titleerkl.setBorder(BorderFactory.createRaisedBevelBorder());
+//    titlemas.setBorder(BorderFactory.createLoweredBevelBorder());
+    txtErklärung.setBorder(titleerkl);             // Umrandung mit Überschrift
+    txtErklärung.setVisible(false);
+
      
      
      // printToPDF-Button:
@@ -171,6 +217,12 @@ public class CreateWindow {
      MassstabOK.setBackground(Color.LIGHT_GRAY);
      MassstabOK.setVisible(false);
      frame.add(MassstabOK);
+     TitledBorder titlemas;  // Umrandung ab hier
+     titlemas = BorderFactory.createTitledBorder("Maßstab Eingabe");
+     titlemas.setTitleColor(Color.black);
+     titlemas.setBorder(BorderFactory.createRaisedBevelBorder());
+//     titlemas.setBorder(BorderFactory.createLoweredBevelBorder());
+     Massstab.setBorder(titlemas);             // Umrandung mit Überschrift
           
 //------------------------------------------------    
 // Fenster öffnen:
@@ -178,7 +230,7 @@ public class CreateWindow {
    
 //---------------------------------------------------ActionListener------------------------------------------------------------------------------------------------------------------------------------------------------
    	 //Listener anlegen:        
-     ActionListenerMap mapActionListener = new ActionListenerMap(panelMap, frame, buttonOst, buttonWest, buttonNord, buttonSued, zoomIn, zoomOut, PrintToPDF, comboBoxCRS,BereichAuswaehlen, bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld, infoBBOXaenderung,AuswahlFormat,MassstabOK,Massstab);
+     ActionListenerMap mapActionListener = new ActionListenerMap(panelMap, frame, buttonOst, buttonWest, buttonNord, buttonSued, zoomIn, zoomOut, PrintToPDF, comboBoxCRS,BereichAuswaehlen, bBoxX1Feld, bBoxY1Feld, bBoxX2Feld, bBoxY2Feld, infoBBOXaenderung,AuswahlFormat,MassstabOK,Massstab,txtErklärung);
      
      //Registrierung aller Objekte, die "abgehört" werden sollen:
     
@@ -202,4 +254,4 @@ public class CreateWindow {
      
 //-------------------------------------------------------------------------------------------------------------------  
 	}
-}
+	}

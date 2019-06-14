@@ -21,6 +21,8 @@ int Verhältnis;
 	}
 
 	public void paint(Graphics g) {
+		
+		
 		Graphics2D g2 = (Graphics2D) g;
 		//Rahmen um das Kartenbild
 		g2.setStroke(new BasicStroke(Verhältnis*2));

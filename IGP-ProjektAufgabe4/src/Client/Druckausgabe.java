@@ -179,7 +179,7 @@ public class Druckausgabe extends JPanel  {
 
 			FensterDruck.add(KartenblattDruck);
 			FensterDruck.setVisible(true);
-		
+	
 	}
 		}
 		public void paintComponent(Graphics g) {

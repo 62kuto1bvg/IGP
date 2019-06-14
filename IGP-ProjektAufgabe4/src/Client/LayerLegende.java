@@ -216,7 +216,7 @@ public class LayerLegende extends JLayeredPane {
 		}
 		
 		
-		else {
+		else{
 		long Massstabszahldouble=(long) (Bogenlaengegesamt/(BreiteKarte/100));
 		Massstabszahl=String.valueOf(Massstabszahldouble);
 		}
