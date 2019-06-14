@@ -86,13 +86,13 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 															// implementieren !
 
 		String actionCommand = actionEvent.getActionCommand();
-		System.out.println("Geklickt: " + actionCommand); // Konsolenausgabe, welche Aktion geklickt wurde
+		
 
 //------------------------------------------------------ Drop-Down-Menüs: --------------------------------------------------------------------------------------
 		// CRS wählen und passende Bounding Box abgreifen:
 		if (actionCommand.equals("Drop-Down CRS")) {
 			crs = (String) ((JComboBox<?>) actionEvent.getSource()).getSelectedItem();
-			System.out.println("ausgewähltes Koordinatensystem: " + crs);
+			
 
 			// Koordinaten der BBox zum gewählten CRS:
 			GetBBox newBBoxList = new GetBBox(url);
@@ -106,7 +106,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 					maxEast = koordList.giveback(k).maxEast;
 					maxNorth = koordList.giveback(k).maxNorth;
 
-					System.out.println("BBox: " + minEast + "/" + minNorth + "  " + maxEast + "/" + maxNorth);
+					
 
 					if (minEast < 0 && minNorth < 0) {
 						verhaeltnis = (maxEast + (0 - minEast)) / (maxNorth + (0 - minNorth));
@@ -195,7 +195,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 //--------------------------------------------------------- Navigation: ----------------------------------------------------------------------------------------		 
 		// Wenn Ostpfeil-Button gedrückt wurde:
 		if (actionCommand.equals("Nach Osten")) {
-			System.out.println("Gehe nach Osten"); // Befehl an Konsole ausgeben
+			// Befehl an Konsole ausgeben
 
 			// Berechnen der neuen BBox-Koord.:
 			double a = maxEast - minEast;
@@ -225,8 +225,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 
 		// Wenn Westpfeil gedrückt wurde:
 		if (actionCommand.equals("Nach Westen")) {
-			System.out.println("Gehe nach Westen");
-
+		
 			// Berechnen der neuen BBox-Koord.:
 			double a = maxEast - minEast;
 			minEast = minEast - a / 3;
@@ -255,7 +254,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 
 		// Wenn Nordpfeil gedrückt wurde:
 		if (actionCommand.equals("Nach Norden")) {
-			System.out.println("Gehe nach Norden");
+			
 
 			// Berechnen der neuen BBox-Koord.:
 			double a = maxNorth - minNorth;
@@ -285,8 +284,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 
 		// Wenn Südpfeil gedrückt wurde:
 		if (actionCommand.equals("Nach Süden")) {
-			System.out.println("Gehe nach Süden");
-
+		
 			// Berechnen der neuen BBox-Koord.:
 			double a = maxNorth - minNorth;
 			minNorth = minNorth - a / 3;
@@ -315,7 +313,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 
 		// Wenn Zoom-In-Button (+) gedrückt wurde:
 		if (actionCommand.equals("zoom+")) {
-			System.out.println("Zoom in das Bild");
+			
 
 			// Berechnen der neuen BBox-Koord.:
 			double a = maxEast - minEast;
@@ -347,7 +345,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 
 		// Wenn Zoom-Out (-) gedrückt wurde:
 		if (actionCommand.equals("zoom-")) {
-			System.out.println("Zoom aus dem Bild");
+			
 
 			// Berechnen der neuen BBox-Koord.:
 			double a = maxEast - minEast;
@@ -379,7 +377,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 
 		// Wenn DRUCKEN gedrückt wurde:
 		if (actionCommand.equals("druck")) {
-			System.out.println("Drucke PDF");
+		
 			Druckuebersicht druckuebersicht = new Druckuebersicht();
 
 			try {
@@ -397,7 +395,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 		}
 		if (actionCommand.equals("AuswaehlenDINFormat")) {
 			AuswahlFormatIndex = AuswahlFormat.getSelectedIndex();
-			System.out.println(AuswahlFormatIndex);
+			
 
 		}
 
@@ -406,7 +404,7 @@ public class ActionListenerMap extends CreateWindow implements ActionListener {
 			masstabstext = Massstab.getText();
 			Massstabszahl = Integer.parseInt(masstabstext);
 			auswaehlbarerBereichStatus = "Masstabsansicht";
-			System.out.println("masstabstext  " + masstabstext);
+		
 
 		}
 

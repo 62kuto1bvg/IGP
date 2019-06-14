@@ -144,8 +144,10 @@ public class Druckuebersicht extends JPanel  {
 		Ml.setBounds(((int) ((KarteBreite / 10)*1)), (int) (KarteHoehe / 10)*8, ((KarteHoehe /10)*7), (KarteHoehe /10));
 		
 		LayerLegende.setBounds((int) (KarteBreite / 10) * 8, KarteHoehe/40,(((int) (KarteBreite / 10) * 2)-(KarteBreite/40)),KarteHoehe - (KarteHoehe/20));
-		int Legendenbreite=(int)(((int) (KarteBreite / 10) * 2)-(KarteBreite/40));
+		int Legendenbreite=(int)(( (KarteBreite / 10) * 2)-(KarteBreite/40));
+		
 		int Legendenhoehe=KarteHoehe - (KarteHoehe/20);
+		
 		int LegendenKartenbreite=(int)(Legendenbreite/5)*3;
 		
 		

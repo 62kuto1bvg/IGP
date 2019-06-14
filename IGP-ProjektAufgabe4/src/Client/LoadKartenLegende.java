@@ -71,7 +71,7 @@ public class LoadKartenLegende {
 		System.out.println("Bild geladen");
 		System.out.println("Seitenverhältnis: 1:" + verhaeltnis);
 		System.out.println("Bildformat: " + width + "x" + (int) height);
-		System.out.println(urlGetMap);
+		System.out.println("LadeKarteLegende"+urlGetMap);
 		// double Test=this.DeltaX-this.DeltaY;
 		// System.out.println("TESTWERT "+Test);
 //---------------------- return: --------------------------------	

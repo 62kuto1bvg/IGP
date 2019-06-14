@@ -67,7 +67,7 @@ public class LoadMap{
 //		System.out.println("Bild geladen");
 	//	System.out.println("Seitenverhältnis: 1:"+verhaeltnis);
 	//	System.out.println("Bildformat: "+width+"x"+(int)height);
-		System.out.println("AAAAAAAAAAAA"+urlGetMap);
+		System.out.println("LoadMap "+urlGetMap);
 //---------------------- return: --------------------------------	
 		return map;
 	}

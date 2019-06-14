@@ -102,17 +102,27 @@ public class LayerLegende extends JLayeredPane {
 		//Bilder einfügen
 		
 		Icon BildHft = new ImageIcon(getClass().getResource("LogoHFT.png"));	
-		((ImageIcon) BildHft).setImage(((ImageIcon) BildHft).getImage().getScaledInstance((int)(Legendenbreite/10)*5,(int)(Legendenbreite/2.5),Image.SCALE_DEFAULT)); 
-		JLabel BildHftlabel = new JLabel(BildHft);
+		double BreiteBildHft=(Legendenbreite/10)*5;
+		;
 		
+		double HoeheBildHft=(BreiteBildHft*0.61121495); 
+		
+		
+		
+		((ImageIcon) BildHft).setImage(((ImageIcon) BildHft).getImage().getScaledInstance((int)BreiteBildHft,(int)HoeheBildHft,Image.SCALE_DEFAULT)); 
+		JLabel BildHftlabel = new JLabel(BildHft);												
+		BildHftlabel.setBounds(Legendenbreite/4,(int) ((Legendenhoehe/40)*36), (int)BreiteBildHft,(int)HoeheBildHft);
+	
 		Icon BildCopernicus = new ImageIcon(getClass().getResource("copernicusLogo.png"));	
-		((ImageIcon) BildCopernicus).setImage(((ImageIcon) BildCopernicus).getImage().getScaledInstance((int)(Legendenbreite/10)*7,(int)(Legendenbreite/2),Image.SCALE_DEFAULT)); 
+		int BreiteBildCopernicus=(int)(Legendenbreite/10)*7;
+		int HoeheBildCopernicus=(int)(BreiteBildCopernicus*(0.525));
+		
+		((ImageIcon) BildCopernicus).setImage(((ImageIcon) BildCopernicus).getImage().getScaledInstance(BreiteBildCopernicus,HoeheBildCopernicus,Image.SCALE_DEFAULT)); 
 		JLabel BildCopernicuslabel = new JLabel(BildCopernicus);
 		BildCopernicuslabel.setVisible(true);
+		BildCopernicuslabel.setBounds(Legendenbreite/8,(int) ((Legendenhoehe/40)*31),BreiteBildCopernicus,HoeheBildCopernicus);
 		
-		BildCopernicuslabel.setBounds(Legendenbreite/8,(int) ((Legendenhoehe/10)*7), (int)(Legendenbreite/10)*7,(int)(Legendenbreite/2));
 		
-		BildHftlabel.setBounds(Legendenbreite/4,(int) ((Legendenhoehe/40)*36), (int)(Legendenbreite/10)*5,(int)(Legendenbreite/2.5));
 		
 		//////Textfelder/////////////////////////////////////////////////////
 		
@@ -135,7 +145,7 @@ public class LayerLegende extends JLayeredPane {
 		String Datum = (new SimpleDateFormat("dd.MM.yy HH:mm").format(new java.util.Date()));
 		JTextField Datumtext = new JTextField();
 		Datumtext.setText("erzeugt am: "+Datum);
-		Datumtext.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*73),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
+		Datumtext.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*73),(int) Legendenbreite-(Legendenbreite/9),(int)Legendenhoehe/30);
 		Datumtext.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));
 		Datumtext.setBorder(new LineBorder(Color.WHITE, 2));
 		
@@ -143,7 +153,7 @@ public class LayerLegende extends JLayeredPane {
 		JTextField Benutzer = new JTextField();
 		String user = System.getProperty("user.name"); 
 		Benutzer.setText("erstellt von: "+user);
-		Benutzer.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*68),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
+		Benutzer.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*68),(int) Legendenbreite-(Legendenbreite/9),(int)Legendenhoehe/30);
 		Benutzer.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));
 		Benutzer.setBorder(new LineBorder(Color.WHITE, 2));
 		
@@ -156,25 +166,25 @@ public class LayerLegende extends JLayeredPane {
 		// Für einen mehrzeiligen Text ist eine JTextArea zu benutzen
 		String Title = Meta.LayerTitle.toString();
 		for (int i = 0; i < Title.length(); i++) {
-				if (i % 30 == 0 ) {
+				if (i % 31 == 0 ) {
 					Title= (Title.substring(0, i))+"\n"+(Title.substring(i, Title.length()));
-					//System.out.println(Kombi);
+				
 				}
 							
 		}
     	String Ausgabetitle = ("Arbeitstitel: "+Title);
     	TTitle.setText(Ausgabetitle);
-    	TTitle.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*28),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(350/100));		// Anpassung der Tiefe für mehrzeiligen Text
+    	TTitle.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*28),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(350/100));		// Anpassung der Tiefe für mehrzeiligen Text
     	TTitle.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));		
     	TTitle.setBorder(new LineBorder(Color.WHITE, 2));
-    	System.out.println("Titel"+Ausgabetitle);
+    	
     																																																			
     	String Contact = Meta.ContactPerson.toString();
     	
     	for (int i = 0; i < Contact.length(); i++) {
-			if (i % 30 == 0 ) {
+			if (i % 31 == 0 ) {
 				Contact= (Contact.substring(0, i))+"\n"+(Contact.substring(i, Contact.length()));
-				//System.out.println(Kombi);
+				
 			}
 						
 	}	
@@ -182,10 +192,10 @@ public class LayerLegende extends JLayeredPane {
     	String Ausgabecontact = ("Kontakt: "+ Contact);
 		JTextArea CContact = new JTextArea();
 		CContact.setText(Ausgabecontact);
-		CContact.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*35),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(350/100));		// Anpassung der Tiefe für mehrzeiligen Text
+		CContact.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*35),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(350/100));		// Anpassung der Tiefe für mehrzeiligen Text
 		CContact.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));		
 		CContact.setBorder(new LineBorder(Color.WHITE, 2));
-		System.out.println("Kontakt" + Ausgabecontact);
+		
 		
 		
 		
