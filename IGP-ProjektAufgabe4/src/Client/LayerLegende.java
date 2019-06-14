@@ -148,12 +148,12 @@ public class LayerLegende extends JLayeredPane {
     	GetMetadata Meta = new GetMetadata(url);
     	Meta.getMetafromXML();
 		
-		JTextField Metadata = new JTextField();
+		JTextArea Metadata = new JTextArea();										// Für einen mehrzeiligen Text ist eine JTextArea zu benutzen
 		String Title = Meta.LayerTitle.toString();
 		String Contact = Meta.ContactPerson.toString();
     	Metadata.setText(Title + " \n" + Contact);
-		Metadata.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*30),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
-		Metadata.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*10)));		
+		Metadata.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*30),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(75/10));		// Anpassung der Tiefe für mehrzeiligen Text
+		Metadata.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));		
 		Metadata.setBorder(new LineBorder(Color.WHITE, 2));
 		
 		
