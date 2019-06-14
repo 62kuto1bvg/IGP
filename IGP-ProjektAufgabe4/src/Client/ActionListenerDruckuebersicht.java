@@ -42,6 +42,14 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 
 		if (actionCommand.equals("Druckmenue")) {
 			
+				Druckausgabe druckausgabe =new Druckausgabe();
+				
+				try {
+					druckausgabe.erstelleDruckausgabe(Druckuebersicht.crs, Druckuebersicht.minEast,Druckuebersicht.minNorth, Druckuebersicht.maxEast, Druckuebersicht.maxNorth, Druckuebersicht.verhaeltnis,Druckuebersicht.nordpfeil);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			PrinterJob printjob = PrinterJob.getPrinterJob();
 
 			printjob.setJobName("Kartendruck");
@@ -56,6 +64,8 @@ public class ActionListenerDruckuebersicht implements ActionListener {
 						e.printStackTrace();
 					}					
 				}
+				
+				
 		}
 		
 		
