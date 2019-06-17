@@ -45,6 +45,7 @@ public class Druckuebersicht extends JPanel  {
 	public void Oeffne‹bersicht(String crs, double minEast, double minNorth, double maxEast, double maxNorth, double verhaeltnis)
 			throws IOException {
 		
+		FensterDruckuebersicht.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 		this.maxEast = maxEast;
 		this.maxNorth = maxNorth;
@@ -179,7 +180,7 @@ public class Druckuebersicht extends JPanel  {
 		Koordgitter.erzeugeKoordinatengitter(crs, minEast, minNorth, maxEast, maxNorth, verhaeltnis, width,1);
 		Koordgitter.setBounds(KarteBreite/40, KarteHoehe/40,( KarteBreite - (KarteBreite/20)), KarteHoehe - (KarteHoehe/20));
 		
-		
+	
 		LayerLegende.setVisible(true);
 		nordpfeil.setVisible(true);
 		Ml.setVisible(true);

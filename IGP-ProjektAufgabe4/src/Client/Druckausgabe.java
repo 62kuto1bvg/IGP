@@ -142,9 +142,15 @@ public class Druckausgabe extends JPanel  {
 			KartenblattDruck.add(Ml);
 			
 			LayerLegende ll=new LayerLegende();
-			
-			ll.setBounds((int) (KarteBreiteDruck / 10) * 8, KarteHoeheDruck/40,(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40)),KarteHoeheDruck - (KarteHoeheDruck/20));
+			if(index==0) {
+				ll.setBounds((int) (KarteBreiteDruck / 10) * 8, KarteHoeheDruck/40,(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40))+7,KarteHoeheDruck - (KarteHoeheDruck/20));
+				}
+			else{
+				ll.setBounds((int) (KarteBreiteDruck / 10) * 8, KarteHoeheDruck/40,(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40)),KarteHoeheDruck - (KarteHoeheDruck/20));
+				}
 			ll.setBorder(BorderFactory.createLineBorder(Color.BLACK, (int)verhaeltnissUebersichtDruck, true));
+		
+			
 			int Legendenbreite=(((int) (KarteBreiteDruck / 10) * 2)-(KarteBreiteDruck/40));
 			int LegendenKartenbreite=(int)(Legendenbreite/5)*3;
 			int Legendenhoehe=KarteHoeheDruck - (KarteHoeheDruck/20);

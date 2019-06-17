@@ -109,8 +109,9 @@ public class Massstabsleiste extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		
 		g2.setStroke(new BasicStroke((int)Skalierung*1));
+		
 		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeMassstabsleiste);
-		g2.setFont(new Font("Verdana", Font.PLAIN,(int) 10*Skalierung));
+		g2.setFont(new Font("ARIAL", Font.PLAIN,(int) 10*Skalierung));
 		//ANTIALIASING hilft gegen Kantenflimmern
 		//g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 

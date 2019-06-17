@@ -241,12 +241,12 @@ public class Koordinatengitter extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Client.Druckuebersicht.ausgewaehlteFarbeKoordinatengitter);
 		g2.setStroke(new BasicStroke(strichdicke));
-		g2.setFont(new Font("Verdana", Font.PLAIN,(int) 15*strichdicke));
+		g2.setFont(new Font("ARIAL", Font.PLAIN,(int) 13*strichdicke));
 		// Zeichnen der senkrechten Linien:
 		for (int j = 0; j < Laengengradetransformiert.size(); j++) {
 
 			int laenge = Laengengradetransformiert.get(j);
-			if ((laenge < 20) || laenge > (width - (width/20))) {
+			if ((laenge < 20) || laenge > (width - (width/10))) {
 
 			} else {
 				g2.drawLine(laenge, 0, laenge, (int) (width / Math.sqrt(2)));

@@ -50,7 +50,7 @@ public class Nordpfeil extends JPanel {
 		int[] y2Points = new int[] { (int) (x*50), (int) (x*100), (int) (x*0) };
 
 		
-		Font Schrift = new Font("Comic Sans MS",Font.BOLD,(int)(x*17));
+		Font Schrift = new Font("ARIAL",Font.BOLD,(int)(x*17));
 		g2d.setFont(Schrift);
 		g2d.drawPolygon(x2Points, y2Points, 3);
 		g2d.drawString("NORD",(int)(x*27),(int)(x*110));

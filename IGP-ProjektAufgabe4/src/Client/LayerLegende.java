@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.font.TextAttribute;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
@@ -101,6 +102,8 @@ public class LayerLegende extends JLayeredPane {
 		
 		//Bilder einfügen
 		
+	
+		
 		Icon BildHft = new ImageIcon(getClass().getResource("LogoHFT.png"));	
 		double BreiteBildHft=(Legendenbreite/10)*5;
 		;
@@ -129,7 +132,7 @@ public class LayerLegende extends JLayeredPane {
 		//JTextField Titel = new JTextField("Luftbild Projekt Copernicus",Legendenbreite/3, (Legendenhoehe/5));
 		JTextField Titel = new JTextField();
 		Titel.setText("Luftbild Copernicus");
-		Titel.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*25),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
+		Titel.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*26),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
 		Titel.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*12)));
 		Titel.setBorder(new LineBorder(Color.WHITE, 2));
 		
@@ -145,7 +148,7 @@ public class LayerLegende extends JLayeredPane {
 		String Datum = (new SimpleDateFormat("dd.MM.yy HH:mm").format(new java.util.Date()));
 		JTextField Datumtext = new JTextField();
 		Datumtext.setText("erzeugt am: "+Datum);
-		Datumtext.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*73),(int) Legendenbreite-(Legendenbreite/9),(int)Legendenhoehe/30);
+		Datumtext.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*72),(int) Legendenbreite-(Legendenbreite/9),(int)Legendenhoehe/30);
 		Datumtext.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));
 		Datumtext.setBorder(new LineBorder(Color.WHITE, 2));
 		
@@ -153,7 +156,7 @@ public class LayerLegende extends JLayeredPane {
 		JTextField Benutzer = new JTextField();
 		String user = System.getProperty("user.name"); 
 		Benutzer.setText("erstellt von: "+user);
-		Benutzer.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*68),(int) Legendenbreite-(Legendenbreite/9),(int)Legendenhoehe/30);
+		Benutzer.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*69),(int) Legendenbreite-(Legendenbreite/9),(int)Legendenhoehe/30);
 		Benutzer.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));
 		Benutzer.setBorder(new LineBorder(Color.WHITE, 2));
 		
@@ -165,40 +168,49 @@ public class LayerLegende extends JLayeredPane {
 		JTextArea TTitle = new JTextArea();
 		// Für einen mehrzeiligen Text ist eine JTextArea zu benutzen
 		String Title = Meta.LayerTitle.toString();
-		for (int i = 0; i < Title.length(); i++) {
-				if (i % 31 == 0 ) {
+		for (int i = 1; i < Title.length(); i++) {
+				if (i % 29 == 0 ) {
 					Title= (Title.substring(0, i))+"\n"+(Title.substring(i, Title.length()));
 				
 				}
 							
 		}
-    	String Ausgabetitle = ("Arbeitstitel: "+Title);
+    	String Ausgabetitle = ("Arbeitstitel: \n"+Title);
     	TTitle.setText(Ausgabetitle);
-    	TTitle.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*28),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(350/100));		// Anpassung der Tiefe für mehrzeiligen Text
+    	TTitle.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*31),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(350/100));		// Anpassung der Tiefe für mehrzeiligen Text
     	TTitle.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));		
     	TTitle.setBorder(new LineBorder(Color.WHITE, 2));
     	
     																																																			
     	String Contact = Meta.ContactPerson.toString();
     	
-    	for (int i = 0; i < Contact.length(); i++) {
-			if (i % 31 == 0 ) {
+    	for (int i = 1; i < Contact.length(); i++) {
+			if (i % 29 == 0 ) {
 				Contact= (Contact.substring(0, i))+"\n"+(Contact.substring(i, Contact.length()));
 				
 			}
 						
 	}	
     	
-    	String Ausgabecontact = ("Kontakt: "+ Contact);
+    	String Ausgabecontact = ("Kontakt: \n"+ Contact);
 		JTextArea CContact = new JTextArea();
 		CContact.setText(Ausgabecontact);
-		CContact.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*35),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(350/100));		// Anpassung der Tiefe für mehrzeiligen Text
+		CContact.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*40),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/(350/100));		// Anpassung der Tiefe für mehrzeiligen Text
 		CContact.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));		
 		CContact.setBorder(new LineBorder(Color.WHITE, 2));
 		
 		
 		
+		//Textfeld Boundingbox mit gerundeten Werten
+		DecimalFormat f = new DecimalFormat("#0.00");
+		JTextArea cBoundingBoxText = new JTextArea();
+		String boundingboxString = ("Boundingbox:" + "\n"+ "min.East=" + f.format(minEast) + " min.North=" + f.format(minNorth) + "\n" + "max.East=" + f.format(minNorth) + " max.North=" + f.format(maxNorth)); 
+		cBoundingBoxText.setText(boundingboxString);
+		cBoundingBoxText.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*49),(int) Legendenbreite-(Legendenbreite/11),(int)Legendenhoehe/17);
+		cBoundingBoxText.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));
+		cBoundingBoxText.setBorder(new LineBorder(Color.WHITE, 2));
 		
+
 		
 		
 		//Berechnung Massstab///////////////////////////////////////////////////////
@@ -239,7 +251,7 @@ public class LayerLegende extends JLayeredPane {
 		JTextField Scale = new JTextField();
 	
 		Scale.setText("Massstab 1:"+Massstabszahl);
-		Scale.setBounds((int)Legendenbreite/10,(int) ((Legendenhoehe/100)*65),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
+		Scale.setBounds((int)Legendenbreite/11,(int) ((Legendenhoehe/100)*66),(int) Legendenbreite-(Legendenbreite/10),(int)Legendenhoehe/30);
 		Scale.setFont(new Font("Courier", Font.BOLD,(int)(verhaeltnissUebersichtDruck*8)));
 		Scale.setBorder(new LineBorder(Color.WHITE, 2));
 		
@@ -252,9 +264,12 @@ public class LayerLegende extends JLayeredPane {
 		this.add(Datumtext);
 		this.add(Benutzer);
 		this.add(Scale);
-		
-		
+		this.add(cBoundingBoxText);
 
+
+	
+
+		
 		this.setLayer(Hintergrund,100);
 		this.setLayer(Kartenbild, 500);
 		this.setLayer(rk,800);
@@ -266,6 +281,7 @@ public class LayerLegende extends JLayeredPane {
 		this.setLayer(Scale, 801);
 		this.setLayer(TTitle, 800);
 		this.setLayer(CContact, 801);
+		this.setLayer(cBoundingBoxText, 802);
 	}
 	
 	
