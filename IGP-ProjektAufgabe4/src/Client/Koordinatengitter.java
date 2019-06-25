@@ -109,15 +109,12 @@ public class Koordinatengitter extends JPanel {
 				double betaiterationVereinfacht = Math.round(betaiteration);
 				// ...und nun wieder in die ursprüngliche Dimension umgewandelt:
 				
-				if (betaiterationcounter == 0) {
-					betaVereinfacht = betaiterationVereinfacht;
-				}
-				else {
-						betaVereinfacht = betaiterationVereinfacht / Math.pow(10, betaiterationcounter);
-				}
+			
+				betaVereinfacht = betaiterationVereinfacht / Math.pow(10, betaiterationcounter);
+				
 				// ...somit wurden zum Beispiel aus 0,337854 Grad jetzt 0.3 Grad generiert
 
-			} while (betaiteration <= 1);
+			} while (betaiteration <1);
 	
 			//vereinfacht bedeutet, das die Zahlen durch rundungen zu Vollen zahlen gemacht worden sind also 0,425 zu 0,4 oder 1,546 zu 2
 			
@@ -145,6 +142,8 @@ public class Koordinatengitter extends JPanel {
 		//////////////////Selbe Schritte erfolgen jetzt in Nord-Südrichtung////////////////////////////////////////////////////////////////////////////////////////
 		
 		if (alphaiteration < 1.00) {
+		//////////////////////////////////////////////
+			
 			do {
 				alphaiteration = alphaiteration * 10;
 				alphaiterationcounter = alphaiterationcounter + 1;
@@ -153,15 +152,12 @@ public class Koordinatengitter extends JPanel {
 				double alphaiterationVereinfacht = Math.round(alphaiteration);
 
 				// ...und nun wieder in die ursprungliche Dimension umgewandelt:
-				if (alphaiterationcounter == 0) {
-					alphaVereinfacht = alphaiterationVereinfacht;
-				}
-
-				else {
-					alphaVereinfacht = alphaiterationVereinfacht / Math.pow(10, alphaiterationcounter);
-				}
 			
-			} while (alphaiteration <= 1);
+			
+					alphaVereinfacht = alphaiterationVereinfacht / Math.pow(10, alphaiterationcounter);
+				
+			
+			} while (alphaiteration < 1);
 
 			//Startwert 
 			KoordinatengitterStartyiteration = KoordinatengitterStartyiteration * Math.pow(10, alphaiterationcounter);

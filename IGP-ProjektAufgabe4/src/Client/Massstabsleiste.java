@@ -114,23 +114,17 @@ public class Massstabsleiste extends JPanel {
 		g2.setFont(new Font("ARIAL", Font.PLAIN,(int) 10*Skalierung));
 		//ANTIALIASING hilft gegen Kantenflimmern
 		//g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-
 		// horizontale Linie		
 		g2.drawLine(0, (anteiligeBildschirmstrecke / 20), anteiligeBildschirmstrecke,
 				(anteiligeBildschirmstrecke / 20));
-	
 		// Linke Abschlusslinie
 		g2.drawLine(0, 0, 0, anteiligeBildschirmstrecke / 10);
-	
 		// Rechte Abschlusslinie
 		g2.drawLine(anteiligeBildschirmstrecke, 0, anteiligeBildschirmstrecke, anteiligeBildschirmstrecke / 10);
-
 		// Mittellinie
 		g2.drawLine(anteiligeBildschirmstrecke / 2, (int) ((anteiligeBildschirmstrecke / 10) * 0.25),
 				anteiligeBildschirmstrecke / 2, (int) ((anteiligeBildschirmstrecke / 10) * 0.75));
-
 		// Zwischenlinien
-
 		g2.drawLine((anteiligeBildschirmstrecke / 10) * 1, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
 				(anteiligeBildschirmstrecke / 10) * 1, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
 		g2.drawLine((anteiligeBildschirmstrecke / 10) * 2, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
@@ -147,12 +141,10 @@ public class Massstabsleiste extends JPanel {
 				(anteiligeBildschirmstrecke / 10) * 8, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
 		g2.drawLine((anteiligeBildschirmstrecke / 10) * 9, (int) ((anteiligeBildschirmstrecke / 10) * 0.45),
 				(anteiligeBildschirmstrecke / 10) * 9, (int) ((anteiligeBildschirmstrecke / 10) * 0.55));
-
 		String Massstabstext;
 		String Massstabstexthalbestrecke;
 
 		if (vereinfachteverkleinerteBogenlänge < 10000) {
-
 			Massstabstext = String.valueOf(vereinfachteverkleinerteBogenlänge) + " m";
 			Massstabstexthalbestrecke = String.valueOf(vereinfachteverkleinerteBogenlänge / 2) + " m";
 		} else {
