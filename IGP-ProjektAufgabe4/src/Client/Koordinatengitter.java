@@ -248,7 +248,7 @@ public class Koordinatengitter extends JPanel {
 				g2.drawLine(laenge, 0, laenge, (int) (width / Math.sqrt(2)));
 
 				// Beschriften der senkrechten Linien:
-				String Breitetext = String.valueOf(Math.round(Laengengrade.get(j) * 100) / 100.0);
+				String Breitetext = String.valueOf(Math.round(Laengengrade.get(j) * 1000) / 1000.0);
 				g2.drawString(Breitetext, laenge + (int)(width / Math.sqrt(2)/40), (int) ((width / Math.sqrt(2)/30)));
 			}
 		}
@@ -263,7 +263,7 @@ public class Koordinatengitter extends JPanel {
 						(int) (((width / Math.sqrt(2)) - (breite)-20)));
 
 				// Beschriften der senkrechten Linien:
-				String Breitetext = String.valueOf(Math.round(Breitengrade.get(j) * 100) / 100.0);
+				String Breitetext = String.valueOf(Math.round(Breitengrade.get(j) * 1000) / 1000.0);
 				g2.drawString(Breitetext, (width/60), (int) ((width / Math.sqrt(2)) - (breite)) + (width/100));
 
 
